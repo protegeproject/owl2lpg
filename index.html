@@ -22,7 +22,7 @@
  <body class="h-entry">
   <div class="head">
    <h1 id="title">Draft Specification: Conversion of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
-   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-19">19 February 2020</time></h2>
+   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-20">20 February 2020</time></h2>
    <div>
     <dl>
      <dt>Feedback:
@@ -166,7 +166,7 @@ Example queries:
 <span class="secno">1.3 </span>Design Choices</h3>
 
 <p>
-  Below we describe key design choices, which serve to allow us to fulfil the requirements laid out in <a href="#requirements">Section 1.2</a>.
+  Our overarching design principle is to prioritize representational <b>consistency over convenience</b> (of query writing, of query response time, etc.). Below we describe in detail some key design choices, which serve to allow us to fulfil the requirements laid out in <a href="#requirements">Section 1.2</a>. 
 
   <dl class="switch">
     <dt>OWL axiom types are represented as nodes in the LPG model.</dt>
@@ -217,8 +217,17 @@ Example queries:
 	</ul>
 </p>
 
-<p><b>OWL2Neo4J</b>. The <a href="https://github.com/flekschas/owl2neo4j" target="_blank">OWL2Neo4J tool</a> allows one to convert OWL ontologies to Labeled Property Graphs. The tool documentation states that it "only converts the class hierarchy; instances are ignored for now." Overall it is unclear what subset of the OWL language is supported, and whether round-tripping is feasible. This project looks defunct, as it was last updated on September 2018.
+<p><b>VirtualFlyBrain</b>. The <a href="https://github.com/VirtualFlyBrain/neo4j2owl" target="_blank">VirtualFlyBrain OWL 2 EL to Neo4J Mapping</a> allows importing "a well defined subset of OWL 2 EL ontologies into and export them from Neo4J, in such a way that entailments and annotations are preserved (not however the syntactic structure) in the ontology after the round-trip." The VirtualFlyBrain (VFB) model is explicit about its design goal of facilitating intuitive writing of Cypher queries. In that sense, VFB does not create "anonymous" nodes to represent axiom types or class expression types, and instead encodes these details on edges (relying on both edge names and key-value string properties on edges). 
+<ul>
+	<li><b>Object property names and axiom types are encoded as edge names.</b> For example, the axioms: <code>A SubClassOf B. A SubClassOf r some C</code> would be encoded in LPG as: <code>A--SubClassOf-->B. A--r-->B</code>. The restriction qualifiers (or quantifiers) are encoded as key-value properties on edges.</li>
+	
+	<li><b>The VFB model represents OWL properties as both nodes and edges.</b> Similar to SciGraph, OWL object properties are represented as edges, and then they are also represented as nodes to be able to express axioms such as annotations on those properties.</li>
+
+	<li><b>Data and Annotation property assertions are represented as key-value string properties.</b> Also similar to SciGraph, both data and annotation property assertions are represented as key-value string properties on nodes. As a consequence, annotations on annotations are not straightforwardly representable in VFB.
+</ul>
 </p>
+
+<p><b>OWL2Neo4J</b>. The <a href="https://github.com/flekschas/owl2neo4j" target="_blank">OWL2Neo4J tool</a> allows converting OWL ontologies to Labeled Property Graphs. The tool documentation states that it "only converts the class hierarchy; instances are ignored for now." Overall it is unclear what subset of the OWL language is supported, and whether round-tripping is feasible. This project looks defunct—it was last updated on September 2018.</p>
 
 
 <!-- OWL 2 EL -->
@@ -513,7 +522,7 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
-	<dt><code>February 19, 2020</code></dt>
+	<dt><code>February 20, 2020</code></dt>
 	<dd>Extended section <a href="#design-choices">Design Choices</a>.</dd>
 	<dd>Added section <a href="#similar-models">Similar Models</a>.</dd>
 	<dd>Added section <a href="#nested-annotation-axioms">Annotations on annotations</a>.</dd>
