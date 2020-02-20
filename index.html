@@ -63,6 +63,7 @@
             <li><a href="#basf-requirements"><span class="secno">1.2.2</span> BASF Use-Case Requirements</a>
           </ol>
         <li><a href="#design-choices"><span class="secno">1.3</span> Design Choices</a>
+        <li><a href="#similar-models"><span class="secno">1.4</span> Similar Models</a>
       </ol>
     <li><a href="#owl2el"><span class="secno">2</span> Overview of OWL 2 EL</a>
       <ol>
@@ -171,8 +172,8 @@ Example queries:
     <dt>OWL axiom types are represented as nodes in the LPG model.</dt>
     <dd>When converted to the LPG model, every OWL axiom is modeled with a single node that denotes the axiom type. For example, <em>rdfs:SubClassOf</em>, <em>owl:EquivalentClasses</em>, and <em>rdf:Type</em> axiom types will each be represented by its own node. This decision allows two things to happen:
       <ol>
-        <li>We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).
-        <li>We can attach versioning information about the axiom, such as the ontology that contains the axiom, and details about the author, the date, and the number of the revision that last altered the axiom (see <a href="#change-history">Section 4</a> for full details).
+        <li>We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).</li>
+        <li>We can attach versioning information about the axiom, such as the ontology that contains the axiom, and details about the author, the date, and the number of the revision that last altered the axiom (see <a href="#change-history">Section 4</a> for full details).</li>
       </ol>
     </dd>
 
@@ -181,8 +182,43 @@ Example queries:
 
     <dt>OWL class expression types are represented as nodes in the LPG model.</dt>
     <dd>This follows from the previous design choice. For example, <em>owl:someValuesFrom</em> and <em>owl:intersectionOf</em> class expression types will each be represented by its own node.</dd>
+
+    <dt>Nodes involved in multiple axioms are duplicated rather than reused.</dt> 
+    <dd>For example, consider two axioms: <code>A SubClassOf p some B. A SubClassOf p some C.</code> We need to represent these axioms in the LPG model in such a way that we can rebuild them from LPG back to OWL. Below we describe three ways to encode details about axiom structure that allow round-tripping:
+    	<ol>
+    		<li>Duplicate nodes as necessary to disambiguate how axioms should be parsed back from the LPG. In the example axioms above, the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated.</li>
+    		<li>Maintain one node for each unique OWL resource (one node per IRI). Assign globally unique identifiers to axioms, and then either:</li>
+    			<ol type="a">
+    				<li>name edges with the axiom identifier, e.g., edge between <code>A</code> and <code>SubClassOf</code>, and so on; or</li>
+    				<li>store the axiom identifier in a key-value string property on the edges.</li>
+    			</ol>
+
+    	</ol>
+    	Lookups over edge names (2.a) are the most computationally expensive. Between (1) and (2.b) it is currently unclear how different query performance will be.
+    </dd>
+  </dl>
 </p>
 
+
+<!-- SIMILAR MODELS -->
+<h3 id="similar-models">
+<span class="secno">1.4 </span>Similar Models</h3>
+<p>In this section we compare and contrast the model described in this document with existing models to convert OWL ontologies to LPGs.</p>
+
+<p><b>SciGraph</b>. The <a href="https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping" target="_blank">SciGraph Neo4j Mapping</a> aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. <em>SciGraph does not aim to support creating ontologies based on the LPG.</em> Below we outline and briefly describe the main differences between ours and the SciGraph model.
+	<ul>
+		<li><b>OWL axiom types are represented as edges in the LPG model.</b> In the SciGraph model, axiom types such as <code>rdfs:subClassOf</code> are encoded as edges between nodes that represent the left and the right hand side of the axiom. Axiom annotations are represented as key-value string properties on the edge that denotes the axiom type.  In our model, axiom types are represented as nodes, and therefore axiom annotations are represented uniformly like other annotation assertions.</li>
+
+		<li><b>Annotation assertions are represented as key-value string properties in LPG model.</b> For example, <code>i:Individual {'rdfs:label' = 'Ruth'}</code>. As a consequence, annotations on annotations are not straightforwardly representable in SciGraph.</li>
+		
+		<li><b>Representation of source ontology in SciGraph is done both at the node and edge level.</b>  In the SciGraph model, nodes have an outgoing edge named <code>isDefinedBy</code> to a node of type <code>Ontology</code> that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI.  In our model, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., <code>rdfs:SubClassOf, rdf:Type, owl:EquivalentClasses</code>).</li>
+		
+		<li><b>SciGraph represents OWL properties as both nodes and edges in the LPG model.</b> It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG <b>nodes</b> that represent the OWL properties (e.g., <code>hasSibling:ObjectProperty {'symmetric' = true}</code>).  And then SciGraph uses OWL properties as <b>edges</b> in axioms such as object property assertions (e.g., <code>rafael:Individual --hasSibling--> ruth:Individual</code>.  In our model, we consistently represent OWL properties as nodes. More, we represent OWL property types similarly to the RDF/XML serialization of OWL. E.g., <code>hasSibling --> rdf:type --> owl:SymmetricProperty</code>.</li>
+	</ul>
+</p>
+
+<p><b>OWL2Neo4J</b>. The <a href="https://github.com/flekschas/owl2neo4j" target="_blank">OWL2Neo4J tool</a> allows one to convert OWL ontologies to Labeled Property Graphs. The tool documentation states that it "only converts the class hierarchy; instances are ignored for now." Overall it is unclear what subset of the OWL language is supported, and whether round-tripping is feasible. This project looks defunct, as it was last updated on September 2018.
+</p>
 
 
 <!-- OWL 2 EL -->
@@ -478,6 +514,8 @@ Example queries:
 
   <dl>
 	<dt><code>February 19, 2020</code></dt>
+	<dd>Extended section <a href="#design-choices">Design Choices</a>.</dd>
+	<dd>Added section <a href="#similar-models">Similar Models</a>.</dd>
 	<dd>Added section <a href="#nested-annotation-axioms">Annotations on annotations</a>.</dd>
 	<dd>Added source control link to <a href="https://github.com/protegeproject/owl2lpg">GitHub repository for this specification</a>.</dd>
 
