@@ -104,6 +104,7 @@
         	<li><a href="#nested-annotation-axioms"><span class="secno">3.5.1</span> Annotations on Annotations</a>
           </ol>
         <li><a href="#punning-axioms"><span class="secno">3.6</span> Punning</a>
+        <li><a href="#imports-axioms"><span class="secno">3.7</span> Ontology Imports</a>
       </ol>
     <li><a href="#change-history"><span class="secno">4</span> Representation of OWL Axiom Change History in LPG Model</a>
     <li><a href="#change-log"><span class="secno">A</span>Appendix: Change Log</a>
@@ -183,18 +184,18 @@ Example queries:
     <dt>OWL class expression types are represented as nodes in the LPG model.</dt>
     <dd>This follows from the previous design choice. For example, <em>owl:someValuesFrom</em> and <em>owl:intersectionOf</em> class expression types will each be represented by its own node.</dd>
 
-    <dt>Nodes involved in multiple axioms are duplicated rather than reused.</dt> 
+    <dt id="duplicate-nodes">Nodes involved in multiple axioms are duplicated rather than reused.</dt> 
     <dd>For example, consider two axioms: <code>A SubClassOf p some B. A SubClassOf p some C.</code> We need to represent these axioms in the LPG model in such a way that we can rebuild them from LPG back to OWL. Below we describe three ways to encode details about axiom structure that allow round-tripping:
     	<ol>
-    		<li>Duplicate nodes as necessary to disambiguate how axioms should be parsed back from the LPG. In the example axioms above, the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated.</li>
+    		<li>Duplicate nodes as necessary to disambiguate how axioms should be parsed back from the LPG. In the example axioms above, <code>A</code> would be reused, but the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated. We duplicate the <code>SubClassOf</code> node to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom. <em>Roughly speaking</em>, the end result is a frame-like, entity-centric collection of disparate LPGs, where each LPG is rooted on an ontology entity (or an ontology, to represent ontology annotations, imports, etc.), plus LPGs to represent GCIs such as subsumptions with a complex class expression for a subsumee.</li>
     		<li>Maintain one node for each unique OWL resource (one node per IRI). Assign globally unique identifiers to axioms, and then either:</li>
     			<ol type="a">
     				<li>name edges with the axiom identifier, e.g., edge between <code>A</code> and <code>SubClassOf</code>, and so on; or</li>
-    				<li>store the axiom identifier in a key-value string property on the edges.</li>
+    				<li>store the axiom identifier in a key-value string property on the edges. As a consequence, we will potentially need to encode lists of axiom identifiers as values in string properties of LPGs.</li>
     			</ol>
 
     	</ol>
-    	Lookups over edge names (2.a) are the most computationally expensive. Between (1) and (2.b) it is currently unclear how different query performance will be.
+    	Our current strategy of choice is (1).
     </dd>
   </dl>
 </p>
@@ -504,6 +505,16 @@ Example queries:
    </figure>
 
 
+  <!-- ONTOLOGY IMPORTS -->
+  <h3 id="imports-axioms"><span class="secno">3.7 </span> Ontology Imports</h3>
+
+   <p class="example" id="example-imports-axioms"> Ontology( :O Import ( :T ) )</p>
+   <figure>
+    <img src="images/ontology-import.png">
+    <figcaption><span class="marker">Figure 18</span> Representation of OWL ontology imports axioms in LPG model.</figcaption>
+   </figure>
+
+
 
 <!-- AXIOM CHANGE HISTORY -->
 <h2 id="change-history">
@@ -512,7 +523,7 @@ Example queries:
   <p class="example" id="example-change-history"> AddAxiom( SubClassOf( :A :B ), branch B, ontology O ) </p>
   <figure>
   <img src="images/axiom-history.png">
-  <figcaption><span class="marker">Figure 18</span> Representation of OWL axiom change history in LPG model.</figcaption>
+  <figcaption><span class="marker">Figure 19</span> Representation of OWL axiom change history in LPG model.</figcaption>
   </figure>
 
 
@@ -522,6 +533,10 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
+	<dt><code>February 21, 2020</code></dt>
+	<dd>Extended section <a href="#design-choices">Design Choices</a> to clarify the decision on <a href="#duplicate-nodes">node duplication</a>.</dd>
+	<dd>Added section <a href="#imports-axioms">Ontology Imports</a>.</dd>
+
 	<dt><code>February 20, 2020</code></dt>
 	<dd>Extended section <a href="#design-choices">Design Choices</a>.</dd>
 	<dd>Added section <a href="#similar-models">Similar Models</a>.</dd>
