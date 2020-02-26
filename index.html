@@ -511,11 +511,11 @@ Example queries:
 
   This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the axioms below, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">Figure 19</a>.
 
-   <p class="example" id="example-multiple-axioms-1"> EquivalentClasses( :A :G )</p>
+   <p class="example" id="example-multiple-axioms-1"> EquivalentClasses( :A :E )</p>
    <p class="example" id="example-multiple-axioms-2"> SubClassOf(<br><span class="indent">Annotation( dc:creator :rsgoncalves )</span><br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
    <p class="example" id="example-multiple-axioms-3"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:32:52"^^xsd:dateTime )</span><br><span class="indent">:A ObjectSomeValuesFrom( :p :D ))</span></p>
    <p class="example" id="example-multiple-axioms-4"> AnnotationAssertion( skos:definition :B "Bees are flying insects."@en )</p>
-   <p class="example" id="example-multiple-axioms-5"> SubClassOf(<br><span class="indent">Annotation( dc:creator :mhorridge )</span><br><span class="indent">:B ObjectIntersectionOf( :E ObjectSomeValuesFrom( :r :F )))</span></p>
+   <p class="example" id="example-multiple-axioms-5"> SubClassOf(<br><span class="indent">Annotation( dc:creator :mhorridge )</span><br><span class="indent">:B ObjectIntersectionOf( :A ObjectSomeValuesFrom( :p :F )))</span></p>
    <figure id="multiple-axioms-lpg">
     <img src="images/multiple-axioms.png">
     <figcaption><span class="marker">Figure 19</span> Representation of multiple OWL axioms in LPG model.</figcaption>
