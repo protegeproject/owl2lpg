@@ -1,0 +1,16 @@
+.example::before {
+  content: "Axiom";
+  content: "Axiom " counter(example);
+}
+
+#example + p + p.example::before {
+  content: "";
+}
+
+.overlarge {
+  margin: 0 !important;
+}
+
+.indent {
+  margin-left: 10px;
+}

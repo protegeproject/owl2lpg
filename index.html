@@ -6,23 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>OWL2LPG Draft Specification</title>
   <link rel="stylesheet" href="css/w3c-rec.css">
-  <style>
-  .example::before {
-    content: "Axiom";
-    content: "Axiom " counter(example);
-  }
-  #example + p + p.example::before {
-    content: "";
-  }
-  .overlarge {
-    margin: 0 !important;
-  }
-  </style>
+  <link rel="stylesheet" href="css/custom.css">
  </head>
  <body class="h-entry">
   <div class="head">
    <h1 id="title">Draft Specification: Conversion of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
-   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-20">20 February 2020</time></h2>
+   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-25">25 February 2020</time></h2>
    <div>
     <dl>
      <dt>Feedback:
@@ -34,9 +23,10 @@
      <dt>Editors:
      <dd><a href="https://rsgoncalves.com/" target="_blank">Rafael Gonçalves</a> (Stanford University)
      <dd><a href="https://web.stanford.edu/~horridge/" target="_blank">Matthew Horridge</a> (Stanford University)
-     <dd>...
-     <dt>Contributors:
-     <dd>...
+     <dt>Contributors:     
+     <dd>Alexander Garcia Castro (BASF)
+     <dd>José Antonio Bernabe Dias (BASF)
+     <dd>Juergen Mueller (BASF)
     </dl>
    </div>
    <div></div>
@@ -105,6 +95,7 @@
           </ol>
         <li><a href="#punning-axioms"><span class="secno">3.6</span> Punning</a>
         <li><a href="#imports-axioms"><span class="secno">3.7</span> Ontology Imports</a>
+        <li><a href="#multiple-axioms"><span class="secno">3.8</span> Multiple Axioms</a>
       </ol>
     <li><a href="#change-history"><span class="secno">4</span> Representation of OWL Axiom Change History in LPG Model</a>
     <li><a href="#change-log"><span class="secno">A</span>Appendix: Change Log</a>
@@ -515,6 +506,22 @@ Example queries:
    </figure>
 
 
+  <!-- MULTIPLE AXIOMS EXAMPLE -->
+  <h3 id="multiple-axioms"><span class="secno">3.8 </span> Multiple Axioms Example</h3>
+
+  This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the axioms below, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">Figure 19</a>.
+
+   <p class="example" id="example-multiple-axioms-1"> EquivalentClasses( :A :G )</p>
+   <p class="example" id="example-multiple-axioms-2"> SubClassOf(<br><span class="indent">Annotation( dc:creator :rsgoncalves )</span><br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
+   <p class="example" id="example-multiple-axioms-3"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:32:52"^^xsd:dateTime )</span><br><span class="indent">:A ObjectSomeValuesFrom( :p :D ))</span></p>
+   <p class="example" id="example-multiple-axioms-4"> AnnotationAssertion( skos:definition :B "Bees are flying insects."@en )</p>
+   <p class="example" id="example-multiple-axioms-5"> SubClassOf(<br><span class="indent">Annotation( dc:creator :mhorridge )</span><br><span class="indent">:B ObjectIntersectionOf( :E ObjectSomeValuesFrom( :r :F )))</span></p>
+   <figure id="multiple-axioms-lpg">
+    <img src="images/multiple-axioms.png">
+    <figcaption><span class="marker">Figure 19</span> Representation of multiple OWL axioms in LPG model.</figcaption>
+   </figure>
+
+
 
 <!-- AXIOM CHANGE HISTORY -->
 <h2 id="change-history">
@@ -523,7 +530,7 @@ Example queries:
   <p class="example" id="example-change-history"> AddAxiom( SubClassOf( :A :B ), branch B, ontology O ) </p>
   <figure>
   <img src="images/axiom-history.png">
-  <figcaption><span class="marker">Figure 19</span> Representation of OWL axiom change history in LPG model.</figcaption>
+  <figcaption><span class="marker">Figure 20</span> Representation of OWL axiom change history in LPG model.</figcaption>
   </figure>
 
 
@@ -533,6 +540,9 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
+  <dt><code>February 25, 2020</code></dt>
+  <dd>Added section <a href="#multiple-axioms">Multiple Axioms</a>.</dd>
+
 	<dt><code>February 21, 2020</code></dt>
 	<dd>Extended section <a href="#design-choices">Design Choices</a> to clarify the decision on <a href="#duplicate-nodes">node duplication</a>.</dd>
 	<dd>Added section <a href="#imports-axioms">Ontology Imports</a>.</dd>
