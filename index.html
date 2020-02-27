@@ -11,7 +11,7 @@
  <body class="h-entry">
   <div class="head">
    <h1 id="title">Draft Specification: Conversion of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
-   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-25">25 February 2020</time></h2>
+   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-26">26 February 2020</time></h2>
    <div>
     <dl>
      <dt>Feedback:
@@ -293,6 +293,10 @@ Example queries:
 <span class="secno">3 </span> Transformation of OWL to Labeled Property Graph</h2>
    <p>In this section we outline the transformation of OWL axioms and class expressions (expressible in EL) to a labeled property graph model.</p>
 
+   <p id="color-scheme">
+    Throughout this section we use the color scheme depicted below to denote the different types of OWL entities (left column) and other OWL resources (right column): types of axioms (e.g., <code>subClassOf, classAssertion</code>); types of class expressions (e.g., <code>someValuesFrom, intersectionOf</code>); literals; ontologies; and IRI resources.
+    <figure><img src="images/color-legend.png" width="400px"></figure>
+   </p>
 
    <!-- CLASS AXIOMS -->
    <h3 id="class-axioms"><span class="secno">3.1 </span> Class Axioms</h3>
@@ -511,11 +515,13 @@ Example queries:
 
   This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the axioms below, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">Figure 19</a>.
 
-   <p class="example" id="example-multiple-axioms-1"> EquivalentClasses( :A :E )</p>
-   <p class="example" id="example-multiple-axioms-2"> SubClassOf(<br><span class="indent">Annotation( dc:creator :rsgoncalves )</span><br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
-   <p class="example" id="example-multiple-axioms-3"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:32:52"^^xsd:dateTime )</span><br><span class="indent">:A ObjectSomeValuesFrom( :p :D ))</span></p>
-   <p class="example" id="example-multiple-axioms-4"> AnnotationAssertion( skos:definition :B "Bees are flying insects."@en )</p>
-   <p class="example" id="example-multiple-axioms-5"> SubClassOf(<br><span class="indent">Annotation( dc:creator :mhorridge )</span><br><span class="indent">:B ObjectIntersectionOf( :A ObjectSomeValuesFrom( :p :F )))</span></p>
+   <p class="example"> EquivalentClasses( :A :E )</p>
+   <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
+   <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:32:52"^^xsd:dateTime )</span><br><span class="indent">:A ObjectSomeValuesFrom( :p :D ))</span></p>
+   <p class="example"> AnnotationAssertion( skos:definition :B "foo."@en )</p>
+   <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:creator :mhorridge )</span><br><span class="indent">:B ObjectIntersectionOf( :A ObjectSomeValuesFrom( :p :F )))</span></p>
+   <p class="example"> ObjectPropertyAssertion(<br><span class="indent">Annotation( dc:creator :rsgoncalves )</span><br><span class="indent">:w :mhorridge :stanfordUniversity)</span></p>
+   <p class="example"> ObjectPropertyAssertion(:w :rsgoncalves :stanfordUniversity)</p>
    <figure id="multiple-axioms-lpg">
     <img src="images/multiple-axioms.png">
     <figcaption><span class="marker">Figure 19</span> Representation of multiple OWL axioms in LPG model.</figcaption>
@@ -540,6 +546,11 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
+  <dt><code>February 26, 2020</code></dt>
+  <dd>Updated section <a href="#multiple-axioms">Multiple Axioms</a>.</dd>
+  <dd>Added section <a href="#color-scheme">Color Scheme</a>.</dd>
+  <dd>Updated all diagrams with the color coding scheme described in section <a href="#color-scheme">Color Scheme</a>.</dd>
+
   <dt><code>February 25, 2020</code></dt>
   <dd>Added section <a href="#multiple-axioms">Multiple Axioms</a>.</dd>
 
