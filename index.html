@@ -92,14 +92,12 @@
           <ol>
             <li><a href="#annotation-assertion-object-axioms"><span class="secno">3.4.1</span> AnnotationAssertion Axioms with IRI objects</a>
             <li><a href="#annotation-assertion-literal-axioms"><span class="secno">3.4.2</span> AnnotationAssertion Axioms with Language-Tagged Literal objects</a>
+            <li><a href="#axiom-annotation-axioms"><span class="secno">3.4.3</span> Axiom Annotations</a>
+            <li><a href="#nested-annotation-axioms"><span class="secno">3.4.4</span> Annotations on Annotations</a>
           </ol>
-        <li><a href="#axiom-annotation-axioms"><span class="secno">3.5</span> Axiom Annotation Axioms</a>
-          <ol>
-        	<li><a href="#nested-annotation-axioms"><span class="secno">3.5.1</span> Annotations on Annotations</a>
-          </ol>
+        <li><a href="#keys-axioms"><span class="secno">3.5</span> Keys</a>
         <li><a href="#punning-axioms"><span class="secno">3.6</span> Punning</a>
         <li><a href="#imports-axioms"><span class="secno">3.7</span> Ontology Imports</a>
-        <li><a href="#keys-axioms"><span class="secno">3.8</span> Keys</a>
         <li><a href="#multiple-axioms"><span class="secno">3.8</span> Example: Multiple Axioms</a>
       </ol>
     <li><a href="#change-history"><span class="secno">4</span> Representation of OWL Axiom Change History in LPG Model</a>
@@ -524,9 +522,8 @@ Example queries:
    </figure>
 
 
-
-  <!-- AXIOM ANNOTATIONS -->
-  <h3 id="axiom-annotation-axioms"><span class="secno">3.5 </span> Axiom Annotation Axioms</h3>
+  <!-- Axiom Annotations -->
+  <h4 id="axiom-annotation-axioms"><span class="secno">3.4.3 </span> Axiom Annotations</h4>
 
    <p class="example" id="example-axiom-annotation"> SubClassOf( Annotation( :p "foo"^^xsd:string ) :A :B) )</p>
    <figure>
@@ -535,12 +532,22 @@ Example queries:
    </figure>
 
 
-   <!-- ANNOTATIONS ON ANNOTATIONS -->
-   <h4 id="nested-annotation-axioms"><span class="secno">3.5.1 </span> Annotations on Annotations</h4>
+   <!-- Annotations on Annotations -->
+   <h4 id="nested-annotation-axioms"><span class="secno">3.4.4 </span> Annotations on Annotations</h4>
    <p class="example" id="example-nested-annotations"> AnnotationAssertion( Annotation( :q "bar"@en ) :p :i :j )</p>
    <figure>
      <img src="images/nested-annotations.png">
      <figcaption>Representation of OWL annotations on annotations in LPG model.</figcaption>
+   </figure>
+
+
+  <!-- KEYS -->
+  <h3 id="keys-axioms"><span class="secno">3.5 </span> Keys</h3>
+
+   <p class="example" id="example-keys-axioms"> HasKey( :A ( :r ) () )</p>
+   <figure>
+    <img src="images/keys.png">
+    <figcaption>Representation of OWL keys axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -564,15 +571,6 @@ Example queries:
     <figcaption>Representation of OWL ontology imports axioms in LPG model.</figcaption>
    </figure>
 
-
-  <!-- KEYS -->
-  <h3 id="keys-axioms"><span class="secno">3.8 </span> Keys</h3>
-
-   <p class="example" id="example-keys-axioms"> HasKey( :A ( :r ) () )</p>
-   <figure>
-    <img src="images/keys.png">
-    <figcaption>Representation of OWL keys axioms in LPG model.</figcaption>
-   </figure>
 
 
   <!-- MULTIPLE AXIOMS EXAMPLE -->
