@@ -338,7 +338,7 @@ Example queries:
    <!-- EquivalentClasses with IntersectionOf and SomeValuesFrom restrictions -->
    <h4 id="equivalent-intersection-axioms"><span class="secno">3.1.4 </span> EquivalentClasses Axioms with IntersectionOf and SomeValuesFrom Restrictions</h4>
 
-   <p class="example" id="example-equivalent-intersection"> EquivalentClasses( :A ObjectIntersectionOf( :C ObjectSomeValuesFrom(:p :B)))</p>
+   <p class="example" id="example-equivalent-intersection"> EquivalentClasses( :A ObjectIntersectionOf( :C ObjectSomeValuesFrom( :p :B )))</p>
    <figure>
     <p><img src="images/equivalent-intersection.png"></p>
     <figcaption><span class="marker">Figure 4</span> Representation of OWL EquivalentClasses axioms with IntersectionOf and SomeValuesFrom restrictions in LPG model.</figcaption>
@@ -348,7 +348,7 @@ Example queries:
    <!-- SubClassOf GCI -->
    <h4 id="subclassof-gci-axioms"><span class="secno">3.1.5 </span> SubClassOf GCI Axioms</h4>
 
-   <p class="example" id="example-subclassof-gci"> SubClassOf(ObjectSomeValuesFrom(:p :A) ObjectSomeValuesFrom(:r :B))</p>
+   <p class="example" id="example-subclassof-gci"> SubClassOf(ObjectSomeValuesFrom( :p :A ) ObjectSomeValuesFrom( :r :B ))</p>
    <figure>
     <p><img src="images/subclassof-gci.png"></p>
     <figcaption><span class="marker">Figure 5</span> Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in LPG model.</figcaption>
@@ -405,7 +405,7 @@ Example queries:
     <figcaption><span class="marker">Figure 9</span> Representation of OWL property Domain axioms.</figcaption>
    </figure>
 
-   <p class="note"><span class="marker">Note:</span><b>ObjectPropertyRange</b> axioms are represented similarly, by just swapping the <code>rdfs:domain</code> node by the <code>rdfs:range</code> node. The same strategy applies for <b>DataPropertyDomain</b>, <b>DataPropertyRange</b>, <b>AnnotationPropertyDomain</b>, and <b>AnnotationPropertyRange</b> axioms.</p>
+   <p class="note"><span class="marker">Note:</span><b>ObjectPropertyRange</b> axioms are represented similarly, by just swapping the <code>objectPropertyDomain</code> node by the <code>objectPropertyRange</code> node. The same strategy applies for <b>dataPropertyDomain</b>, <b>dataPropertyRange</b>, <b>annotationPropertyDomain</b>, and <b>annotationPropertyRange</b> axioms.</p>
 
 
 
@@ -438,7 +438,7 @@ Example queries:
    <!-- ClassAssertion with SomeValuesFrom restriction -->
    <h4 id="class-assertion-some-axioms"><span class="secno">3.3.3 </span> ClassAssertion Axioms with SomeValuesFrom Restrictions</h4>
 
-   <p class="example" id="example-class-assertion-some"> ClassAssertion( ObjectSomeValuesFrom( :p :A ) :i)</p>
+   <p class="example" id="example-class-assertion-some"> ClassAssertion( ObjectSomeValuesFrom( :p :A ) :i )</p>
    <figure>
     <img src="images/class-assertion-existential.png">
     <figcaption><span class="marker">Figure 12</span> Representation of OWL ClassAssertion axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
