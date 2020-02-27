@@ -162,7 +162,7 @@ Example queries:
 
   <dl class="switch">
     <dt>OWL axiom types are represented as nodes in the LPG model.</dt>
-    <dd>When converted to the LPG model, every OWL axiom is modeled with a single node that denotes the axiom type. For example, <em>rdfs:SubClassOf</em>, <em>owl:EquivalentClasses</em>, and <em>rdf:Type</em> axiom types will each be represented by its own node. This decision allows two things to happen:
+    <dd>When converted to the LPG model, every OWL axiom is modeled with a single node that denotes the axiom type. For example, <code>rdfs:SubClassOf</code> and <code>owl:EquivalentClasses</code> axiom types will each be represented by its own node. This decision allows two things to happen:
       <ol>
         <li>We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).</li>
         <li>We can attach versioning information about the axiom, such as the ontology that contains the axiom, and details about the author, the date, and the number of the revision that last altered the axiom (see <a href="#change-history">Section 4</a> for full details).</li>
@@ -173,20 +173,22 @@ Example queries:
     <dd>All OWL named entities are represented as nodes.</dd>
 
     <dt>OWL class expression types are represented as nodes in the LPG model.</dt>
-    <dd>This follows from the previous design choice. For example, <em>owl:someValuesFrom</em> and <em>owl:intersectionOf</em> class expression types will each be represented by its own node.</dd>
+    <dd>This follows from the previous design choice. For example, <code>owl:someValuesFrom</code> and <code>owl:intersectionOf</code> class expression types will each be represented by its own node.</dd>
 
-    <dt id="duplicate-nodes">Nodes involved in multiple axioms are duplicated rather than reused.</dt> 
-    <dd>For example, consider two axioms: <code>A SubClassOf p some B. A SubClassOf p some C.</code> We need to represent these axioms in the LPG model in such a way that we can rebuild them from LPG back to OWL. Below we describe three ways to encode details about axiom structure that allow round-tripping:
-    	<ol>
-    		<li>Duplicate nodes as necessary to disambiguate how axioms should be parsed back from the LPG. In the example axioms above, <code>A</code> would be reused, but the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated. We duplicate the <code>SubClassOf</code> node to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom. <em>Roughly speaking</em>, the end result is a frame-like, entity-centric collection of disparate LPGs, where each LPG is rooted on an ontology entity (or an ontology, to represent ontology annotations, imports, etc.), plus LPGs to represent GCIs such as subsumptions with a complex class expression for a subsumee.</li>
-    		<li>Maintain one node for each unique OWL resource (one node per IRI). Assign globally unique identifiers to axioms, and then either:</li>
-    			<ol type="a">
-    				<li>name edges with the axiom identifier, e.g., edge between <code>A</code> and <code>SubClassOf</code>, and so on; or</li>
-    				<li>store the axiom identifier in a key-value string property on the edges. As a consequence, we will potentially need to encode lists of axiom identifiers as values in string properties of LPGs.</li>
-    			</ol>
+    <dt id="duplicate-nodes">Nodes denoting OWL Classes, Individuals, and Datatypes are reused. Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.</dt> 
+    
+    <dd>Upon converting from OWL to LPG, we <u>generally</u> reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The <u>exception</u> is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass. In such cases, the nodes to represent the complex class expression in the subclass position of the GCI will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how axioms should be parsed back from the LPG.</dd>
 
-    	</ol>
-    	Our current strategy of choice is (1).
+    <dd>For example, consider the axioms: <code>A SubClassOf p some B. A SubClassOf p some C. B SubClassOf D.</code> Here, the nodes for <code>A</code> and <code>B</code> would be reused, but the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated. We duplicate the <code>SubClassOf</code> node (and generally, axiom type nodes) to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom when parsing the LPG.</dd>
+
+    <dd>The result of this design choice is illustrated in <a href="#multiple-axioms-lpg">Figure 19</a>.</dd>
+
+    <dd>An alternative strategy to encode sufficient information about axiom structure to allow round-tripping is by: Maintaining one node for each unique OWL resource (one node per IRI); Assigning globally unique identifiers to axioms; and then either:
+    		<ol type="a">
+    			<li>naming edges with the axiom identifier, e.g., edge between <code>A</code> and <code>SubClassOf</code>, and so on; or</li>
+    			<li>storing the axiom identifier in a key-value string property on the edges. As a consequence, we would potentially need to encode lists of axiom identifiers as values in string properties of LPGs.</li>
+  			</ol>
+    </dd>
     </dd>
   </dl>
 </p>
@@ -547,9 +549,10 @@ Example queries:
 
   <dl>
   <dt><code>February 26, 2020</code></dt>
+  <dd>Modified section <a href="#design-choices">Design Choices</a> to clarify the decision on <a href="#duplicate-nodes">node duplication</a>.</dd>
   <dd>Updated section <a href="#multiple-axioms">Multiple Axioms</a>.</dd>
-  <dd>Added section <a href="#color-scheme">Color Scheme</a>.</dd>
-  <dd>Updated all diagrams with the color coding scheme described in section <a href="#color-scheme">Color Scheme</a>.</dd>
+  <dd>Added paragraph <a href="#color-scheme">Color Scheme</a>.</dd>
+  <dd>Updated all diagrams with the <a href="#color-scheme">new color coding scheme</a>.</dd>
 
   <dt><code>February 25, 2020</code></dt>
   <dd>Added section <a href="#multiple-axioms">Multiple Axioms</a>.</dd>
