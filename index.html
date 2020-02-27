@@ -70,6 +70,8 @@
             <li><a href="#subclassof-somevaluesfrom-axioms"><span class="secno">3.1.3</span> SubClassOf Axioms with SomeValuesFrom Restrictions</a>
             <li><a href="#equivalent-intersection-axioms"><span class="secno">3.1.4</span> EquivalentClasses Axioms with IntersectionOf and SomeValuesFrom Restrictions</a>
             <li><a href="#subclassof-gci-axioms"><span class="secno">3.1.5</span> SubClassOf GCI Axioms</a>
+            <li><a href="#disjoint-classes-axioms"><span class="secno">3.1.6</span> DisjointClasses Axioms</a>
+            <li><a href="#subclassof-hasself-axioms"><span class="secno">3.1.7</span> SubClassOf Axioms with HasSelf Restrictions</a>
           </ol>
         <li><a href="#property-axioms"><span class="secno">3.2</span> Property Axioms</a>
           <ol>
@@ -83,6 +85,8 @@
             <li><a href="#class-assertion-axioms"><span class="secno">3.3.1</span> ClassAssertion Axioms</a>
             <li><a href="#object-property-assertion-axioms"><span class="secno">3.3.2</span> ObjectPropertyAssertion Axioms</a>
             <li><a href="#class-assertion-some-axioms"><span class="secno">3.3.3</span> ClassAssertion Axioms with SomeValuesFrom Restrictions</a>
+            <li><a href="#same-individual-axioms"><span class="secno">3.3.4</span> SameIndividual Axioms</a>
+            <li><a href="#different-individuals-axioms"><span class="secno">3.3.5</span> DifferentIndividuals Axioms</a>
           </ol>
         <li><a href="#annotation-axioms"><span class="secno">3.4</span> Annotation Axioms</a>
           <ol>
@@ -95,7 +99,8 @@
           </ol>
         <li><a href="#punning-axioms"><span class="secno">3.6</span> Punning</a>
         <li><a href="#imports-axioms"><span class="secno">3.7</span> Ontology Imports</a>
-        <li><a href="#multiple-axioms"><span class="secno">3.8</span> Multiple Axioms</a>
+        <li><a href="#keys-axioms"><span class="secno">3.8</span> Keys</a>
+        <li><a href="#multiple-axioms"><span class="secno">3.8</span> Example: Multiple Axioms</a>
       </ol>
     <li><a href="#change-history"><span class="secno">4</span> Representation of OWL Axiom Change History in LPG Model</a>
     <li><a href="#change-log"><span class="secno">A</span>Appendix: Change Log</a>
@@ -181,7 +186,14 @@ Example queries:
 
     <dd>For example, consider the axioms: <code>A SubClassOf p some B. A SubClassOf p some C. B SubClassOf D.</code> Here, the nodes for <code>A</code> and <code>B</code> would be reused, but the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated. We duplicate the <code>SubClassOf</code> node (and generally, axiom type nodes) to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom when parsing the LPG.</dd>
 
-    <dd>The result of this design choice is illustrated in <a href="#multiple-axioms-lpg">Figure 19</a>.</dd>
+    <dd>The ability to parse OWL axioms from a LPG converted as specified here is guaranteed by the conditions that: 
+      <ol>
+        <li>every LPG node denoting an OWL class, individual, or datatype is followed by a node denoting an OWL axiom type; and </li>
+        <li>nodes involved in a complex class expression in the subclass position of a GCI are duplicated (rather than reused) in the conversion.</li>
+      </ol>
+    </dd>
+
+    <dd>The result of this design choice is illustrated in <a href="#multiple-axioms-lpg">Figure 21</a>.</dd>
 
     <dd>An alternative strategy to encode sufficient information about axiom structure to allow round-tripping is by: Maintaining one node for each unique OWL resource (one node per IRI); Assigning globally unique identifiers to axioms; and then either:
     		<ol type="a">
@@ -311,7 +323,7 @@ Example queries:
    <p class="example" id="example-subclassof"> SubClassOf( :A :B )</p>
    <figure>
     <img src="images/subclassof.png">
-    <figcaption><span class="marker">Figure 1</span> Representation of OWL SubClassOf axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -321,7 +333,7 @@ Example queries:
    <p class="example" id="example-equivalent-classes"> EquivalentClasses( :A :B :C )</p>
    <figure>
     <p><img src="images/equivalent-classes.png"></p>
-    <figcaption><span class="marker">Figure 2</span> Representation of OWL EquivalentClasses axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL EquivalentClasses axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -331,7 +343,7 @@ Example queries:
    <p class="example" id="example-subclassof-existential"> SubClassOf( :A ObjectSomeValuesFrom( :p :B ) )</p>
    <figure>
     <p><img src="images/subclassof-existential.png"></p>
-    <figcaption><span class="marker">Figure 3</span> Representation of OWL SubClassOf axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
    </figure>
 
 
@@ -341,7 +353,7 @@ Example queries:
    <p class="example" id="example-equivalent-intersection"> EquivalentClasses( :A ObjectIntersectionOf( :C ObjectSomeValuesFrom( :p :B )))</p>
    <figure>
     <p><img src="images/equivalent-intersection.png"></p>
-    <figcaption><span class="marker">Figure 4</span> Representation of OWL EquivalentClasses axioms with IntersectionOf and SomeValuesFrom restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL EquivalentClasses axioms with IntersectionOf and SomeValuesFrom restrictions in LPG model.</figcaption>
    </figure>
 
 
@@ -351,7 +363,27 @@ Example queries:
    <p class="example" id="example-subclassof-gci"> SubClassOf(ObjectSomeValuesFrom( :p :A ) ObjectSomeValuesFrom( :r :B ))</p>
    <figure>
     <p><img src="images/subclassof-gci.png"></p>
-    <figcaption><span class="marker">Figure 5</span> Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in LPG model.</figcaption>
+   </figure>
+
+
+   <!-- Disjoint Classes -->
+   <h4 id="disjoint-classes-axioms"><span class="secno">3.1.6 </span> DisjointClasses Axioms</h4>
+
+   <p class="example" id="example-disjoint-classes"> DisjointClasses( :A :B :C )</p>
+   <figure>
+    <p><img src="images/disjoint-classes.png"></p>
+    <figcaption>Representation of OWL DisjointClasses axioms in LPG model.</figcaption>
+   </figure>
+
+
+   <!-- SubClassOf with HasSelf restriction -->
+   <h4 id="subclassof-hasself-axioms"><span class="secno">3.1.6 </span> SubClassOf Axioms with HasSelf Restrictions</h4>
+
+   <p class="example"> SubClassOf( :A ObjectHasSelf( :p ) )</p>
+   <figure>
+    <p><img src="images/subclassof-hasself.png"></p>
+    <figcaption>Representation of OWL SubClassOf axioms with HasSelf restrictions in LPG model.</figcaption>
    </figure>
 
 
@@ -368,7 +400,7 @@ Example queries:
    <p class="example" id="example-subpropertyof"> SubObjectPropertyOf( :p :r )</p>
    <figure>
     <img src="images/subpropertyof.png">
-    <figcaption><span class="marker">Figure 6</span> Representation of OWL SubPropertyOf axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubPropertyOf axioms in LPG model.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span>The same strategy applies for <b>SubDataPropertyOf</b> and <b>SubAnnotationPropertyOf</b> axioms.</p>
@@ -380,7 +412,7 @@ Example queries:
    <p class="example" id="example-objectpropertychain"> SubObjectPropertyOf( ObjectPropertyChain( :p :q ) :r ) </p>
    <figure>
     <img src="images/object-property-chain.png">
-    <figcaption><span class="marker">Figure 7</span> Representation of OWL SubPropertyOf axioms with ObjectPropertyChain restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubPropertyOf axioms with ObjectPropertyChain restrictions in LPG model.</figcaption>
    </figure>
 
 
@@ -390,7 +422,7 @@ Example queries:
    <p class="example" id="example-equivalent-intersection"> TransitiveObjectProperty( :p )</p>
    <figure>
     <p><img src="images/transitive-object-property.png"></p>
-    <figcaption><span class="marker">Figure 8</span> Representation of OWL TransitiveObjectProperty axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL TransitiveObjectProperty axioms in LPG model.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span>The same strategy applies for other OWL property characteristics (e.g., symmetric properties).</p>
@@ -402,7 +434,7 @@ Example queries:
    <p class="example" id="example-domain"> ObjectPropertyDomain( :p :A )</p>
    <figure>
     <p><img src="images/domain.png"></p>
-    <figcaption><span class="marker">Figure 9</span> Representation of OWL property Domain axioms.</figcaption>
+    <figcaption>Representation of OWL property Domain axioms.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span><b>ObjectPropertyRange</b> axioms are represented similarly, by just swapping the <code>objectPropertyDomain</code> node by the <code>objectPropertyRange</code> node. The same strategy applies for <b>dataPropertyDomain</b>, <b>dataPropertyRange</b>, <b>annotationPropertyDomain</b>, and <b>annotationPropertyRange</b> axioms.</p>
@@ -421,7 +453,7 @@ Example queries:
    <p class="example" id="example-class-assertion"> ClassAssertion( :A :i )</p>
    <figure>
     <img src="images/class-assertion.png">
-    <figcaption><span class="marker">Figure 10</span> Representation of OWL ClassAssertion axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL ClassAssertion axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -431,7 +463,7 @@ Example queries:
    <p class="example" id="example-object-property-assertion"> ObjectPropertyAssertion( :p :i :j )</p>
    <figure>
     <img src="images/object-property-assertion.png">
-    <figcaption><span class="marker">Figure 11</span> Representation of OWL ObjectPropertyAssertion axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL ObjectPropertyAssertion axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -441,7 +473,27 @@ Example queries:
    <p class="example" id="example-class-assertion-some"> ClassAssertion( ObjectSomeValuesFrom( :p :A ) :i )</p>
    <figure>
     <img src="images/class-assertion-existential.png">
-    <figcaption><span class="marker">Figure 12</span> Representation of OWL ClassAssertion axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL ClassAssertion axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
+   </figure>
+
+
+   <!-- SameIndividual Axioms -->
+   <h4 id="same-individual-axioms"><span class="secno">3.3.4 </span> SameIndividual Axioms</h4>
+
+   <p class="example"> SameIndividual( :i :j )</p>
+   <figure>
+    <img src="images/same-individual.png">
+    <figcaption>Representation of OWL SameIndividual axioms in LPG model.</figcaption>
+   </figure>
+
+
+   <!-- DifferentIndividuals Axioms -->
+   <h4 id="different-individuals-axioms"><span class="secno">3.3.5 </span> DifferentIndividuals Axioms</h4>
+
+   <p class="example"> DifferentIndividuals( :i :j :k )</p>
+   <figure>
+    <img src="images/different-individuals.png">
+    <figcaption>Representation of OWL DifferentIndividuals axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -458,7 +510,7 @@ Example queries:
    <p class="example" id="example-annotation-assertion-object"> AnnotationAssertion( :p :i :j )</p>
    <figure>
     <img src="images/annotation-assertion-iri.png">
-    <figcaption><span class="marker">Figure 13</span> Representation of OWL AnnotationAssertion axioms with IRIs as objects in LPG model.</figcaption>
+    <figcaption>Representation of OWL AnnotationAssertion axioms with IRIs as objects in LPG model.</figcaption>
    </figure>
 
 
@@ -468,7 +520,7 @@ Example queries:
    <p class="example" id="example-annotation-assertion-literal"> AnnotationAssertion( :p :i "foo"@en )</p>
    <figure>
     <img src="images/annotation-assertion-literal.png">
-    <figcaption><span class="marker">Figure 14</span> Representation of OWL ClassAssertion axioms with literals as objects in LPG model.</figcaption>
+    <figcaption>Representation of OWL ClassAssertion axioms with literals as objects in LPG model.</figcaption>
    </figure>
 
 
@@ -479,7 +531,7 @@ Example queries:
    <p class="example" id="example-axiom-annotation"> SubClassOf( Annotation( :p "foo"^^xsd:string ) :A :B) )</p>
    <figure>
     <img src="images/axiom-annotation.png">
-    <figcaption><span class="marker">Figure 15</span> Representation of annotated OWL axioms in LPG model.</figcaption>
+    <figcaption>Representation of annotated OWL axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -488,17 +540,18 @@ Example queries:
    <p class="example" id="example-nested-annotations"> AnnotationAssertion( Annotation( :q "bar"@en ) :p :i :j )</p>
    <figure>
      <img src="images/nested-annotations.png">
-     <figcaption><span class="marker">Figure 16</span> Representation of OWL annotations on annotations in LPG model.</figcaption>
+     <figcaption>Representation of OWL annotations on annotations in LPG model.</figcaption>
    </figure>
 
 
   <!-- PUNNING -->
   <h3 id="punning-axioms"><span class="secno">3.6 </span> Punning</h3>
 
-   <p class="example" id="example-punning-axioms"> ObjectPropertyAssertion( :p :i :j )<br>SubClassOf( :i :K )</p>
+   <p class="example"> ObjectPropertyAssertion( :p :i :j )</p>
+   <p class="example"> SubClassOf( :i :K )</p>
    <figure>
     <img src="images/axiom-punning.png">
-    <figcaption><span class="marker">Figure 17</span> Representation of OWL punning in LPG model.</figcaption>
+    <figcaption>Representation of OWL punning in LPG model.</figcaption>
    </figure>
 
 
@@ -508,25 +561,35 @@ Example queries:
    <p class="example" id="example-imports-axioms"> Ontology( :O Import ( :T ) )</p>
    <figure>
     <img src="images/ontology-import.png">
-    <figcaption><span class="marker">Figure 18</span> Representation of OWL ontology imports axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL ontology imports axioms in LPG model.</figcaption>
+   </figure>
+
+
+  <!-- KEYS -->
+  <h3 id="keys-axioms"><span class="secno">3.8 </span> Keys</h3>
+
+   <p class="example" id="example-keys-axioms"> HasKey( :A ( :r ) () )</p>
+   <figure>
+    <img src="images/keys.png">
+    <figcaption>Representation of OWL keys axioms in LPG model.</figcaption>
    </figure>
 
 
   <!-- MULTIPLE AXIOMS EXAMPLE -->
   <h3 id="multiple-axioms"><span class="secno">3.8 </span> Multiple Axioms Example</h3>
 
-  This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the axioms below, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">Figure 19</a>.
+  This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the axioms below, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">Figure 21</a>.
 
    <p class="example"> EquivalentClasses( :A :E )</p>
    <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
    <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:32:52"^^xsd:dateTime )</span><br><span class="indent">:A ObjectSomeValuesFrom( :p :D ))</span></p>
    <p class="example"> AnnotationAssertion( skos:definition :B "foo."@en )</p>
    <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:creator :mhorridge )</span><br><span class="indent">:B ObjectIntersectionOf( :A ObjectSomeValuesFrom( :p :F )))</span></p>
-   <p class="example"> ObjectPropertyAssertion(<br><span class="indent">Annotation( dc:creator :rsgoncalves )</span><br><span class="indent">:w :mhorridge :stanfordUniversity)</span></p>
-   <p class="example"> ObjectPropertyAssertion(:w :rsgoncalves :stanfordUniversity)</p>
+   <p class="example"> ObjectPropertyAssertion(<br><span class="indent">Annotation( dc:creator :rsgoncalves )</span><br><span class="indent">:w :mhorridge :stanfordUniversity )</span></p>
+   <p class="example"> ObjectPropertyAssertion( :w :rsgoncalves :stanfordUniversity )</p>
    <figure id="multiple-axioms-lpg">
     <img src="images/multiple-axioms.png">
-    <figcaption><span class="marker">Figure 19</span> Representation of multiple OWL axioms in LPG model.</figcaption>
+    <figcaption>Representation of multiple OWL axioms in LPG model.</figcaption>
    </figure>
 
 
@@ -538,9 +601,11 @@ Example queries:
   <p class="example" id="example-change-history"> AddAxiom( SubClassOf( :A :B ), branch B, ontology O ) </p>
   <figure>
   <img src="images/axiom-history.png">
-  <figcaption><span class="marker">Figure 20</span> Representation of OWL axiom change history in LPG model.</figcaption>
+  <figcaption>Representation of OWL axiom change history in LPG model.</figcaption>
   </figure>
 
+
+<hr>
 
 
 <!-- DOCUMENT CHANGE HISTORY -->
@@ -548,6 +613,13 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
+  <dt><code>February 27, 2020</code></dt>
+  <dd>Added section <a href="#subclassof-hasself-axioms">SubClassOf Axioms with HasSelf Restrictions</a>.</dd>
+  <dd>Added section <a href="#same-individual-axioms">SameIndividual Axioms</a>.</dd>
+  <dd>Added section <a href="#different-individuals-axioms">DifferentIndividuals Axioms</a>.</dd>
+  <dd>Added section <a href="#keys-axioms">Keys Axioms</a>.</dd>
+  <dd>Added section <a href="#disjoint-axioms">DisjointClasses Axioms</a>.</dd>
+
   <dt><code>February 26, 2020</code></dt>
   <dd>Modified section <a href="#design-choices">Design Choices</a> to clarify the decision on <a href="#duplicate-nodes">node duplication</a>.</dd>
   <dd>Updated section <a href="#multiple-axioms">Multiple Axioms</a>.</dd>

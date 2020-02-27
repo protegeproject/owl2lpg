@@ -552,11 +552,9 @@
 	img {
 		border-style: none;
 	}
-
-	/* For autogen numbers, add
-	   .caption::before, figcaption::before { content: "Figure " counter(figure) ". "; }
-	*/
-
+	.caption::before, figcaption::before { 
+		content: "Figure " counter(figure) ". "; 
+	}
 	figure, .figure, .sidefigure {
 		page-break-inside: avoid;
 		text-align: center;
