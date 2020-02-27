@@ -11,7 +11,7 @@
  <body class="h-entry">
   <div class="head">
    <h1 id="title">Draft Specification: Conversion of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
-   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-26">26 February 2020</time></h2>
+   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-27">27 February 2020</time></h2>
    <div>
     <dl>
      <dt>Feedback:
@@ -193,14 +193,13 @@ Example queries:
       </ol>
     </dd>
 
-    <dd>The result of this design choice is illustrated in <a href="#multiple-axioms-lpg">Figure 21</a>.</dd>
+    <dd>The result of this design choice is illustrated in <a href="#multiple-axioms-lpg">Figure 24</a>.</dd>
 
     <dd>An alternative strategy to encode sufficient information about axiom structure to allow round-tripping is by: Maintaining one node for each unique OWL resource (one node per IRI); Assigning globally unique identifiers to axioms; and then either:
     		<ol type="a">
     			<li>naming edges with the axiom identifier, e.g., edge between <code>A</code> and <code>SubClassOf</code>, and so on; or</li>
     			<li>storing the axiom identifier in a key-value string property on the edges. As a consequence, we would potentially need to encode lists of axiom identifiers as values in string properties of LPGs.</li>
   			</ol>
-    </dd>
     </dd>
   </dl>
 </p>
@@ -329,6 +328,7 @@ Example queries:
 
    <!-- EquivalentClasses Axioms -->
    <h4 id="equivalent-classes-axioms"><span class="secno">3.1.2 </span> EquivalentClasses Axioms</h4>
+   <p>Given an <code>EquivalentClasses</code> axiom such as the one below, it would be semantically sufficient to represent it in a LPG using edges in just one direction. However, when querying the LPG, we would not be able to immediately determine that, say, <code>B</code> is equivalent to <code>A</code>. By having edges in both directions, like we have (succintly) depicted in the figure below, we can promptly find that <code>C</code> is equivalent to <code>B</code> as well as <code>A</code>.
 
    <p class="example" id="example-equivalent-classes"> EquivalentClasses( :A :B :C )</p>
    <figure>
@@ -578,7 +578,7 @@ Example queries:
   <!-- MULTIPLE AXIOMS EXAMPLE -->
   <h3 id="multiple-axioms"><span class="secno">3.8 </span> Multiple Axioms Example</h3>
 
-  This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the axioms below, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">Figure 21</a>.
+  This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the following axioms, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">the figure below</a>.
 
    <p class="example"> EquivalentClasses( :A :E )</p>
    <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
