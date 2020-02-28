@@ -34,7 +34,7 @@
   </div>
   <h2 id="abstract">Abstract</h2>
   <div>
-   <p>This document outlines the specification of a transformation model to convert an OWL 2 EL ontology to a Labeled Property Graph (LPG).
+   <p>This document outlines the specification of a model to convert an OWL 2 EL ontology to a Labeled Property Graph (LPG).
   </div>
   <h2 id="status">Status of this document</h2>
   <div>
@@ -61,7 +61,7 @@
         <li><a href="#owl2el-axioms"><span class="secno">2.2</span> Supported Axioms</a>
         <li><a href="#owl2el-unsupported"><span class="secno">2.3</span> Unsupported Constructs</a>
       </ol>
-    <li><a href="#transformation"><span class="secno">3</span> Transformation of OWL Axioms to LPG</a>
+    <li><a href="#owl2lpg"><span class="secno">3</span> Conversion of OWL to LPG</a>
       <ol>
         <li><a href="#class-axioms"><span class="secno">3.1</span> Class Axioms</a>
           <ol>
@@ -111,7 +111,7 @@
 <h2 id="intro">
 <span class="secno">1 </span> Introduction</h2>
   
-  <p>This document specifies a model for converting OWL 2 EL axioms to a Labeled Property Graph (LPG) representation, and vice-versa.  While initially targeted to convert OWL 2 EL ontologies, the design of this model is intended to be extensible to OWL axioms of arbitrary expressivity.</p>
+  <p>This document specifies a model for converting OWL 2 EL axioms to a Labeled Property Graph (LPG) representation, and vice-versa.  While initially targeted to convert OWL 2 EL ontologies, the design of this model is intended to be extensible to OWL 2 axioms of arbitrary expressivity.</p>
 
 
 <!-- CONVENTIONS -->
@@ -130,7 +130,7 @@
 <h3 id="requirements">
 <span class="secno">1.2 </span>Main Requirements</h3>
 
-<p>In this section we lay out important requirements that drive the design of the OWL-LPG transformation model.</p>
+<p>In this section we lay out important requirements that drive the design of the OWL-LPG conversion model.</p>
 
 
 <!-- WEBPROTEGE REQUIREMENTS -->
@@ -300,9 +300,9 @@ Example queries:
   </ul></p>
 
 
-<h2 id="transformation">
-<span class="secno">3 </span> Transformation of OWL to Labeled Property Graph</h2>
-   <p>In this section we outline the transformation of OWL axioms and class expressions (expressible in EL) to a labeled property graph model.</p>
+<h2 id="owl2lpg">
+<span class="secno">3 </span> Conversion of OWL to Labeled Property Graph</h2>
+   <p>In this section we specify rules for converting OWL axioms and class expressions expressible in the OWL 2 EL profile to a labeled property graph.</p>
 
    <p id="color-scheme">
     Throughout this section we use the color scheme depicted below to denote the different types of OWL entities (left column) and other OWL resources (right column): types of axioms (e.g., <code>subClassOf, classAssertion</code>); types of class expressions (e.g., <code>someValuesFrom, intersectionOf</code>); literals; ontologies; and IRI resources.
