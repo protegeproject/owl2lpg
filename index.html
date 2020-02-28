@@ -10,7 +10,7 @@
  </head>
  <body class="h-entry">
   <div class="head">
-   <h1 id="title">Draft Specification: Conversion of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
+   <h1 id="title">Draft Specification: Mapping of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
    <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-27">27 February 2020</time></h2>
    <div>
     <dl>
@@ -34,7 +34,7 @@
   </div>
   <h2 id="abstract">Abstract</h2>
   <div>
-   <p>This document outlines the specification of a model to convert an OWL 2 EL ontology to a Labeled Property Graph (LPG).
+   <p>This document specificies a mapping of OWL 2 ontologies to Labeled Property Graphs (LPGs), and vice versa.
   </div>
   <h2 id="status">Status of this document</h2>
   <div>
@@ -53,7 +53,7 @@
             <li><a href="#basf-requirements"><span class="secno">1.2.2</span> BASF Use-Case Requirements</a>
           </ol>
         <li><a href="#design-choices"><span class="secno">1.3</span> Design Choices</a>
-        <li><a href="#similar-models"><span class="secno">1.4</span> Similar Models</a>
+        <li><a href="#similar-mappings"><span class="secno">1.4</span> Similar Mappings</a>
       </ol>
     <li><a href="#owl2el"><span class="secno">2</span> Overview of OWL 2 EL</a>
       <ol>
@@ -61,7 +61,7 @@
         <li><a href="#owl2el-axioms"><span class="secno">2.2</span> Supported Axioms</a>
         <li><a href="#owl2el-unsupported"><span class="secno">2.3</span> Unsupported Constructs</a>
       </ol>
-    <li><a href="#owl2lpg"><span class="secno">3</span> Conversion of OWL to LPG</a>
+    <li><a href="#owl2lpg"><span class="secno">3</span> Mapping OWL to LPG</a>
       <ol>
         <li><a href="#class-axioms"><span class="secno">3.1</span> Class Axioms</a>
           <ol>
@@ -111,7 +111,7 @@
 <h2 id="intro">
 <span class="secno">1 </span> Introduction</h2>
   
-  <p>This document specifies a model for converting OWL 2 EL axioms to a Labeled Property Graph (LPG) representation, and vice-versa.  While initially targeted to convert OWL 2 EL ontologies, the design of this model is intended to be extensible to OWL 2 axioms of arbitrary expressivity.</p>
+  <p>This document specifies a mapping of OWL 2 EL axioms to a Labeled Property Graph (LPG) representation, and vice-versa. The mapping we specify here can be used to transform any OWL 2 EL ontology into a Labeled Property Graph. While initially targeted to transform OWL 2 EL ontologies, the design of this mapping is intended to be extensible to OWL 2 axioms of arbitrary expressivity.</p>
 
 
 <!-- CONVENTIONS -->
@@ -130,7 +130,7 @@
 <h3 id="requirements">
 <span class="secno">1.2 </span>Main Requirements</h3>
 
-<p>In this section we lay out important requirements that drive the design of the OWL-LPG conversion model.</p>
+<p>In this section we lay out important requirements that drive the design of the OWL to LPG mapping.</p>
 
 
 <!-- WEBPROTEGE REQUIREMENTS -->
@@ -164,30 +164,30 @@ Example queries:
   Our overarching design principle is to prioritize representational <b>consistency over convenience</b> (of query writing, of query response time, etc.). Below we describe in detail some key design choices, which serve to allow us to fulfil the requirements laid out in <a href="#requirements">Section 1.2</a>. 
 
   <dl class="switch">
-    <dt>OWL axiom types are represented as nodes in the LPG model.</dt>
-    <dd>When converted to the LPG model, every OWL axiom is modeled with a single node that denotes the axiom type. For example, <code>rdfs:SubClassOf</code> and <code>owl:EquivalentClasses</code> axiom types will each be represented by its own node. This decision allows two things to happen:
+    <dt>OWL axiom types are represented as nodes in a LPG.</dt>
+    <dd>Each OWL axiom is represented with a single node that denotes its type. For example, <code>rdfs:SubClassOf</code> and <code>owl:EquivalentClasses</code> axiom types will each be represented by its own node. This decision allows two things to happen:
       <ol>
         <li>We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).</li>
         <li>We can attach versioning information about the axiom, such as the ontology that contains the axiom, and details about the author, the date, and the number of the revision that last altered the axiom (see <a href="#change-history">Section 4</a> for full details).</li>
       </ol>
     </dd>
 
-    <dt>In general, every resource that has an IRI is represented as a node in the LPG model.</dt>
+    <dt>In general, every resource that has an IRI is represented as a node in a LPG.</dt>
     <dd>All OWL named entities are represented as nodes.</dd>
 
-    <dt>OWL class expression types are represented as nodes in the LPG model.</dt>
+    <dt>OWL class expression types are represented as nodes in a LPG.</dt>
     <dd>This follows from the previous design choice. For example, <code>owl:someValuesFrom</code> and <code>owl:intersectionOf</code> class expression types will each be represented by its own node.</dd>
 
     <dt id="duplicate-nodes">Nodes denoting OWL Classes, Individuals, and Datatypes are reused. Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.</dt> 
     
-    <dd>Upon converting from OWL to LPG, we <u>generally</u> reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The <u>exception</u> is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass. In such cases, the nodes to represent the complex class expression in the subclass position of the GCI will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how axioms should be parsed back from the LPG.</dd>
+    <dd>When mapping OWL to LPG, we <u>generally</u> reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The <u>exception</u> is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass. In such cases, the nodes to represent the complex class expression in the subclass position of the GCI will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how axioms should be parsed back from the LPG.</dd>
 
     <dd>For example, consider the axioms: <code>A SubClassOf p some B. A SubClassOf p some C. B SubClassOf D.</code> Here, the nodes for <code>A</code> and <code>B</code> would be reused, but the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated. We duplicate the <code>SubClassOf</code> node (and generally, axiom type nodes) to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom when parsing the LPG.</dd>
 
-    <dd>The ability to parse OWL axioms from a LPG converted as specified here is guaranteed by the conditions that: 
+    <dd>The ability to parse back OWL axioms from a LPG converted as specified here is guaranteed by the conditions that: 
       <ol>
         <li>every LPG node denoting an OWL class, individual, or datatype is followed by a node denoting an OWL axiom type; and </li>
-        <li>nodes involved in a complex class expression in the subclass position of a GCI are duplicated (rather than reused) in the conversion.</li>
+        <li>nodes involved in a complex class expression in the subclass position of a GCI are duplicated (rather than reused) in the mapping.</li>
       </ol>
     </dd>
 
@@ -203,10 +203,10 @@ Example queries:
 </p>
 
 
-<!-- SIMILAR MODELS -->
-<h3 id="similar-models">
-<span class="secno">1.4 </span>Similar Models</h3>
-<p>In this section we compare and contrast the model described in this document with existing models to convert OWL ontologies to LPGs.</p>
+<!-- SIMILAR MAPPINGS -->
+<h3 id="similar-mappings">
+<span class="secno">1.4 </span>Similar Mappings</h3>
+<p>In this section we compare and contrast the mapping described in this document with existing approaches to transform OWL ontologies to LPGs.</p>
 
 <p><b>SciGraph</b>. The <a href="https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping" target="_blank">SciGraph Neo4j Mapping</a> aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. <em>SciGraph does not aim to support creating ontologies based on the LPG.</em> Below we outline and briefly describe the main differences between ours and the SciGraph model.
 	<ul>
@@ -214,9 +214,9 @@ Example queries:
 
 		<li><b>Annotation assertions are represented as key-value string properties in LPG model.</b> For example, <code>i:Individual {'rdfs:label' = 'Ruth'}</code>. As a consequence, annotations on annotations are not straightforwardly representable in SciGraph.</li>
 		
-		<li><b>Representation of source ontology in SciGraph is done both at the node and edge level.</b>  In the SciGraph model, nodes have an outgoing edge named <code>isDefinedBy</code> to a node of type <code>Ontology</code> that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI.  In our model, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., <code>rdfs:SubClassOf, rdf:Type, owl:EquivalentClasses</code>).</li>
+		<li><b>Representation of source ontology in SciGraph is done both at the node and edge level.</b>  In the SciGraph model, nodes have an outgoing edge named <code>isDefinedBy</code> to a node of type <code>Ontology</code> that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI.  In our model, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., <code>rdfs:SubClassOf, owl:EquivalentClasses</code>).</li>
 		
-		<li><b>SciGraph represents OWL properties as both nodes and edges in the LPG model.</b> It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG <b>nodes</b> that represent the OWL properties (e.g., <code>hasSibling:ObjectProperty {'symmetric' = true}</code>).  And then SciGraph uses OWL properties as <b>edges</b> in axioms such as object property assertions (e.g., <code>rafael:Individual --hasSibling--> ruth:Individual</code>.  In our model, we consistently represent OWL properties as nodes. More, we represent OWL property types similarly to the RDF/XML serialization of OWL. E.g., <code>hasSibling --> rdf:type --> owl:SymmetricProperty</code>.</li>
+		<li><b>SciGraph represents OWL properties as both nodes and edges in the LPG model.</b> It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG <b>nodes</b> that represent the OWL properties (e.g., <code>hasSibling:ObjectProperty {'symmetric' = true}</code>).  And then SciGraph uses OWL properties as <b>edges</b> in axioms such as object property assertions (e.g., <code>rafael:Individual --hasSibling--> ruth:Individual</code>.  In our model, we consistently represent OWL properties as nodes. More, we represent OWL property characteristics similarly to the OWL/XML and Functional-style syntaxes of OWL. E.g., <code>hasSibling --> SymmetricObjectProperty</code>.</li>
 	</ul>
 </p>
 
@@ -301,8 +301,8 @@ Example queries:
 
 
 <h2 id="owl2lpg">
-<span class="secno">3 </span> Conversion of OWL to Labeled Property Graph</h2>
-   <p>In this section we specify rules for converting OWL axioms and class expressions expressible in the OWL 2 EL profile to a labeled property graph.</p>
+<span class="secno">3 </span> Mapping OWL to Labeled Property Graph</h2>
+   <p>In this section we specify how OWL axioms and class expressions expressible in the OWL 2 EL profile are mapped to a labeled property graph.</p>
 
    <p id="color-scheme">
     Throughout this section we use the color scheme depicted below to denote the different types of OWL entities (left column) and other OWL resources (right column): types of axioms (e.g., <code>subClassOf, classAssertion</code>); types of class expressions (e.g., <code>someValuesFrom, intersectionOf</code>); literals; ontologies; and IRI resources.
@@ -576,7 +576,7 @@ Example queries:
   <!-- MULTIPLE AXIOMS EXAMPLE -->
   <h3 id="multiple-axioms"><span class="secno">3.8 </span> Multiple Axioms Example</h3>
 
-  This section exemplifies how the axiom conversions specified above would concretize for a set of axioms. Given the following axioms, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">the figure below</a>.
+  This section exemplifies how the mappings specified above would concretize for a set of axioms. Given the following axioms, the resulting LPG is depicted in <a href="#multiple-axioms-lpg">the figure below</a>.
 
    <p class="example"> EquivalentClasses( :A :E )</p>
    <p class="example"> SubClassOf(<br><span class="indent">Annotation( dc:date "2020-02-25T21:20:36"^^xsd:dateTime )</span><br><span class="indent">:A :C )</span></p>
@@ -633,7 +633,7 @@ Example queries:
 
 	<dt><code>February 20, 2020</code></dt>
 	<dd>Extended section <a href="#design-choices">Design Choices</a>.</dd>
-	<dd>Added section <a href="#similar-models">Similar Models</a>.</dd>
+	<dd>Added section <a href="#similar-mappings">Similar Mappings</a>.</dd>
 	<dd>Added section <a href="#nested-annotation-axioms">Annotations on annotations</a>.</dd>
 	<dd>Added source control link to <a href="https://github.com/protegeproject/owl2lpg">GitHub repository for this specification</a>.</dd>
 
