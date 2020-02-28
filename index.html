@@ -208,23 +208,23 @@ Example queries:
 <span class="secno">1.4 </span>Similar Mappings</h3>
 <p>In this section we compare and contrast the mapping described in this document with existing approaches to transform OWL ontologies to LPGs.</p>
 
-<p><b>SciGraph</b>. The <a href="https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping" target="_blank">SciGraph Neo4j Mapping</a> aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. <em>SciGraph does not aim to support creating ontologies based on the LPG.</em> Below we outline and briefly describe the main differences between ours and the SciGraph model.
+<p><b>SciGraph</b>. The <a href="https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping" target="_blank">SciGraph Neo4j Mapping</a> aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. <em>SciGraph does not aim to support creating ontologies based on the LPG.</em> Below we outline and briefly describe the main differences between ours and the SciGraph mapping.
 	<ul>
-		<li><b>OWL axiom types are represented as edges in the LPG model.</b> In the SciGraph model, axiom types such as <code>rdfs:subClassOf</code> are encoded as edges between nodes that represent the left and the right hand side of the axiom. Axiom annotations are represented as key-value string properties on the edge that denotes the axiom type.  In our model, axiom types are represented as nodes, and therefore axiom annotations are represented uniformly like other annotation assertions.</li>
+		<li><b>OWL axiom types are represented as edges in a LPG.</b> In the SciGraph mapping, axiom types such as <code>rdfs:subClassOf</code> are encoded as edges between nodes that represent the left and the right hand side of the axiom. Axiom annotations are represented as key-value string properties on the edge that denotes the axiom type.  In our mapping, axiom types are represented as nodes, and therefore axiom annotations are represented uniformly like other annotation assertions.</li>
 
-		<li><b>Annotation assertions are represented as key-value string properties in LPG model.</b> For example, <code>i:Individual {'rdfs:label' = 'Ruth'}</code>. As a consequence, annotations on annotations are not straightforwardly representable in SciGraph.</li>
+		<li><b>Annotation assertions are represented as key-value string properties in a LPG.</b> For example, <code>i:Individual {'rdfs:label' = 'Ruth'}</code>. As a consequence, annotations on annotations are not straightforwardly representable in SciGraph.</li>
 		
-		<li><b>Representation of source ontology in SciGraph is done both at the node and edge level.</b>  In the SciGraph model, nodes have an outgoing edge named <code>isDefinedBy</code> to a node of type <code>Ontology</code> that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI.  In our model, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., <code>rdfs:SubClassOf, owl:EquivalentClasses</code>).</li>
+		<li><b>Representation of source ontology in SciGraph is done both at the node and edge level of a LPG.</b>  In the SciGraph mapping, nodes have an outgoing edge named <code>isDefinedBy</code> to a node of type <code>Ontology</code> that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI.  In our mapping, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., <code>rdfs:SubClassOf, owl:EquivalentClasses</code>).</li>
 		
-		<li><b>SciGraph represents OWL properties as both nodes and edges in the LPG model.</b> It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG <b>nodes</b> that represent the OWL properties (e.g., <code>hasSibling:ObjectProperty {'symmetric' = true}</code>).  And then SciGraph uses OWL properties as <b>edges</b> in axioms such as object property assertions (e.g., <code>rafael:Individual --hasSibling--> ruth:Individual</code>.  In our model, we consistently represent OWL properties as nodes. More, we represent OWL property characteristics similarly to the OWL/XML and Functional-style syntaxes of OWL. E.g., <code>hasSibling --> SymmetricObjectProperty</code>.</li>
+		<li><b>SciGraph represents OWL properties as both nodes and edges in a LPG.</b> It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG <b>nodes</b> that represent the OWL properties (e.g., <code>hasSibling:ObjectProperty {'symmetric' = true}</code>).  And then SciGraph uses OWL properties as <b>edges</b> in axioms such as object property assertions (e.g., <code>rafael:<i>Individual</i> --hasSibling: <i>ObjectProperty</i>--> ruth:<i>Individual</i></code>.  In our mapping, we consistently represent OWL properties as nodes. More, we represent OWL property characteristics similarly to the OWL/XML and Functional-style syntaxes of OWL. E.g., <code>hasSibling:<i>ObjectProperty</i> --> SymmetricObjectProperty:<i>Axiom</i></code>.</li>
 	</ul>
 </p>
 
-<p><b>VirtualFlyBrain</b>. The <a href="https://github.com/VirtualFlyBrain/neo4j2owl" target="_blank">VirtualFlyBrain OWL 2 EL to Neo4J Mapping</a> allows importing "a well defined subset of OWL 2 EL ontologies into and export them from Neo4J, in such a way that entailments and annotations are preserved (not however the syntactic structure) in the ontology after the round-trip." The VirtualFlyBrain (VFB) model is explicit about its design goal of facilitating intuitive writing of Cypher queries. In that sense, VFB does not create "anonymous" nodes to represent axiom types or class expression types, and instead encodes these details on edges (relying on both edge names and key-value string properties on edges). 
+<p><b>VirtualFlyBrain</b>. The <a href="https://github.com/VirtualFlyBrain/neo4j2owl" target="_blank">VirtualFlyBrain OWL 2 EL to Neo4J Mapping</a> allows importing "a well defined subset of OWL 2 EL ontologies into and export them from Neo4J, in such a way that entailments and annotations are preserved (not however the syntactic structure) in the ontology after the round-trip." The VirtualFlyBrain (VFB) mapping is explicit about its design goal of facilitating intuitive writing of Cypher queries. In that sense, VFB does not create "anonymous" nodes to represent axiom types or class expression types, and instead encodes these details on edges (relying on both edge names and key-value string properties on edges). 
 <ul>
 	<li><b>Object property names and axiom types are encoded as edge names.</b> For example, the axioms: <code>A SubClassOf B. A SubClassOf r some C</code> would be encoded in LPG as: <code>A--SubClassOf-->B. A--r-->B</code>. The restriction qualifiers (or quantifiers) are encoded as key-value properties on edges.</li>
 	
-	<li><b>The VFB model represents OWL properties as both nodes and edges.</b> Similar to SciGraph, OWL object properties are represented as edges, and then they are also represented as nodes to be able to express axioms such as annotations on those properties.</li>
+	<li><b>The VFB mapping represents OWL properties as both nodes and edges.</b> Similar to SciGraph, OWL object properties are represented as edges, and then they are also represented as nodes to be able to express axioms such as annotations on those properties.</li>
 
 	<li><b>Data and Annotation property assertions are represented as key-value string properties.</b> Also similar to SciGraph, both data and annotation property assertions are represented as key-value string properties on nodes. As a consequence, annotations on annotations are not straightforwardly representable in VFB.
 </ul>
@@ -305,13 +305,13 @@ Example queries:
    <p>In this section we specify how OWL axioms and class expressions expressible in the OWL 2 EL profile are mapped to a labeled property graph.</p>
 
    <p id="color-scheme">
-    Throughout this section we use the color scheme depicted below to denote the different types of OWL entities (left column) and other OWL resources (right column): types of axioms (e.g., <code>subClassOf, classAssertion</code>); types of class expressions (e.g., <code>someValuesFrom, intersectionOf</code>); literals; ontologies; and IRI resources.
+    Throughout this section we use the color scheme depicted below to denote in a LPG the different types of OWL entities (left column) and other OWL resources (right column): types of axioms (e.g., <code>subClassOf, classAssertion</code>); types of class expressions (e.g., <code>someValuesFrom, intersectionOf</code>); literals; ontologies; and IRI resources.
     <figure><img src="images/color-legend.png" width="400px"></figure>
    </p>
 
    <!-- CLASS AXIOMS -->
    <h3 id="class-axioms"><span class="secno">3.1 </span> Class Axioms</h3>
-   <p>OWL classes are represented as nodes in the LPG model.</p> 
+   <p>OWL classes are represented as nodes in a LPG.</p> 
 
 
    <!-- SubClassOf Axioms -->
@@ -320,7 +320,7 @@ Example queries:
    <p class="example" id="example-subclassof"> SubClassOf( :A :B )</p>
    <figure>
     <img src="images/subclassof.png">
-    <figcaption>Representation of OWL SubClassOf axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -331,7 +331,7 @@ Example queries:
    <p class="example" id="example-equivalent-classes"> EquivalentClasses( :A :B :C )</p>
    <figure>
     <p><img src="images/equivalent-classes.png"></p>
-    <figcaption>Representation of OWL EquivalentClasses axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL EquivalentClasses axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -341,7 +341,7 @@ Example queries:
    <p class="example" id="example-subclassof-existential"> SubClassOf( :A ObjectSomeValuesFrom( :p :B ) )</p>
    <figure>
     <p><img src="images/subclassof-existential.png"></p>
-    <figcaption>Representation of OWL SubClassOf axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf axioms with SomeValuesFrom restrictions in a LPG.</figcaption>
    </figure>
 
 
@@ -351,7 +351,7 @@ Example queries:
    <p class="example" id="example-equivalent-intersection"> EquivalentClasses( :A ObjectIntersectionOf( :C ObjectSomeValuesFrom( :p :B )))</p>
    <figure>
     <p><img src="images/equivalent-intersection.png"></p>
-    <figcaption>Representation of OWL EquivalentClasses axioms with IntersectionOf and SomeValuesFrom restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL EquivalentClasses axioms with IntersectionOf and SomeValuesFrom restrictions in a LPG.</figcaption>
    </figure>
 
 
@@ -361,7 +361,7 @@ Example queries:
    <p class="example" id="example-subclassof-gci"> SubClassOf(ObjectSomeValuesFrom( :p :A ) ObjectSomeValuesFrom( :r :B ))</p>
    <figure>
     <p><img src="images/subclassof-gci.png"></p>
-    <figcaption>Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -371,7 +371,7 @@ Example queries:
    <p class="example" id="example-disjoint-classes"> DisjointClasses( :A :B :C )</p>
    <figure>
     <p><img src="images/disjoint-classes.png"></p>
-    <figcaption>Representation of OWL DisjointClasses axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL DisjointClasses axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -381,7 +381,7 @@ Example queries:
    <p class="example"> SubClassOf( :A ObjectHasSelf( :p ) )</p>
    <figure>
     <p><img src="images/subclassof-hasself.png"></p>
-    <figcaption>Representation of OWL SubClassOf axioms with HasSelf restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubClassOf axioms with HasSelf restrictions in a LPG.</figcaption>
    </figure>
 
 
@@ -389,7 +389,7 @@ Example queries:
   <!-- PROPERTY AXIOMS -->
   <h3 id="property-axioms"><span class="secno">3.2 </span> Property Axioms</h3>
   
-  <p>OWL object, data, and annotation properties are represented as nodes in the LPG model.</p>
+  <p>OWL object, data, and annotation properties are represented as nodes in a LPG.</p>
   
 
    <!-- SubPropertyOf Axioms -->
@@ -398,7 +398,7 @@ Example queries:
    <p class="example" id="example-subpropertyof"> SubObjectPropertyOf( :p :r )</p>
    <figure>
     <img src="images/subpropertyof.png">
-    <figcaption>Representation of OWL SubPropertyOf axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubPropertyOf axioms in a LPG.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span>The same strategy applies for <b>SubDataPropertyOf</b> and <b>SubAnnotationPropertyOf</b> axioms.</p>
@@ -410,7 +410,7 @@ Example queries:
    <p class="example" id="example-objectpropertychain"> SubObjectPropertyOf( ObjectPropertyChain( :p :q ) :r ) </p>
    <figure>
     <img src="images/object-property-chain.png">
-    <figcaption>Representation of OWL SubPropertyOf axioms with ObjectPropertyChain restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL SubPropertyOf axioms with ObjectPropertyChain restrictions in a LPG.</figcaption>
    </figure>
 
 
@@ -420,7 +420,7 @@ Example queries:
    <p class="example" id="example-equivalent-intersection"> TransitiveObjectProperty( :p )</p>
    <figure>
     <p><img src="images/transitive-object-property.png"></p>
-    <figcaption>Representation of OWL TransitiveObjectProperty axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL TransitiveObjectProperty axioms in a LPG.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span>The same strategy applies for other OWL property characteristics (e.g., symmetric properties).</p>
@@ -432,7 +432,7 @@ Example queries:
    <p class="example" id="example-domain"> ObjectPropertyDomain( :p :A )</p>
    <figure>
     <p><img src="images/domain.png"></p>
-    <figcaption>Representation of OWL property Domain axioms.</figcaption>
+    <figcaption>Representation of OWL property Domain axioms in a LPG.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span><b>ObjectPropertyRange</b> axioms are represented similarly, by just swapping the <code>objectPropertyDomain</code> node by the <code>objectPropertyRange</code> node. The same strategy applies for <b>dataPropertyDomain</b>, <b>dataPropertyRange</b>, <b>annotationPropertyDomain</b>, and <b>annotationPropertyRange</b> axioms.</p>
@@ -442,7 +442,7 @@ Example queries:
   <!-- INDIVIDUAL AXIOMS -->
   <h3 id="individual-axioms"><span class="secno">3.3 </span> Individual Axioms</h3>
   
-  <p>OWL individuals are represented as nodes in the LPG model.</p>
+  <p>OWL individuals are represented as nodes in a LPG.</p>
 
 
    <!-- ClassAssertion Axioms -->
@@ -451,7 +451,7 @@ Example queries:
    <p class="example" id="example-class-assertion"> ClassAssertion( :A :i )</p>
    <figure>
     <img src="images/class-assertion.png">
-    <figcaption>Representation of OWL ClassAssertion axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL ClassAssertion axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -461,7 +461,7 @@ Example queries:
    <p class="example" id="example-object-property-assertion"> ObjectPropertyAssertion( :p :i :j )</p>
    <figure>
     <img src="images/object-property-assertion.png">
-    <figcaption>Representation of OWL ObjectPropertyAssertion axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL ObjectPropertyAssertion axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -471,7 +471,7 @@ Example queries:
    <p class="example" id="example-class-assertion-some"> ClassAssertion( ObjectSomeValuesFrom( :p :A ) :i )</p>
    <figure>
     <img src="images/class-assertion-existential.png">
-    <figcaption>Representation of OWL ClassAssertion axioms with SomeValuesFrom restrictions in LPG model.</figcaption>
+    <figcaption>Representation of OWL ClassAssertion axioms with SomeValuesFrom restrictions in a LPG.</figcaption>
    </figure>
 
 
@@ -481,7 +481,7 @@ Example queries:
    <p class="example"> SameIndividual( :i :j )</p>
    <figure>
     <img src="images/same-individual.png">
-    <figcaption>Representation of OWL SameIndividual axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL SameIndividual axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -491,7 +491,7 @@ Example queries:
    <p class="example"> DifferentIndividuals( :i :j :k )</p>
    <figure>
     <img src="images/different-individuals.png">
-    <figcaption>Representation of OWL DifferentIndividuals axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL DifferentIndividuals axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -499,7 +499,7 @@ Example queries:
   <!-- ANNOTATION AXIOMS -->
   <h3 id="annotation-axioms"><span class="secno">3.4 </span> Annotation Axioms</h3>
   
-  <p>OWL annotation properties, the subject and object IRIs of annotation assertions, OWL 2 datatypes, and literals are all represented as nodes in the LPG model. Axiom annotations are represented using an edge named <code>axiomAnnotation</code> from the <code>annotationAssertion</code> axiom node to the annotation property node (see <a href="#axiom-annotation-axioms">Section 3.4.3</a>). Naming the edge corresponding to axiom annotations is necessary to differentiate axiom annotations from other annotations, particularly in cases such as annotations on annotations (see <a href="#nested-annotation-axioms">Section 3.4.4</a>).</p>
+  <p>OWL annotation properties, the subject and object IRIs of annotation assertions, OWL 2 datatypes, and literals are all represented as nodes in a LPG. Axiom annotations are represented using an edge named <code>axiomAnnotation</code> from the <code>annotationAssertion</code> axiom node to the annotation property node (see <a href="#axiom-annotation-axioms">Section 3.4.3</a>). Naming the edge corresponding to axiom annotations is necessary to differentiate axiom annotations from other annotations, particularly in cases such as annotations on annotations (see <a href="#nested-annotation-axioms">Section 3.4.4</a>).</p>
 
 
    <!-- AnnotationAssertion Axioms with IRIs -->
@@ -508,7 +508,7 @@ Example queries:
    <p class="example" id="example-annotation-assertion-object"> AnnotationAssertion( :p :i :j )</p>
    <figure>
     <img src="images/annotation-assertion-iri.png">
-    <figcaption>Representation of OWL AnnotationAssertion axioms with IRIs as objects in LPG model.</figcaption>
+    <figcaption>Representation of OWL AnnotationAssertion axioms with IRIs as objects in a LPG.</figcaption>
    </figure>
 
 
@@ -518,7 +518,7 @@ Example queries:
    <p class="example" id="example-annotation-assertion-literal"> AnnotationAssertion( :p :i "foo"@en )</p>
    <figure>
     <img src="images/annotation-assertion-literal.png">
-    <figcaption>Representation of OWL ClassAssertion axioms with literals as objects in LPG model.</figcaption>
+    <figcaption>Representation of OWL ClassAssertion axioms with literals as objects in a LPG.</figcaption>
    </figure>
 
 
@@ -528,7 +528,7 @@ Example queries:
    <p class="example" id="example-axiom-annotation"> SubClassOf( Annotation( :p "foo"^^xsd:string ) :A :B) )</p>
    <figure>
     <img src="images/axiom-annotation.png">
-    <figcaption>Representation of annotated OWL axioms in LPG model.</figcaption>
+    <figcaption>Representation of annotated OWL axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -537,7 +537,7 @@ Example queries:
    <p class="example" id="example-nested-annotations"> AnnotationAssertion( Annotation( :q "bar"@en ) :p :i :j )</p>
    <figure>
      <img src="images/nested-annotations.png">
-     <figcaption>Representation of OWL annotations on annotations in LPG model.</figcaption>
+     <figcaption>Representation of OWL annotations on annotations in a LPG.</figcaption>
    </figure>
 
 
@@ -547,7 +547,7 @@ Example queries:
    <p class="example" id="example-keys-axioms"> HasKey( :A ( :r ) () )</p>
    <figure>
     <img src="images/keys.png">
-    <figcaption>Representation of OWL keys axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL keys axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -558,7 +558,7 @@ Example queries:
    <p class="example"> SubClassOf( :i :K )</p>
    <figure>
     <img src="images/axiom-punning.png">
-    <figcaption>Representation of OWL punning in LPG model.</figcaption>
+    <figcaption>Representation of OWL punning in a LPG.</figcaption>
    </figure>
 
 
@@ -568,7 +568,7 @@ Example queries:
    <p class="example" id="example-imports-axioms"> Ontology( :O Import ( :T ) )</p>
    <figure>
     <img src="images/ontology-import.png">
-    <figcaption>Representation of OWL ontology imports axioms in LPG model.</figcaption>
+    <figcaption>Representation of OWL ontology imports axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -587,7 +587,7 @@ Example queries:
    <p class="example"> ObjectPropertyAssertion( :w :rsgoncalves :stanfordUniversity )</p>
    <figure id="multiple-axioms-lpg">
     <img src="images/multiple-axioms.png">
-    <figcaption>Representation of multiple OWL axioms in LPG model.</figcaption>
+    <figcaption>Representation of multiple OWL axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -599,7 +599,7 @@ Example queries:
   <p class="example" id="example-change-history"> AddAxiom( SubClassOf( :A :B ), branch B, ontology O ) </p>
   <figure>
   <img src="images/axiom-history.png">
-  <figcaption>Representation of OWL axiom change history in LPG model.</figcaption>
+  <figcaption>Representation of OWL axiom change history in a LPG.</figcaption>
   </figure>
 
 
