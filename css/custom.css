@@ -14,3 +14,11 @@
 .indent {
   margin-left: 10px;
 }
+
+thead {
+  background-color: #f2f2f2;
+}
+
+.name {
+  font-family: monospace;
+}

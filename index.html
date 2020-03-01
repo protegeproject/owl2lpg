@@ -11,7 +11,7 @@
  <body class="h-entry">
   <div class="head">
    <h1 id="title">Draft Specification: Mapping of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
-   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-27">27 February 2020</time></h2>
+   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-28">28 February 2020</time></h2>
    <div>
     <dl>
      <dt>Feedback:
@@ -66,12 +66,12 @@
         <li><a href="#class-axioms"><span class="secno">3.1</span> Class Axioms</a>
           <ol>
             <li><a href="#subclassof-axioms"><span class="secno">3.1.1</span> SubClassOf Axioms</a>
-            <li><a href="#equivalent-classes-axioms"><span class="secno">3.1.2</span> EquivalentClasses Axioms</a>
-            <li><a href="#subclassof-somevaluesfrom-axioms"><span class="secno">3.1.3</span> SubClassOf SomeValuesFrom Axioms</a>
-            <li><a href="#equivalent-intersection-axioms"><span class="secno">3.1.4</span> EquivalentClasses IntersectionOf SomeValuesFrom Axioms</a>
-            <li><a href="#subclassof-gci-axioms"><span class="secno">3.1.5</span> SubClassOf GCI Axioms</a>
+            <li><a href="#subclassof-somevaluesfrom-axioms"><span class="secno">3.1.2</span> SubClassOf SomeValuesFrom Axioms</a>
+            <li><a href="#subclassof-hasself-axioms"><span class="secno">3.1.3</span> SubClassOf HasSelf Axioms</a>
+            <li><a href="#equivalent-classes-axioms"><span class="secno">3.1.4</span> EquivalentClasses Axioms</a>
+            <li><a href="#equivalent-intersection-axioms"><span class="secno">3.1.5</span> EquivalentClasses IntersectionOf SomeValuesFrom Axioms</a>
             <li><a href="#disjoint-classes-axioms"><span class="secno">3.1.6</span> DisjointClasses Axioms</a>
-            <li><a href="#subclassof-hasself-axioms"><span class="secno">3.1.7</span> SubClassOf HasSelf Axioms</a>
+            <li><a href="#subclassof-gci-axioms"><span class="secno">3.1.7</span> GCI Axioms</a>
           </ol>
         <li><a href="#property-axioms"><span class="secno">3.2</span> Property Axioms</a>
           <ol>
@@ -178,7 +178,7 @@ Example queries:
     <dt>OWL class expression types are represented as nodes in a LPG.</dt>
     <dd>This follows from the previous design choice. For example, <code>owl:someValuesFrom</code> and <code>owl:intersectionOf</code> class expression types will each be represented by its own node.</dd>
 
-    <dt id="duplicate-nodes">Nodes denoting OWL Classes, Individuals, and Datatypes are reused. Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.</dt> 
+    <dt id="duplicate-nodes">Nodes denoting OWL Classes, Individuals, and Datatypes are reused when possible. Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.</dt> 
     
     <dd>When mapping OWL to LPG, we <u>generally</u> reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The <u>exception</u> is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass. In such cases, the nodes to represent the complex class expression in the subclass position of the GCI will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how axioms should be parsed back from the LPG.</dd>
 
@@ -302,21 +302,51 @@ Example queries:
 
 <h2 id="owl2lpg">
 <span class="secno">3 </span> Mapping OWL to Labeled Property Graph</h2>
-   <p>In this section we specify how OWL axioms and class expressions expressible in the OWL 2 EL profile are mapped to a labeled property graph.</p>
+   <p id="conventions">In this section we specify how OWL axioms and class expressions expressible in the OWL 2 EL profile are mapped to a labeled property graph. We use the following conventions to denote different parts of OWL 2 ontologies:</p>
+
+   <ul>
+    <li> <span class="name">C</span> denotes a class;</li>
+    <li> <span class="name">CE</span> denotes a class expression;</li>
+    <li> <span class="name">OP</span> denotes an object property;</li>
+    <li> <span class="name">OPE</span> denotes an object property expression;</li>
+    <li> <span class="name">DP</span> denotes a data property;</li>
+    <li> <span class="name">DPE</span> denotes a data property expression;</li>
+    <li> <span class="name">AP</span> denotes an annotation property;</li>
+    <li> <span class="name">DT</span> denotes a datatype;</li>
+    <li> <span class="name">U</span> denotes an IRI;</li>
+    <li> <span class="name">a</span> denotes a named individual;</li>
+    <li> <span class="name">lt</span> denotes a literal;</li>
+   </ul>
 
    <p id="color-scheme">
     Throughout this section we use the color scheme depicted below to denote in a LPG the different types of OWL entities (left column) and other OWL resources (right column): types of axioms (e.g., <code>subClassOf, classAssertion</code>); types of class expressions (e.g., <code>someValuesFrom, intersectionOf</code>); literals; ontologies; and IRI resources.
     <figure><img src="images/color-legend.png" width="400px"></figure>
    </p>
 
+
    <!-- CLASS AXIOMS -->
    <h3 id="class-axioms"><span class="secno">3.1 </span> Class Axioms</h3>
-   <p>OWL classes are represented as nodes in a LPG.</p> 
+   <p>OWL named classes are represented as nodes in a LPG.</p> 
 
 
    <!-- SubClassOf Axioms -->
    <h4 id="subclassof-axioms"><span class="secno">3.1.1 </span> SubClassOf Axioms</h4>
-   
+
+   <p>A <code>SubClassOf</code> axiom between two atomic OWL classes (i.e., named classes) is mapped to a pair of nodes denoting the atomic classes in a LPG, connected via unnamed edges through the node denoting the axiom type <code>SubClassOf:<i>Axiom</i></code>.</p>
+
+   <table class="data">
+    <caption>Mapping SubClassOf axioms between named classes to LPG.</caption>
+    <colgroup style="width:50%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>SubClassOf(C<sub>1</sub> C<sub>2</sub>)<br><small>C<sub>1</sub>,C<sub>2</sub> atomic</small></code></td>
+      <td><code>C<sub>1</sub>:<i>Class</i> -> SubClassOf:<i>Axiom</i> -> C<sub>2</sub>:<i>Class</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
+
    <p class="example" id="example-subclassof"> SubClassOf( :A :B )</p>
    <figure>
     <img src="images/subclassof.png">
@@ -324,19 +354,23 @@ Example queries:
    </figure>
 
 
-   <!-- EquivalentClasses Axioms -->
-   <h4 id="equivalent-classes-axioms"><span class="secno">3.1.2 </span> EquivalentClasses Axioms</h4>
-   <p>Given an <code>EquivalentClasses</code> axiom such as the one below, it would be semantically sufficient to represent it in a LPG using edges in just one direction. However, when querying the LPG, we would not be able to immediately determine that, say, <code>B</code> is equivalent to <code>A</code>. By having edges in both directions, like we have (succintly) depicted in the figure below, we can promptly find that <code>C</code> is equivalent to <code>B</code> as well as <code>A</code>.
-
-   <p class="example" id="example-equivalent-classes"> EquivalentClasses( :A :B :C )</p>
-   <figure>
-    <p><img src="images/equivalent-classes.png"></p>
-    <figcaption>Representation of OWL EquivalentClasses axioms in a LPG.</figcaption>
-   </figure>
-
-
    <!-- SubClassOf with SomeValuesFrom restriction -->
-   <h4 id="subclassof-somevaluesfrom-axioms"><span class="secno">3.1.3 </span> SubClassOf Axioms with SomeValuesFrom Restrictions</h4>
+   <h4 id="subclassof-somevaluesfrom-axioms"><span class="secno">3.1.2 </span> SubClassOf Axioms with SomeValuesFrom Restrictions</h4>
+
+   <p>OWL class expressions are mapped to LPG using a node to represent the class expression type (e.g., <code>Object IntersectionOf</code>), connected to the remainder of the class expression (e.g., the conjuncts in the intersection).</p>
+
+   <table class="data">
+    <caption>Mapping SubClassOf SomeValuesFrom axioms to LPG.</caption>
+    <colgroup style="width:50%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>SubClassOf(C<sub>1</sub> ObjectSomeValuesFrom(OP CE<sub>2</sub>)<br><small>C<sub>1</sub> atomic, CE<sub>2</sub> possibly complex</small></code></td>
+      <td><code>C<sub>1</sub>:<i>Class</i> -> SubClassOf:<i>Axiom</i> -> ObjectSomeValuesFrom:<i>ClassExpression</i> -> OP:<i>ObjectProperty</i> -> CE<sub>2</sub>:<i>ClassExpression</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
 
    <p class="example" id="example-subclassof-existential"> SubClassOf( :A ObjectSomeValuesFrom( :p :B ) )</p>
    <figure>
@@ -345,8 +379,62 @@ Example queries:
    </figure>
 
 
+   <!-- SubClassOf with HasSelf restriction -->
+   <h4 id="subclassof-hasself-axioms"><span class="secno">3.1.3 </span> SubClassOf Axioms with HasSelf Restrictions</h4>
+
+   <p>Axioms involving <code>HasSelf</code> restrictions are mapped to LPG similar to <code>SomeValuesFrom</code> restrictions.</p>
+
+   <table class="data">
+    <caption>Mapping SubClassOf HasSelf axioms to LPG.</caption>
+    <colgroup style="width:50%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>SubClassOf(C<sub>1</sub> HasSelf(OP))<br><small>C<sub>1</sub> atomic</small></code></td>
+      <td><code>C<sub>1</sub>:<i>ClassExpression</i> -> SubClassOf:<i>Axiom</i> -> ObjectHasSelf:<i>ClassExpression</i> -> OP:<i>ObjectProperty</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>Below is another example of mapping an OWL 2 EL class expression, a <code>HasSelf</code> restriction, to LPG.</p>
+
+   <p class="example"> SubClassOf( :A ObjectHasSelf( :p ) )</p>
+   <figure>
+    <p><img src="images/subclassof-hasself.png"></p>
+    <figcaption>Representation of OWL SubClassOf axioms with HasSelf restrictions in a LPG.</figcaption>
+   </figure>
+
+
+   <!-- EquivalentClasses Axioms -->
+   <h4 id="equivalent-classes-axioms"><span class="secno">3.1.4 </span> EquivalentClasses Axioms</h4>
+   <p>We represent <code>EquivalentClasses</code> axioms in a LPG using bidirectional edges between axiom components (technically, one edge in each direction, as the LPG format does not support bidirectional edges). This way, when traversing the LPG from any one of the nodes representing components of the <code>EquivalentClasses</code> axiom, we can determine that the node is involved in an equivalence relation with other class expressions.</p>
+
+   <table class="data">
+    <caption>Mapping EquivalentClasses axioms between named classes to LPG.</caption>
+    <colgroup style="width:35%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>EquivalentClasses(C<sub>1</sub>,C<sub>2</sub>,...,C<sub>n</sub>)<br><small>C<sub>1</sub>,C<sub>2</sub>,...,C<sub>n</sub> atomic</small></code></td>
+      <td><code>C<sub>1</sub>:<i>Class</i> <-> EquivalentClasses:<i>Axiom</i> <-> C<sub>2</sub>:<i>Class</i>,..., C<sub>n</sub>:<i>Class</i></code></td>
+    </tr>
+    </tbody>
+   </table>
+
+   <p>Note that in the above, the node <code>EquivalentClasses:Axiom</code> has one bidirectional edge to each class <code>C<sub>2</sub>,...,C<sub>n</sub></code>. To be succinct we have ommitted the additional edges.</p>
+
+   <p>As an example, consider the following axiom and its corresponding LPG representation below.</p>
+
+   <p class="example" id="example-equivalent-classes"> EquivalentClasses( :A :B :C )</p>
+   <figure>
+    <p><img src="images/equivalent-classes.png"></p>
+    <figcaption>Representation of OWL EquivalentClasses axioms in a LPG.</figcaption>
+   </figure>
+
+
    <!-- EquivalentClasses with IntersectionOf and SomeValuesFrom restrictions -->
-   <h4 id="equivalent-intersection-axioms"><span class="secno">3.1.4 </span> EquivalentClasses Axioms with IntersectionOf and SomeValuesFrom Restrictions</h4>
+   <h4 id="equivalent-intersection-axioms"><span class="secno">3.1.5 </span> EquivalentClasses Axioms with IntersectionOf and SomeValuesFrom Restrictions</h4>
+
+   <p>The following axiom and its corresponding LPG representation below exemplify how nested class expressions involved in an <code>EquivalentClasses</code> axiom are represented in a LPG.</p>
 
    <p class="example" id="example-equivalent-intersection"> EquivalentClasses( :A ObjectIntersectionOf( :C ObjectSomeValuesFrom( :p :B )))</p>
    <figure>
@@ -355,18 +443,24 @@ Example queries:
    </figure>
 
 
-   <!-- SubClassOf GCI -->
-   <h4 id="subclassof-gci-axioms"><span class="secno">3.1.5 </span> SubClassOf GCI Axioms</h4>
-
-   <p class="example" id="example-subclassof-gci"> SubClassOf(ObjectSomeValuesFrom( :p :A ) ObjectSomeValuesFrom( :r :B ))</p>
-   <figure>
-    <p><img src="images/subclassof-gci.png"></p>
-    <figcaption>Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in a LPG.</figcaption>
-   </figure>
-
-
    <!-- Disjoint Classes -->
    <h4 id="disjoint-classes-axioms"><span class="secno">3.1.6 </span> DisjointClasses Axioms</h4>
+
+   <p><code>DisjointClasses</code> axioms are mapped to LPG similarly to <code>EquivalentClasses</code> axioms. Bidirectional edges are used to represent disjointness between a given set of class expressions.</p>
+
+   <table class="data">
+    <caption>Mapping DisjointClasses axioms between named classes to LPG.</caption>
+    <colgroup style="width:35%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>DisjointClasses(CE<sub>1</sub>,CE<sub>2</sub>,...,CE<sub>n</sub>)<br><small>CE<sub>1</sub>,CE<sub>2</sub>,...,CE<sub>n</sub> class expressions</small></code></td>
+      <td><code>CE<sub>1</sub>:<i>ClassExpression</i> <-> DisjointClasses:<i>Axiom</i> <-> CE<sub>2</sub>:<i>ClassExpression</i>,...,CE<sub>n</sub>:<i>ClassExpression</i></code></td>
+    </tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
 
    <p class="example" id="example-disjoint-classes"> DisjointClasses( :A :B :C )</p>
    <figure>
@@ -375,13 +469,17 @@ Example queries:
    </figure>
 
 
-   <!-- SubClassOf with HasSelf restriction -->
-   <h4 id="subclassof-hasself-axioms"><span class="secno">3.1.6 </span> SubClassOf Axioms with HasSelf Restrictions</h4>
+   <!-- SubClassOf GCI -->
+   <h4 id="subclassof-gci-axioms"><span class="secno">3.1.7 </span> GCI Axioms</h4>
 
-   <p class="example"> SubClassOf( :A ObjectHasSelf( :p ) )</p>
+   <p>General Concept Inclusion (GCI) axioms containing a complex class expression in the subclass position are mapped to LPG similarly to regular <code>SubClassOf</code> axioms, except that the nodes to represent named entities involved in that class expression are duplicated, if they already exist in the LPG. This relates to the modeling decision about <a href="#duplicate-nodes">node duplication</a>.</p>
+  
+   <p>As an example, consider the following axiom and its corresponding LPG representation below.</p>
+
+   <p class="example" id="example-subclassof-gci"> SubClassOf(ObjectSomeValuesFrom( :p :A ) ObjectSomeValuesFrom( :r :B ))</p>
    <figure>
-    <p><img src="images/subclassof-hasself.png"></p>
-    <figcaption>Representation of OWL SubClassOf axioms with HasSelf restrictions in a LPG.</figcaption>
+    <p><img src="images/subclassof-gci.png"></p>
+    <figcaption>Representation of OWL SubClassOf General Concept Inclusion (GCI) axioms in a LPG.</figcaption>
    </figure>
 
 
@@ -416,6 +514,8 @@ Example queries:
 
    <!-- TransitiveObjectProperty Axioms -->
    <h4 id="transitive-property-axioms"><span class="secno">3.2.3 </span> TransitiveProperty Axioms</h4>
+
+   <p>Property characteristics (e.g., symmetric, reflexive, functional, etc.) are mapped to nodes representing the corresponding axiom types in the OWL 2 structural specification (<code>SymmetricObjectProperty, ReflexiveObjectProperty, FunctionalDataProperty</code>, etc.,respectively).
 
    <p class="example" id="example-equivalent-intersection"> TransitiveObjectProperty( :p )</p>
    <figure>
@@ -611,6 +711,10 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
+  <dt><code>February 28, 2020</code></dt>
+  <dd>Added text describing or clarifying the OWL to LPG mapping of <a href="class-axioms">Class Axioms</a>.</dd>
+  <dd>Added tables depicting mapping rules of <a href="class-axioms">Class Axioms</a>.</dd>
+
   <dt><code>February 27, 2020</code></dt>
   <dd>Added section <a href="#subclassof-hasself-axioms">SubClassOf Axioms with HasSelf Restrictions</a>.</dd>
   <dd>Added section <a href="#same-individual-axioms">SameIndividual Axioms</a>.</dd>
