@@ -1,3 +1,3 @@
 # OWL2LPG GitHub Page
 
-Specification of a model to convert OWL 2 EL ontologies to Labeled Property Graphs (LPGs).
+Specification of a mapping between OWL 2 EL ontologies and Labeled Property Graphs (LPGs). The live specification document is at https://protegeproject.github.io/owl2lpg.
