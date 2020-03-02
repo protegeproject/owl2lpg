@@ -11,7 +11,7 @@
  <body class="h-entry">
   <div class="head">
    <h1 id="title">Draft Specification: Mapping of OWL 2 EL Ontologies to Labeled Property Graphs</h1>
-   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-02-28">28 February 2020</time></h2>
+   <h2 id="subtitle">Working Draft, Updated: <time class="dt-updated" datetime="2020-03-02">2 March 2020</time></h2>
    <div>
     <dl>
      <dt>Feedback:
@@ -76,8 +76,8 @@
           </ol>
         <li><a href="#property-axioms"><span class="secno">3.2</span> Property Axioms</a>
           <ol>
-            <li><a href="#subproperty-axioms"><span class="secno">3.2.1</span> SubPropertyOf Axioms</a>
-            <li><a href="#property-chain-axioms"><span class="secno">3.2.2</span> PropertyChain Axioms</a>
+            <li><a href="#subproperty-axioms"><span class="secno">3.2.1</span> SubObjectPropertyOf Axioms</a>
+            <li><a href="#property-chain-axioms"><span class="secno">3.2.2</span> ObjectPropertyChain Axioms</a>
             <li><a href="#transitive-property-axioms"><span class="secno">3.2.3</span> TransitiveProperty Axioms</a>
             <li><a href="#domain-axioms"><span class="secno">3.2.4</span> PropertyDomain (and Range) Axioms</a>
           </ol>
@@ -337,7 +337,7 @@ Example queries:
 
    <table class="data">
     <caption>Mapping SubClassOf axioms between named classes to LPG.</caption>
-    <colgroup style="width:50%"></colgroup>
+    <colgroup style="width:35%"></colgroup>
     <colgroup></colgroup>
     <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
     <tbody><tr>
@@ -387,7 +387,7 @@ Example queries:
 
    <table class="data">
     <caption>Mapping SubClassOf HasSelf axioms to LPG.</caption>
-    <colgroup style="width:50%"></colgroup>
+    <colgroup style="width:35%"></colgroup>
     <colgroup></colgroup>
     <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
     <tbody><tr>
@@ -491,13 +491,28 @@ Example queries:
   <p>OWL object, data, and annotation properties are represented as nodes in a LPG.</p>
   
 
-   <!-- SubPropertyOf Axioms -->
-   <h4 id="subproperty-axioms"><span class="secno">3.2.1 </span> SubPropertyOf Axioms</h4>
+   <!-- SubObjectPropertyOf Axioms -->
+   <h4 id="subproperty-axioms"><span class="secno">3.2.1 </span> SubObjectPropertyOf Axioms</h4>
+
+   <p>OWL <code>SubObjectPropertyOf</code> axioms between properties are mapped to LPG in the same way as <code>SubClassOf</code> axioms between named classes, with the difference being the axiom type node.</p>
+
+   <table class="data">
+    <caption>Mapping SubObjectPropertyOf axioms between object properties to LPG.</caption>
+    <colgroup style="width:35%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>SubObjectPropertyOf(OP<sub>1</sub> OP<sub>2</sub>)</code></td>
+      <td><code>OP<sub>1</sub>:<i>ObjectProperty</i> -> SubObjectPropertyOf:<i>Axiom</i> -> OP<sub>2</sub>:<i>ObjectProperty</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
 
    <p class="example" id="example-subpropertyof"> SubObjectPropertyOf( :p :r )</p>
    <figure>
     <img src="images/subpropertyof.png">
-    <figcaption>Representation of OWL SubPropertyOf axioms in a LPG.</figcaption>
+    <figcaption>Representation of OWL SubObjectPropertyOf axioms in a LPG.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span>The same strategy applies for <b>SubDataPropertyOf</b> and <b>SubAnnotationPropertyOf</b> axioms.</p>
@@ -506,17 +521,45 @@ Example queries:
    <!-- ObjectPropertyChain Axioms -->
    <h4 id="property-chain-axioms"><span class="secno">3.2.2 </span> PropertyChain Axioms</h4>
 
+   <p>OWL property chain axioms are mapped to LPG by first representing the <code>ObjectPropertyChain</code> class expression type as a node, connected to the first property in the chain, which then is connected to the second property.</p>
+
+   <table class="data">
+    <caption>Mapping ObjectPropertyChain expressions to LPG.</caption>
+    <colgroup style="width:40%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>SubObjectPropertyOf( ObjectPropertyChain(OP<sub>1</sub> OP<sub>2</sub>) OP<sub>3</sub>)</code></td>
+      <td><code>ObjectPropertyChain:<i>SubObjectPropertyExpression</i> -> OP<sub>1</sub>:<i>ObjectProperty</i> -> OP<sub>2</sub>:<i>ObjectProperty</i> -> SubObjectPropertyOf:<i>Axiom</i> -> OP<sub>3</sub>:<i>ObjectProperty</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
+
    <p class="example" id="example-objectpropertychain"> SubObjectPropertyOf( ObjectPropertyChain( :p :q ) :r ) </p>
    <figure>
     <img src="images/object-property-chain.png">
-    <figcaption>Representation of OWL SubPropertyOf axioms with ObjectPropertyChain restrictions in a LPG.</figcaption>
+    <figcaption>Representation of OWL SubObjectPropertyOf axioms with ObjectPropertyChain restrictions in a LPG.</figcaption>
    </figure>
 
 
    <!-- TransitiveObjectProperty Axioms -->
-   <h4 id="transitive-property-axioms"><span class="secno">3.2.3 </span> TransitiveProperty Axioms</h4>
+   <h4 id="transitive-property-axioms"><span class="secno">3.2.3 </span> TransitiveObjectProperty Axioms</h4>
 
    <p>Property characteristics (e.g., symmetric, reflexive, functional, etc.) are mapped to nodes representing the corresponding axiom types in the OWL 2 structural specification (<code>SymmetricObjectProperty, ReflexiveObjectProperty, FunctionalDataProperty</code>, etc., respectively).
+
+   <table class="data">
+    <caption>Mapping TransitiveObjectProperty axioms to LPG.</caption>
+    <colgroup style="width:35%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>TransitiveObjectProperty(OP<sub>1</sub>)</code></td>
+      <td><code>OP<sub>1</sub>:<i>ObjectProperty</i> -> TransitiveObjectProperty:<i>Axiom</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
 
    <p class="example" id="example-equivalent-intersection"> TransitiveObjectProperty( :p )</p>
    <figure>
@@ -530,10 +573,25 @@ Example queries:
    <!-- Domain and Range -->
    <h4 id="domain-axioms"><span class="secno">3.2.4 </span> PropertyDomain (and Range) Axioms</h4>
 
+   <p>OWL axioms describing the domain (or range) of an object property are mapped to LPG by first representing the property in the LPG, connected to the respective axiom type (i.e., <code>ObjectPropertyDomain</code>), which then connects to the class expression representing the domain of the property.</p>
+
+   <table class="data">
+    <caption>Mapping ObjectPropertyDomain axioms to LPG.</caption>
+    <colgroup style="width:40%"></colgroup>
+    <colgroup></colgroup>
+    <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
+    <tbody><tr>
+      <td><code>ObjectPropertyDomain(OP<sub>1</sub> CE<sub>1</sub>)</code></td>
+      <td><code>OP<sub>1</sub>:<i>ObjectProperty</i> -> ObjectPropertyDomain:<i>Axiom</i> -> CE<sub>1</sub>:<i>ClassExpression</i></code></td></tr>
+    </tbody>
+   </table>
+
+   <p>For example, consider the following axiom and its corresponding LPG representation below.</p>
+
    <p class="example" id="example-domain"> ObjectPropertyDomain( :p :A )</p>
    <figure>
     <p><img src="images/domain.png"></p>
-    <figcaption>Representation of OWL property Domain axioms in a LPG.</figcaption>
+    <figcaption>Representation of OWL ObjectPropertyDomain axioms in a LPG.</figcaption>
    </figure>
 
    <p class="note"><span class="marker">Note:</span><b>ObjectPropertyRange</b> axioms are represented similarly, by just swapping the <code>objectPropertyDomain</code> node by the <code>objectPropertyRange</code> node. The same strategy applies for <b>dataPropertyDomain</b>, <b>dataPropertyRange</b>, <b>annotationPropertyDomain</b>, and <b>annotationPropertyRange</b> axioms.</p>
@@ -712,6 +770,10 @@ Example queries:
   In this section we record all major changes to the document, in reverse chronological order.
 
   <dl>
+  <dt><code>March 2, 2020</code></dt>
+  <dd>Added text describing or clarifying the OWL to LPG mapping of <a href="#property-axioms">Property Axioms</a>.</dd>
+  <dd>Added tables depicting mapping rules of <a href="#property-axioms">Property Axioms</a>.</dd>
+
   <dt><code>February 28, 2020</code></dt>
   <dd>Added text describing or clarifying the OWL to LPG mapping of <a href="#class-axioms">Class Axioms</a>.</dd>
   <dd>Added tables depicting mapping rules of <a href="#class-axioms">Class Axioms</a>.</dd>
