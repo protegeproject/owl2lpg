@@ -181,7 +181,7 @@ Example queries:
 
     <dt id="duplicate-nodes">Nodes denoting OWL Classes, Individuals, and Datatypes are reused when possible. Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.</dt> 
     
-    <dd>When mapping OWL to LPG, we <u>generally</u> reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The <u>exception</u> is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass. In such cases, the nodes to represent the complex class expression in the subclass position of the GCI will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how axioms should be parsed back from the LPG.</dd>
+    <dd>When mapping OWL to LPG, we <u>generally</u> reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The <u>exception</u> is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass (e.g., things that have pets are kinds of <code>PetOwner</code>, i.e, <code>:hasPet some :Pet SubClassOf :PetOwner</code>). In such cases, the nodes to represent the complex class expression in the subclass position of the axiom will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how OWL axioms can be parsed from the LPG.</dd>
 
     <dd>For example, consider the axioms: <code>A SubClassOf p some B. A SubClassOf p some C. B SubClassOf D.</code> Here, the nodes for <code>A</code> and <code>B</code> would be reused, but the nodes for <code>SubClassOf, p,</code> and <code>some</code> would be duplicated. We duplicate the <code>SubClassOf</code> node (and generally, axiom type nodes) to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom when parsing the LPG.</dd>
 
@@ -333,7 +333,7 @@ Example queries:
    <!-- SubClassOf Axioms -->
    <h4 id="subclassof-axioms"><span class="secno">3.1.1 </span> SubClassOf Axioms</h4>
 
-   <p>A <code>SubClassOf</code> axiom between two atomic OWL classes (i.e., named classes) is mapped to a pair of nodes denoting the atomic classes in a LPG, connected via unnamed edges through the node denoting the axiom type <code>SubClassOf:<i>Axiom</i></code>.</p>
+   <p>A <code>SubClassOf</code> axiom between two class expressions, either complex or atomic OWL classes (i.e., named classes), is mapped to a pair of nodes denoting the class expressions in a LPG, connected through the node denoting the axiom type <code>SubClassOf:<i>Axiom</i></code>.</p>
 
    <table class="data">
     <caption>Mapping SubClassOf axioms between named classes to LPG.</caption>
@@ -341,8 +341,8 @@ Example queries:
     <colgroup></colgroup>
     <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
     <tbody><tr>
-      <td><code>SubClassOf(C<sub>1</sub> C<sub>2</sub>)<br><small>C<sub>1</sub>,C<sub>2</sub> atomic</small></code></td>
-      <td><code>C<sub>1</sub>:<i>Class</i> -> SubClassOf:<i>Axiom</i> -> C<sub>2</sub>:<i>Class</i></code></td></tr>
+      <td><code>SubClassOf(CE<sub>1</sub> CE<sub>2</sub>)<br><small>CE<sub>1</sub>,CE<sub>2</sub> possibly complex</small></code></td>
+      <td><code>CE<sub>1</sub>:<i>ClassExpression</i> -> SubClassOf:<i>Axiom</i> -> CE<sub>2</sub>:<i>ClassExpression</i></code></td></tr>
     </tbody>
    </table>
 
@@ -366,8 +366,8 @@ Example queries:
     <colgroup></colgroup>
     <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
     <tbody><tr>
-      <td><code>SubClassOf(C<sub>1</sub> ObjectSomeValuesFrom(OP CE<sub>2</sub>)<br><small>C<sub>1</sub> atomic, CE<sub>2</sub> possibly complex</small></code></td>
-      <td><code>C<sub>1</sub>:<i>Class</i> -> SubClassOf:<i>Axiom</i> -> ObjectSomeValuesFrom:<i>ClassExpression</i> -> OP:<i>ObjectProperty</i> -> CE<sub>2</sub>:<i>ClassExpression</i></code></td></tr>
+      <td><code>SubClassOf(CE<sub>1</sub> ObjectSomeValuesFrom(OP CE<sub>2</sub>)<br><small>CE<sub>1</sub>,CE<sub>2</sub> possibly complex</small></code></td>
+      <td><code>CE<sub>1</sub>:<i>ClassExpression</i> -> SubClassOf:<i>Axiom</i> -> ObjectSomeValuesFrom:<i>ClassExpression</i> -> OP:<i>ObjectProperty</i> -> CE<sub>2</sub>:<i>ClassExpression</i></code></td></tr>
     </tbody>
    </table>
 
@@ -391,8 +391,8 @@ Example queries:
     <colgroup></colgroup>
     <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
     <tbody><tr>
-      <td><code>SubClassOf(C<sub>1</sub> HasSelf(OP))<br><small>C<sub>1</sub> atomic</small></code></td>
-      <td><code>C<sub>1</sub>:<i>ClassExpression</i> -> SubClassOf:<i>Axiom</i> -> ObjectHasSelf:<i>ClassExpression</i> -> OP:<i>ObjectProperty</i></code></td></tr>
+      <td><code>SubClassOf(CE<sub>1</sub> HasSelf(OP))<br><small>CE<sub>1</sub> possibly complex</small></code></td>
+      <td><code>CE<sub>1</sub>:<i>ClassExpression</i> -> SubClassOf:<i>Axiom</i> -> ObjectHasSelf:<i>ClassExpression</i> -> OP:<i>ObjectProperty</i></code></td></tr>
     </tbody>
    </table>
 
@@ -415,8 +415,8 @@ Example queries:
     <colgroup></colgroup>
     <thead><tr><th>OWL</th><th>LPG</th></tr></thead>
     <tbody><tr>
-      <td><code>EquivalentClasses(C<sub>1</sub>,C<sub>2</sub>,...,C<sub>n</sub>)<br><small>C<sub>1</sub>,C<sub>2</sub>,...,C<sub>n</sub> atomic</small></code></td>
-      <td><code>C<sub>1</sub>:<i>Class</i> <-> EquivalentClasses:<i>Axiom</i> <-> C<sub>2</sub>:<i>Class</i>,..., C<sub>n</sub>:<i>Class</i></code></td>
+      <td><code>EquivalentClasses(CE<sub>1</sub>,CE<sub>2</sub>,...,CE<sub>n</sub>)<br><small>CE<sub>1</sub>,CE<sub>2</sub>,...,CE<sub>n</sub> possibly complex</small></code></td>
+      <td><code>CE<sub>1</sub>:<i>ClassExpression</i> <-> EquivalentClasses:<i>Axiom</i> <-> CE<sub>2</sub>:<i>ClassExpression</i>,...,CE<sub>n</sub>:<i>ClassExpression</i></code></td>
     </tr>
     </tbody>
    </table>
