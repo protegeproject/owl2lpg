@@ -128,17 +128,13 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 ## 1 Introduction
 
-This document specifies a mapping of OWL 2 EL axioms to a Labeled Property Graph (LPG) representation, and vice-versa. The mapping we specify here can be used to transform any OWL 2 EL ontology into a Labeled Property Graph. While initially targeted to transform OWL 2 EL ontologies, the design of this mapping is intended to be extensible to OWL 2 axioms of arbitrary expressivity.
+This document specifies a mapping of OWL 2 axioms to a Labeled Property Graph (LPG) representation, and vice-versa.
 
 
 
 ### 1.1 Document conventions
 
 OWL axioms are denoted using [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax).
-
-For succintness, the base prefix of OWL entities' IRIs is assumed to be `http://protege.stanford.edu/basf/`, and only denoted by the empty prefix ':' when we write out axioms.
-
-> For example, the entity with IRI `http://protege.stanford.edu/basf/A `is shortened to `:A `in axioms.
 
 
 
