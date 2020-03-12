@@ -415,7 +415,9 @@ A subclass axiom `SubClassOf( CE1 CE2 )` states that the class expression `CE1` 
 <u>OWL 2 Notation</u>:
 
 ​	**SubClassOf** := 'SubClassOf' '(' { **Annotation** } **subClassExpression** **superClassExpression** ')'
+
 ​	**subClassExpression** := **ClassExpression**
+
 ​	**superClassExpression** := **ClassExpression**
 
 <u>LPG Diagram</u>:
@@ -461,7 +463,9 @@ An object sub property axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom stat
 <u>OWL 2 Notation</u>:
 
 ​	**SubObjectPropertyOf** := 'SubObjectPropertyOf' '(' { **Annotation** } **subObjectPropertyExpression** **superObjectPropertyExpression** ')'
+
 ​	**subObjectPropertyExpression** := **ObjectPropertyExpression**
+
 ​	**superObjectPropertyExpression** := **ObjectPropertyExpression**
 
 <u>LPG Diagram</u>:
@@ -576,9 +580,11 @@ A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data pro
 
 <u>OWL 2 Notation</u>:
 
-​	**SubDataPropertyOf** := 'SubDataPropertyOf' '(' { **Annotation** } **subDataPropertyExpression** **superDataPropertyExpression** ')'
-​	**subDataPropertyExpression** := **DataProperty**
-​	**superDataPropertyExpression** := **DataProperty**
+​	**SubDataPropertyOf** := 'SubDataPropertyOf' '(' { **Annotation** } **subDataProperty ** **superDataProperty** ')'
+
+​	**subDataProperty** := **DataProperty**
+
+​	**superDataProperty** := **DataProperty**
 
 <u>LPG Diagram</u>:
 
@@ -743,6 +749,7 @@ Ontologies, axioms, and annotations themselves can be annotated using annotation
 <u>OWL 2 Notation</u>:
 
 ​	**Annotation** := 'Annotation' '(' { **Annotation** } **AnnotationProperty** **AnnotationValue** ')'
+
 ​	**AnnotationValue** :=  **Literal** | **IRI**
 
 <u>LPG Diagram</u>:
@@ -758,6 +765,7 @@ An annotation assertion `AnnotationAssertion( AP as av )` states that the annota
 <u>OWL 2 Notation</u>:
 
 ​	**AnnotationAssertion** := 'AnnotationAssertion' '(' { **Annotation** } **AnnotationProperty** **AnnotationSubject** **AnnotationValue** ')'
+
 ​	**AnnotationValue** :=  **Literal** | **IRI**
 
 <u>LPG Diagram</u>:
@@ -771,7 +779,9 @@ An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that
 <u>OWL 2 Notation</u>:
 
 ​	**SubAnnotationPropertyOf** := 'SubAnnotationPropertyOf' '(' { **Annotation** } **subAnnotationProperty** **superAnnotationProperty** ')'
+
 ​	**subAnnotationProperty** := **AnnotationProperty**
+
 ​	**superAnnotationProperty** := **AnnotationProperty**
 
 <u>LPG Diagram</u>:
