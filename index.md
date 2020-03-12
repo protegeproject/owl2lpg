@@ -242,7 +242,7 @@ A *union* class expression `ObjectUnionOf( CE1 ... CEn )` contains all individua
 
 <u>LPG Diagram</u>:
 
-![class-expression-object-set-operations](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-set-operations.png)
+![class-expression-object-set-operations](images/class-expression-object-set-operations.png)
 
 
 
@@ -256,7 +256,7 @@ A complement class expression `ObjectComplementOf( CE )` contains all individual
 
 <u>LPG Diagram</u>:
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-complement.png" alt="class-expression-object-complement" style="zoom:55%;" />
+<img src="images/class-expression-object-complement.png" alt="class-expression-object-complement" style="zoom:55%;" />
 
 
 
@@ -270,7 +270,7 @@ An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the in
 
 <u>LPG Diagram</u>:
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-one-of.png" alt="class-expression-object-one-of" style="zoom: 55%;" />
+<img src="images/class-expression-object-one-of.png" alt="class-expression-object-one-of" style="zoom: 55%;" />
 
 
 
@@ -290,7 +290,7 @@ A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an ob
 
 <u>LPG Diagram</u>:
 
-![class-expression-object-restrictions](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-restrictions.png)
+![class-expression-object-restrictions](images/class-expression-object-restrictions.png)
 
 
 
@@ -304,7 +304,7 @@ A has-value class expression `ObjectHasValue( OPE a )` consists of an object pro
 
 <u>LPG Diagram</u>:
 
-![class-expression-object-has-value](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-has-value.png)
+![class-expression-object-has-value](images/class-expression-object-has-value.png)
 
 
 
@@ -318,7 +318,7 @@ A self-restriction `ObjectHasSelf( OPE )` consists of an object property express
 
 <u>LPG Diagram</u>:
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-has-self.png" alt="class-expression-object-has-self" style="zoom:55%;" />
+<img src="images/class-expression-object-has-self.png" alt="class-expression-object-has-self" style="zoom:55%;" />
 
 
 
@@ -342,7 +342,7 @@ In all cases, if `CE` is missing, it is taken to be *owl:Thing*.
 
 <u>LPG Diagram</u>:
 
-![class-expression-object-cardinality](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-object-cardinality.png)
+![class-expression-object-cardinality](images/class-expression-object-cardinality.png)
 
 
 
@@ -362,7 +362,7 @@ A *universal* class expression `DataAllValuesFrom( DP1 ... DPn DR )` consists of
 
 <u>LPG Diagram</u>:
 
-![class-expression-data-restrictions](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-data-restrictions.png)
+![class-expression-data-restrictions](images/class-expression-data-restrictions.png)
 
 
 
@@ -376,7 +376,7 @@ A has-value class expression `DataHasValue( DP lt )` consists of a data property
 
 <u>LPG Diagram</u>:
 
-![axiom-hasvalue-dataproperties](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-hasvalue-dataproperties.png)
+![axiom-hasvalue-dataproperties](images/axiom-hasvalue-dataproperties.png)
 
 
 
@@ -400,7 +400,7 @@ In all cases, if `DR` is not present, it is taken to be *rdfs:Literal*.
 
 <u>LPG Diagram</u>:
 
-![class-expression-data-cardinalities](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/class-expression-data-cardinalities.png)
+![class-expression-data-cardinalities](images/class-expression-data-cardinalities.png)
 
 
 
@@ -420,7 +420,7 @@ A subclass axiom `SubClassOf( CE1 CE2 )` states that the class expression `CE1` 
 
 <u>LPG Diagram</u>:
 
-![axiom-subclass-of](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-subclass-of.png)
+![axiom-subclass-of](images/axiom-subclass-of.png)
 
 
 
@@ -434,7 +434,7 @@ An equivalent classes axiom `EquivalentClasses( CE1 ... CEn )` states that all o
 
 <u>LPG Diagram</u>:
 
-![axiom-equivalent-classes](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-equivalent-classes.png)
+![axiom-equivalent-classes](images/axiom-equivalent-classes.png)
 
 
 
@@ -448,7 +448,7 @@ A disjoint classes axiom `DisjointClasses( CE1 ... CEn )` states that all of the
 
 <u>LPG Diagram</u>:
 
-![axiom-disjoint-classes](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-disjoint-classes.png)
+![axiom-disjoint-classes](images/axiom-disjoint-classes.png)
 
 
 
@@ -466,7 +466,7 @@ An object sub property axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom stat
 
 <u>LPG Diagram</u>:
 
-![axiom-subobjectproperty-of](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-subobjectproperty-of.png)
+![axiom-subobjectproperty-of](images/axiom-subobjectproperty-of.png)
 
 
 
@@ -480,7 +480,7 @@ An equivalent object properties axiom `EquivalentObjectProperties( OPE1 ... OPEn
 
 <u>LPG Diagram</u>:
 
-![axiom-equivalent-objectproperties](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-equivalent-objectproperties.png)
+![axiom-equivalent-objectproperties](images/axiom-equivalent-objectproperties.png)
 
 
 
@@ -494,7 +494,7 @@ A disjoint object properties axiom `DisjointObjectProperties( OPE1 ... OPEn )` s
 
 <u>LPG Diagram</u>:
 
-![axiom-disjoint-objectproperties](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-disjoint-objectproperties.png)
+![axiom-disjoint-objectproperties](images/axiom-disjoint-objectproperties.png)
 
 
 
@@ -508,7 +508,7 @@ An inverse object properties axiom `InverseObjectProperties( OPE1 OPE2 )` states
 
 <u>LPG Diagram</u>:
 
-![axiom-inverse-objectproperties](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-inverse-objectproperties.png)
+![axiom-inverse-objectproperties](images/axiom-inverse-objectproperties.png)
 
 
 
@@ -526,7 +526,7 @@ An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the
 
 <u>LPG Diagram</u>:
 
-![axiom-objectproperty-domainrange](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-objectproperty-domainrange.png)
+![axiom-objectproperty-domainrange](images/axiom-objectproperty-domainrange.png)
 
 
 
@@ -564,7 +564,7 @@ An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states
 
 <u>LPG Diagram</u>:
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-objectproperty-characteristics.png" alt="axiom-objectproperty-characteristics" style="zoom:55%;" />
+<img src="images/axiom-objectproperty-characteristics.png" alt="axiom-objectproperty-characteristics" style="zoom:55%;" />
 
 
 
@@ -582,7 +582,7 @@ A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data pro
 
 <u>LPG Diagram</u>:
 
-![axiom-subdataproperty-of](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-subdataproperty-of.png)
+![axiom-subdataproperty-of](images/axiom-subdataproperty-of.png)
 
 
 
@@ -596,7 +596,7 @@ An equivalent data properties axiom `EquivalentDataProperties( DP1 ... DPn )` st
 
 <u>LPG Diagram</u>:
 
-![axiom-equivalent-dataproperties](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-equivalent-dataproperties.png)
+![axiom-equivalent-dataproperties](images/axiom-equivalent-dataproperties.png)
 
 
 
@@ -610,7 +610,7 @@ A disjoint data properties axiom `DisjointDataProperties( DP1 ... DPn )` states 
 
 <u>LPG Diagram</u>:
 
-![axiom-disjoint-dataproperties](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-disjoint-dataproperties.png)
+![axiom-disjoint-dataproperties](images/axiom-disjoint-dataproperties.png)
 
 
 
@@ -624,7 +624,7 @@ A data property domain axiom `DataPropertyDomain( DP CE )` states that the domai
 
 <u>LPG Diagram</u>:
 
-![axiom-dataproperty-domain](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-dataproperty-domain.png)
+![axiom-dataproperty-domain](images/axiom-dataproperty-domain.png)
 
 
 
@@ -638,7 +638,7 @@ A data property range axiom `DataPropertyRange( DP DR )` states that the range o
 
 <u>LPG Diagram</u>:
 
-![axiom-dataproperty-range](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-dataproperty-range.png)
+![axiom-dataproperty-range](images/axiom-dataproperty-range.png)
 
 
 
@@ -652,7 +652,7 @@ A data property functionality axiom `FunctionalDataProperty( DP )` states that t
 
 <u>LPG Diagram</u>:
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-dataproperty-characteristics.png" alt="axiom-dataproperty-characteristics" style="zoom:55%;" />
+<img src="images/axiom-dataproperty-characteristics.png" alt="axiom-dataproperty-characteristics" style="zoom:55%;" />
 
 
 
@@ -668,7 +668,7 @@ A class assertion `ClassAssertion( CE a )` states that the individual `a` is an 
 
 <u>LPG Diagram</u>:
 
-![axiom-class-assertion](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-class-assertion.png)
+![axiom-class-assertion](images/axiom-class-assertion.png)
 
 
 
@@ -686,7 +686,7 @@ A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2
 
 <u>LPG Diagram</u>:
 
-![axiom-objectproperty-assertion](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-objectproperty-assertion.png)
+![axiom-objectproperty-assertion](images/axiom-objectproperty-assertion.png)
 
 
 
@@ -704,7 +704,7 @@ A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` st
 
 <u>LPG Diagram</u>:
 
-![axiom-dataproperty-assertion](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-dataproperty-assertion.png)
+![axiom-dataproperty-assertion](images/axiom-dataproperty-assertion.png)
 
 
 
@@ -718,7 +718,7 @@ An individual equality axiom `SameIndividual( a1 ... an )` states that all of th
 
 <u>LPG Diagram</u>:
 
-![axiom-same-individual](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-same-individual.png)
+![axiom-same-individual](images/axiom-same-individual.png)
 
 #### 3.4.5 Individual Inequality
 
@@ -730,7 +730,7 @@ An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that a
 
 <u>LPG Diagram</u>:
 
-![axiom-different-individuals](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-different-individuals.png)
+![axiom-different-individuals](images/axiom-different-individuals.png)
 
 
 
@@ -747,7 +747,7 @@ Ontologies, axioms, and annotations themselves can be annotated using annotation
 
 <u>LPG Diagram</u>:
 
-![annotation](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/annotation.png)
+![annotation](images/annotation.png)
 
 ### 4.2 Annotation Axioms
 
@@ -762,7 +762,7 @@ An annotation assertion `AnnotationAssertion( AP as av )` states that the annota
 
 <u>LPG Diagram</u>:
 
-![axiom-annotation-assertion](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-annotation-assertion.png)
+![axiom-annotation-assertion](images/axiom-annotation-assertion.png)
 
 #### 4.2.2 Annotation Subproperty
 
@@ -776,7 +776,7 @@ An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that
 
 <u>LPG Diagram</u>:
 
-![axiom-subannotationproperty-of](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/axiom-subannotationproperty-of.png)
+![axiom-subannotationproperty-of](images/axiom-subannotationproperty-of.png)
 
 
 
@@ -784,7 +784,7 @@ An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that
 
 ## 5 Change History
 
-![change-history](/Users/jhardi/Documents/Projects/Github/owl2lpg/images/change-history.png)
+![change-history](images/change-history.png)
 
 
 
