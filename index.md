@@ -256,7 +256,7 @@ A complement class expression `ObjectComplementOf( CE )` contains all individual
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-complement.png" alt="class-expression-object-complement" style="zoom:55%;" />
+<img src="images/class-expression-object-complement.png" alt="class-expression-object-complement" width="500px"/>
 
 
 
@@ -270,7 +270,7 @@ An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the in
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-one-of.png" alt="class-expression-object-one-of" style="zoom: 55%;" />
+<img src="images/class-expression-object-one-of.png" alt="class-expression-object-one-of" width="500px" />
 
 
 
@@ -318,7 +318,7 @@ A self-restriction `ObjectHasSelf( OPE )` consists of an object property express
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-has-self.png" alt="class-expression-object-has-self" style="zoom:55%;" />
+<img src="images/class-expression-object-has-self.png" alt="class-expression-object-has-self" width="500px" />
 
 
 
@@ -564,7 +564,7 @@ An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-objectproperty-characteristics.png" alt="axiom-objectproperty-characteristics" style="zoom:55%;" />
+<img src="images/axiom-objectproperty-characteristics.png" alt="axiom-objectproperty-characteristics" width="500px" />
 
 
 
@@ -652,7 +652,7 @@ A data property functionality axiom `FunctionalDataProperty( DP )` states that t
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-dataproperty-characteristics.png" alt="axiom-dataproperty-characteristics" style="zoom:55%;" />
+<img src="images/axiom-dataproperty-characteristics.png" alt="axiom-dataproperty-characteristics" width="500px" />
 
 
 
