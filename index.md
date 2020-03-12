@@ -580,7 +580,7 @@ A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data pro
 
 <u>OWL 2 Notation</u>:
 
-​	**SubDataPropertyOf** := 'SubDataPropertyOf' '(' { **Annotation** } **subDataProperty ** **superDataProperty** ')'
+​	**SubDataPropertyOf** := 'SubDataPropertyOf' '(' { **Annotation** } **subDataProperty** **superDataProperty** ')'
 
 ​	**subDataProperty** := **DataProperty**
 
