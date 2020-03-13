@@ -132,17 +132,11 @@ This document specifies a mapping of OWL 2 axioms to a Labeled Property Graph (L
 
 
 
-### 1.1 Document conventions
-
-OWL axioms are denoted using [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax).
-
-
-
-### 1.2 Main Requirements
+### 1.1 Main Requirements
 
 In this section we lay out important requirements that drive the design of the OWL to LPG mapping.
 
-#### 1.2.1 Tooling Requirements
+#### 1.1.1 Tooling Requirements
 
 Here we enumerate illustrative examples of the kinds of queries that should be both easily expressible (in [Cypher](https://neo4j.com/developer/cypher-query-language)) and well performant for large knowledge bases. We use the [WebProtégé cloud-based ontology editor](https://webprotege.stanford.edu) as the baseline for performance. The goal is to achieve a query performance that is superior to the performance of executing the same queries in WebProtégé 4.0 (non-LPG).
 
@@ -155,13 +149,13 @@ Example queries:
 6. Get the last changes for `A`.
 7. Get the axioms in the latest revision of `O`.
 
-#### 1.2.2 BASF Use-Case Requirements
+#### 1.1.2 BASF Use-Case Requirements
 
 TBA
 
 
 
-### 1.3 Design Choices
+### 1.2 Design Choices
 
 Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe in detail some key design choices, which serve to allow us to fulfil the requirements laid out in [Section 1.2](#requirements).
 
@@ -174,7 +168,7 @@ Our overarching design principle is to prioritize representational **consistency
 
 - **OWL class expression types are represented as nodes in a LPG**. This follows from the previous design choice. For example, `owl:someValuesFrom` and `owl:intersectionOf` class expression types will each be represented by its own node.
 
-- **Nodes denoting OWL Classes, Individuals, and Datatypes are reused when possible.  Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.** 
+- **Nodes denoting OWL entities (i.e., class, data property, object property, annotation property, individual, and datatype) are reused when possible.  Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.** 
 
   When mapping OWL to LPG, we generally reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The exception is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass (e.g., things that have pets are kinds of `PetOwner`, i.e, `:hasPet some :Pet SubClassOf :PetOwner`). In such cases, the nodes to represent the complex class expression in the subclass position of the axiom will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how OWL axioms can be parsed from the LPG.
 
@@ -194,7 +188,41 @@ Our overarching design principle is to prioritize representational **consistency
 
 
 
-### 1.4 Similar Mappings
+### 1.3 Document Conventions
+
+The OWL 2 Web Ontology Language notations are written in [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax).
+
+The Labelled Property Graphs diagram consists of nodes and edges. Nodes are depicted as round edge rectangles and edges are depicted as directed arrows.
+
+We defined 11 labelled nodes to construct an LPG:
+
+1. Ontology
+2. Entity
+3. ClassExpression
+4. ObjectPropertyExpression
+5. Axiom
+6. Value
+7. Datatype
+8. DataRange
+9. Revision
+10. Operation
+11. Person
+
+Some nodes will have a `type` property to represent the *kind* of OWL objects. For example, the figure below indicates that the Entity node represents the OWL Class entity. The 'Class' string is a reserved keyword in the specification. 
+
+<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-class-type.png" alt="node-class-type" width="200;" />
+
+A node can have several keywords separated by a pipe (`|`) delimiter. For example, the figure below indicates that the Axiom node can be one of the object property characteristics.
+
+<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-many-types.png" alt="node-many-types" width="200" />
+
+Moreover, if the node has `'type' = any` then it means the value can be any keyword that the node can support. For example, the figure below indicates the Entity node can be any kind of OWL entities (i.e., Class, Data Property, Object Property, Annotation Property, Individual or Datatype).
+
+<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/convention-type-any.png" alt="convention-type-any" width="500" />
+
+
+
+### 1.4 Similar Works
 
 In this section we compare and contrast the mapping described in this document with existing approaches to transform OWL ontologies to LPGs.
 
