@@ -59,19 +59,16 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 **Table of Content**
 
 * [1 Introduction](#1-introduction)
-  
-   * [1.1 Document conventions](#11-document-conventions)
-   * [1.2 Main Requirements](#12-main-requirements)
-      * [1.2.1 Tooling Requirements](#121-tooling-requirements)
-      * [1.2.2 BASF Use-Case Requirements](#122-basf-use-case-requirements)
-   * [1.3 Design Choices](#13-design-choices)
-   * [1.4 Similar Mappings](#14-similar-mappings)
+   * [1.1 Main Requirements](#11-main-requirements)
+      * [1.1.1 Tooling Requirements](#111-tooling-requirements)
+      * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
+   * [1.2 Design Choices](#12-design-choices)
+   * [1.3 Document Conventions](#13-document-conventions)
+   * [1.4 Similar Works](#14-similar-works)
       * [1.4.1 SciGraph](#141-scigraph)
       * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
       * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
-   
 * [2 Class Expressions](#2-class-expressions)
-  
    * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
       * [2.1.1 Intersection and Union of Class Expressions](#211-intersection-and-union-of-class-expressions)
       * [2.1.2 Complement of Class Expressions](#212-complement-of-class-expressions)
@@ -85,7 +82,6 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
       * [2.4.1 Existential and Universal Quantification](#241-existential-and-universal-quantification)
       * [2.4.2 Literal Value Restriction](#242-literal-value-restriction)
    * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
-   
 * [3 Axioms](#3-axioms)
    * [3.1 Class Expression Axioms](#31-class-expression-axioms)
       * [3.1.1 Subclass](#311-subclass)
@@ -111,16 +107,12 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
       * [3.4.3 Data Property Assertions](#343-data-property-assertions)
       * [3.4.4 Individual Equality](#344-individual-equality)
       * [3.4.5 Individual Inequality](#345-individual-inequality)
-   
 * [4 Annotations](#4-annotations)
    * [4.1 Annotation of Ontologies, Axioms, and other Annotations](#41-annotation-of-ontologies-axioms-and-other-annotations)
    * [4.2 Annotation Axioms](#42-annotation-axioms)
       * [4.2.1 Annotation Assertions](#421-annotation-assertions)
       * [4.2.2 Annotation Subproperty](#422-annotation-subproperty)
-   
-* [5 Change History](#5-change-history)   
-
-   
+* [5 Change History](#5-change-history)
 
 ---
 
