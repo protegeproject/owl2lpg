@@ -58,61 +58,64 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 **Table of Content**
 
-* [1 Introduction](#1-introduction)
-   * [1.1 Main Requirements](#11-main-requirements)
-      * [1.1.1 Tooling Requirements](#111-tooling-requirements)
-      * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
-   * [1.2 Design Choices](#12-design-choices)
-   * [1.3 Document Conventions](#13-document-conventions)
-   * [1.4 Similar Works](#14-similar-works)
-      * [1.4.1 SciGraph](#141-scigraph)
-      * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
-      * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
-* [2 Class Expressions](#2-class-expressions)
-   * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
-      * [2.1.1 Intersection and Union of Class Expressions](#211-intersection-and-union-of-class-expressions)
-      * [2.1.2 Complement of Class Expressions](#212-complement-of-class-expressions)
-      * [2.1.3 Enumeration of Individuals](#213-enumeration-of-individuals)
-   * [2.2 Object Property Restrictions](#22-object-property-restrictions)
-      * [2.2.1 Existential and Universal Quantification](#221-existential-and-universal-quantification)
-      * [2.2.2 Individual Value Restriction](#222-individual-value-restriction)
-      * [2.2.3 Self-Restriction](#223-self-restriction)
-   * [2.3 Object Property Cardinality Restrictions](#23-object-property-cardinality-restrictions)
-   * [2.4 Data Property Restrictions](#24-data-property-restrictions)
-      * [2.4.1 Existential and Universal Quantification](#241-existential-and-universal-quantification)
-      * [2.4.2 Literal Value Restriction](#242-literal-value-restriction)
-   * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
-* [3 Axioms](#3-axioms)
-   * [3.1 Class Expression Axioms](#31-class-expression-axioms)
-      * [3.1.1 Subclass](#311-subclass)
-      * [3.1.2 Equivalent Classes](#312-equivalent-classes)
-      * [3.1.3 Disjoint Classes](#313-disjoint-classes)
-   * [3.2 Object Property Axioms](#32-object-property-axioms)
-      * [3.2.1 Object Subproperty](#321-object-subproperty)
-      * [3.2.2 Equivalent Object Properties](#322-equivalent-object-properties)
-      * [3.2.3 Disjoint Object Properties](#323-disjoint-object-properties)
-      * [3.2.4 Inverse Object Properties](#324-inverse-object-properties)
-      * [3.2.5 Object Property Domain and Range](#325-object-property-domain-and-range)
-      * [3.2.6 Object Property Characteristics](#326-object-property-characteristics)
-   * [3.3 Data Property Axioms](#33-data-property-axioms)
-      * [3.3.1 Data Subproperty](#331-data-subproperty)
-      * [3.3.2 Equivalent Data Properties](#332-equivalent-data-properties)
-      * [3.3.3 Disjoint Data Properties](#333-disjoint-data-properties)
-      * [3.3.4 Data Property Domain](#334-data-property-domain)
-      * [3.3.5 Data Property Range](#335-data-property-range)
-      * [3.3.6 Data Property Characteristics](#336-data-property-characteristics)
-   * [3.4 Assertions](#34-assertions)
-      * [3.4.1 Class Assertions](#341-class-assertions)
-      * [3.4.2 Object Property Assertions](#342-object-property-assertions)
-      * [3.4.3 Data Property Assertions](#343-data-property-assertions)
-      * [3.4.4 Individual Equality](#344-individual-equality)
-      * [3.4.5 Individual Inequality](#345-individual-inequality)
-* [4 Annotations](#4-annotations)
-   * [4.1 Annotation of Ontologies, Axioms, and other Annotations](#41-annotation-of-ontologies-axioms-and-other-annotations)
-   * [4.2 Annotation Axioms](#42-annotation-axioms)
-      * [4.2.1 Annotation Assertions](#421-annotation-assertions)
-      * [4.2.2 Annotation Subproperty](#422-annotation-subproperty)
-* [5 Change History](#5-change-history)
+ * [1 Introduction](#1-introduction)
+    * [1.1 Main Requirements](#11-main-requirements)
+       * [1.1.1 Tooling Requirements](#111-tooling-requirements)
+       * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
+    * [1.2 Design Choices](#12-design-choices)
+    * [1.3 Document Conventions](#13-document-conventions)
+       * [1.3.1 Reserved Nodes](#131-reserved-nodes)
+       * [1.3.2 Reserved Keywords](#132-reserved-keywords)
+       * [1.3.3 Reading the Node](#133-reading-the-node)
+    * [1.4 Similar Works](#14-similar-works)
+       * [1.4.1 SciGraph](#141-scigraph)
+       * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
+       * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
+ * [2 Class Expressions](#2-class-expressions)
+    * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
+       * [2.1.1 Intersection and Union of Class Expressions](#211-intersection-and-union-of-class-expressions)
+       * [2.1.2 Complement of Class Expressions](#212-complement-of-class-expressions)
+       * [2.1.3 Enumeration of Individuals](#213-enumeration-of-individuals)
+    * [2.2 Object Property Restrictions](#22-object-property-restrictions)
+       * [2.2.1 Existential and Universal Quantification](#221-existential-and-universal-quantification)
+       * [2.2.2 Individual Value Restriction](#222-individual-value-restriction)
+       * [2.2.3 Self-Restriction](#223-self-restriction)
+    * [2.3 Object Property Cardinality Restrictions](#23-object-property-cardinality-restrictions)
+    * [2.4 Data Property Restrictions](#24-data-property-restrictions)
+       * [2.4.1 Existential and Universal Quantification](#241-existential-and-universal-quantification)
+       * [2.4.2 Literal Value Restriction](#242-literal-value-restriction)
+    * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
+ * [3 Axioms](#3-axioms)
+    * [3.1 Class Expression Axioms](#31-class-expression-axioms)
+       * [3.1.1 Subclass](#311-subclass)
+       * [3.1.2 Equivalent Classes](#312-equivalent-classes)
+       * [3.1.3 Disjoint Classes](#313-disjoint-classes)
+    * [3.2 Object Property Axioms](#32-object-property-axioms)
+       * [3.2.1 Object Subproperty](#321-object-subproperty)
+       * [3.2.2 Equivalent Object Properties](#322-equivalent-object-properties)
+       * [3.2.3 Disjoint Object Properties](#323-disjoint-object-properties)
+       * [3.2.4 Inverse Object Properties](#324-inverse-object-properties)
+       * [3.2.5 Object Property Domain and Range](#325-object-property-domain-and-range)
+       * [3.2.6 Object Property Characteristics](#326-object-property-characteristics)
+    * [3.3 Data Property Axioms](#33-data-property-axioms)
+       * [3.3.1 Data Subproperty](#331-data-subproperty)
+       * [3.3.2 Equivalent Data Properties](#332-equivalent-data-properties)
+       * [3.3.3 Disjoint Data Properties](#333-disjoint-data-properties)
+       * [3.3.4 Data Property Domain](#334-data-property-domain)
+       * [3.3.5 Data Property Range](#335-data-property-range)
+       * [3.3.6 Data Property Characteristics](#336-data-property-characteristics)
+    * [3.4 Assertions](#34-assertions)
+       * [3.4.1 Class Assertions](#341-class-assertions)
+       * [3.4.2 Object Property Assertions](#342-object-property-assertions)
+       * [3.4.3 Data Property Assertions](#343-data-property-assertions)
+       * [3.4.4 Individual Equality](#344-individual-equality)
+       * [3.4.5 Individual Inequality](#345-individual-inequality)
+ * [4 Annotations](#4-annotations)
+    * [4.1 Annotation of Ontologies, Axioms, and other Annotations](#41-annotation-of-ontologies-axioms-and-other-annotations)
+    * [4.2 Annotation Axioms](#42-annotation-axioms)
+       * [4.2.1 Annotation Assertions](#421-annotation-assertions)
+       * [4.2.2 Annotation Subproperty](#422-annotation-subproperty)
+ * [5 Change History](#5-change-history)
 
 ---
 
@@ -151,7 +154,7 @@ TBA
 
 Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe in detail some key design choices:
 
-- **The OWL object type is specified by a property value**. Each OWL object is identified through a *reserved keyword* (see 1.3 Reserved Keywords) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity in the graph. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
+- **The OWL object type is specified by a property value**. Each OWL object is identified through a *reserved keyword* (see [1.3.2 Reserved Keywords](#132-reserved-keywords)) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity in the graph. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
 
 - **Complex OWL constructs (e.g., class expression, axioms, data ranges) are depicted as a node with outgoing edges**. Depending on the type of the complex construction, the outgoing edge can be linked to a node or to another complex construction. For example, the OWL SubClassOf axiom will have one `Axiom` node (i.e., with a type equals to 'SubClassOf') and two outgoing edges (i.e., `HAS_SUB` and `HAS_SUPER`) that link to an `Entity` node (i.e., with a type equals to 'Class') or to a complex construction of *any* `ClassExpression` node, in any combinations.
 
@@ -159,15 +162,14 @@ Our overarching design principle is to prioritize representational **consistency
 
   For example, consider the axioms: 
 
-  ```
-AX1: A SubClassOf p some B
+```
+	AX1: A SubClassOf p some B
   AX2: A SubClassOf p some C
   AX3: B SubClassOf D
-  ```
-  
+```
+
   The entity node `A` will be reused (and shared) by `AX1` and `AX2`, and the entity node `B` will be reused (and shared) by `AX1` and `AX3`. If the user deletes the entity node `A` then the axioms `AX1` and `AX2` will be removed as well because node `A` cannot receive the incoming edges `HAS_SUB` from those axioms. After the operation, the axiom `AX3` will become the only remaining axiom, along with the entity nodes `p`, `B`, `C` and `D`.
-  
-  
+
 
 ### 1.3 Document Conventions
 
@@ -192,7 +194,7 @@ We have reserved 10 labelled nodes to construct an LPG:
 
 The first 7 labelled nodes are used to construct an OWL 2 ontology, the `Revision` and `Operation` nodes are for building the change history graph, and lastly the node `Person` is used to store information about authorship.
 
-#### 1.3.1 Reserved Keywords
+#### 1.3.2 Reserved Keywords
 
 We have reserved several keywords used to fill out the `type` property to indicate the OWL object's specific type. The table below shows the complete list:
 
@@ -201,12 +203,12 @@ We have reserved several keywords used to fill out the `type` property to indica
 | `Entity`                   | Class<br />DataProperty<br />ObjectProperty<br />AnnotationProperty<br />Individual<br />Datatype |
 | `ClassExpression`          | ObjectSomeValuesFrom<br />ObjectAllValuesFrom<br />ObjectHasValue<br />ObjectHasSelf<br />ObjectOneOf<br />ObjectIntersectionOf<br />ObjectUnionOf<br />ObjectComplementOf<br />ObjectMinCardinality<br />ObjectMaxCardinality<br />ObjectExactCardinality<br />DataSomeValuesFrom<br />DataAllValuesFrom<br />DataHasValue<br />DataMinCardinality<br />DataMaxCardinality<br />DataExactCardinality |
 | `ObjectPropertyExpression` | ObjectInverseOf                                              |
-| `Axiom`                    | SubClassOf<br />EquivalentClasses<br />DisjointClasses<br />DisjointUnion<br />SubObjectPropertyOf<br />EquivalentObjectProperties<br />DisjointObjectProperties<br />InverseObjectProperties<br />ObjectPropertyDomain<br />ObjectPropertyRange<br />FunctionalObjectProperties<br />InverseFunctionalObjectProperties<br />ReflexiveObjectProperties<br />IrreflexiveObjectProperties<br />SymmetricObjectProperties<br />AsymmetricObjectProperties<br />TransitiveObjectProperties<br />SubDataPropertyOf<br />EquivalentDataProperties<br />DisjointDataProperties<br />DataPropertyDomain<br />DataPropertyRange<br />FunctionalDataProperty<br />DatatypeDefinition<br />HasKey<br />SameIndividual<br />DifferentIndividual<br />ClassAssertion<br />ObjectPropertyAssertion<br />NegativeObjectPropertyAssertion<br /> DataPropertyAssertion<br />NegativeDataPropertyAssertion |
+| `Axiom`                    | SubClassOf<br />EquivalentClasses<br />DisjointClasses<br />DisjointUnion<br />SubObjectPropertyOf<br />EquivalentObjectProperties<br />DisjointObjectProperties<br />InverseObjectProperties<br />ObjectPropertyDomain<br />ObjectPropertyRange<br />FunctionalObjectProperties<br />InverseFunctionalObjectProperties<br />ReflexiveObjectProperties<br />IrreflexiveObjectProperties<br />SymmetricObjectProperties<br />AsymmetricObjectProperties<br />TransitiveObjectProperties<br />SubDataPropertyOf<br />EquivalentDataProperties<br />DisjointDataProperties<br />DataPropertyDomain<br />DataPropertyRange<br />FunctionalDataProperty<br />DatatypeDefinition<br />HasKey<br />SameIndividual<br />DifferentIndividual<br />ClassAssertion<br />ObjectPropertyAssertion<br />NegativeObjectPropertyAssertion<br />DataPropertyAssertion<br />NegativeDataPropertyAssertion |
 | `Value`                    | Literal<br />IRI                                             |
 | `DataRange`                | DataIntersectionOf<br />DataUnionOf<br />DataComplementOf<br />DataOneOf<br />DatatypeRestriction |
 
 
-#### 1.3.2 Reading the Node
+#### 1.3.3 Reading the Node
 
 Some nodes will have a `type` property to represent the *kind* of OWL objects. For example, the figure below indicates that the Entity node represents the OWL Class entity. The 'Class' string is a *reserved keyword* in the specification. 
 
