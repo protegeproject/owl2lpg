@@ -210,15 +210,15 @@ We defined 11 labelled nodes to construct an LPG:
 
 Some nodes will have a `type` property to represent the *kind* of OWL objects. For example, the figure below indicates that the Entity node represents the OWL Class entity. The 'Class' string is a reserved keyword in the specification. 
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-class-type.png" alt="node-class-type" width="200;" />
+<img src="images/node-class-type.png" alt="node-class-type" width="200;" />
 
 A node can have several keywords separated by a pipe (`|`) delimiter. For example, the figure below indicates that the Axiom node can be one of the object property characteristics.
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-many-types.png" alt="node-many-types" width="200" />
+<img src="images/node-many-types.png" alt="node-many-types" width="200" />
 
 Moreover, if the node has `'type' = any` then it means the value can be any keyword that the node can support. For example, the figure below indicates the Entity node can be any kind of OWL entities (i.e., Class, Data Property, Object Property, Annotation Property, Individual or Datatype).
 
-<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/convention-type-any.png" alt="convention-type-any" width="500" />
+<img src="images/convention-type-any.png" alt="convention-type-any" width="500" />
 
 
 
