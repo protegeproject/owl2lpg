@@ -149,44 +149,35 @@ TBA
 
 ### 1.2 Design Choices
 
-Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe in detail some key design choices, which serve to allow us to fulfil the requirements laid out in [Section 1.2](#requirements).
+Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe in detail some key design choices:
 
-- **OWL axiom types are represented as nodes in a LPG**. Each OWL axiom is represented with a single node that denotes its type. For example, `rdfs:SubClassOf` and `owl:EquivalentClasses` axiom types will each be represented by its own node. This decision allows two things to happen:
+- **The OWL object type is specified by a property value**. Each OWL object is identified through a *reserved keyword* (see 1.3 Reserved Keywords) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity in the graph. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
 
-  1. We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).
-  2. We can attach versioning information about the axiom, such as the ontology that contains the axiom, and details about the author, the date, and the number of the revision that last altered the axiom (see [Section 4](#change-history) for full details).
+- **Complex OWL constructs (e.g., class expression, axioms, data ranges) are depicted as a node with outgoing edges**. Depending on the type of the complex construction, the outgoing edge can be linked to a node or to another complex construction. For example, the OWL SubClassOf axiom will have one `Axiom` node (i.e., with a type equals to 'SubClassOf') and two outgoing edges (i.e., `HAS_SUB` and `HAS_SUPER`) that link to an `Entity` node (i.e., with a type equals to 'Class') or to a complex construction of *any* `ClassExpression` node, in any combinations.
 
-- **In general, every resource that has an IRI is represented as a node in a LPG**. All OWL named entities are represented as nodes.
+- **The `Entity` node is reusable through the incoming edges.** The OWL 2 specification defines 6 types of entity: class, object property, data property, annotation property, individual and datatype. These types of node are reusable throughout the entire ontology development, i.e., when the user add new entity expressions or new axioms. In the case of the user delete an entity, a status flag (e.g., `'status' = 'defunct'`) can be used as the removal indicator instead of actually removing the node itself. At this point, the entity cannot accept any incoming edges. If the user then introduce the same entity, a *new* entity node will be created and it can be reused until it gets decommissioned again. (Note: A node cannot be restored once it gets the `defunct` status flag).
 
-- **OWL class expression types are represented as nodes in a LPG**. This follows from the previous design choice. For example, `owl:someValuesFrom` and `owl:intersectionOf` class expression types will each be represented by its own node.
+  For example, consider the axioms: 
 
-- **Nodes denoting OWL entities (i.e., class, data property, object property, annotation property, individual, and datatype) are reused when possible.  Other nodes are duplicated to guarantee unambiguous round-tripping between OWL and LPG.** 
-
-  When mapping OWL to LPG, we generally reuse existing LPG nodes that denote OWL classes, individuals, and datatypes. The exception is when in the presence of General Concept Inclusion (GCI) axioms with a complex class expression as the subclass (e.g., things that have pets are kinds of `PetOwner`, i.e, `:hasPet some :Pet SubClassOf :PetOwner`). In such cases, the nodes to represent the complex class expression in the subclass position of the axiom will not reuse existing nodes for the same entities in the LPG; they will be duplicated. We will duplicate all other nodes (e.g., OWL axiom types, OWL properties) as necessary to disambiguate how OWL axioms can be parsed from the LPG.
-
-  For example, consider the axioms: `A SubClassOf p some B. A SubClassOf p some C. B SubClassOf D.` Here, the nodes for `A` and `B` would be reused, but the nodes for `SubClassOf, p,` and `some` would be duplicated. We duplicate the `SubClassOf` node (and generally, axiom type nodes) to be able to attach axiom annotations and versioning information on individual axioms. We duplicate the other nodes to prevent ambiguity about the structure of each axiom when parsing the LPG.
-
-  The ability to parse back OWL axioms from a LPG converted as specified here is guaranteed by the conditions that:
+  ```
+AX1: A SubClassOf p some B
+  AX2: A SubClassOf p some C
+  AX3: B SubClassOf D
+  ```
   
-  1. every LPG node denoting an OWL class, individual, or datatype is followed by a node denoting an OWL axiom type; and
-  2. nodes involved in a complex class expression in the subclass position of a GCI are duplicated (rather than reused) in the mapping.
+  The entity node `A` will be reused (and shared) by `AX1` and `AX2`, and the entity node `B` will be reused (and shared) by `AX1` and `AX3`. If the user deletes the entity node `A` then the axioms `AX1` and `AX2` will be removed as well because node `A` cannot receive the incoming edges `HAS_SUB` from those axioms. After the operation, the axiom `AX3` will become the only remaining axiom, along with the entity nodes `p`, `B`, `C` and `D`.
   
-  The result of this design choice is illustrated in [Figure 24](#multiple-axioms-lpg).
   
-  An alternative strategy to encode sufficient information about axiom structure to allow round-tripping is by: Maintaining one node for each unique OWL resource (one node per IRI); Assigning globally unique identifiers to axioms; and then either:
-  
-  1. naming edges with the axiom identifier, e.g., edge between `A` and `SubClassOf`, and so on; or
-  2. storing the axiom identifier in a key-value string property on the edges. As a consequence, we would potentially need to encode lists of axiom identifiers as values in string properties of LPGs.
-
-
 
 ### 1.3 Document Conventions
 
 The OWL 2 Web Ontology Language notations are written in [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax).
 
-The Labelled Property Graphs diagram consists of nodes and edges. Nodes are depicted as round edge rectangles and edges are depicted as directed arrows.
+The Labelled Property Graphs diagram consists of nodes and edges. A node is depicted as a round edge rectangle and an edge is depicted as either a 1-directional arrow or a bi-directional arrow.
 
-We defined 11 labelled nodes to construct an LPG:
+#### 1.3.1 Reserved Nodes
+
+We have reserved 10 labelled nodes to construct an LPG:
 
 1. Ontology
 2. Entity
@@ -194,13 +185,30 @@ We defined 11 labelled nodes to construct an LPG:
 4. ObjectPropertyExpression
 5. Axiom
 6. Value
-7. Datatype
 8. DataRange
 9. Revision
 10. Operation
 11. Person
 
-Some nodes will have a `type` property to represent the *kind* of OWL objects. For example, the figure below indicates that the Entity node represents the OWL Class entity. The 'Class' string is a reserved keyword in the specification. 
+The first 7 labelled nodes are used to construct an OWL 2 ontology, the `Revision` and `Operation` nodes are for building the change history graph, and lastly the node `Person` is used to store information about authorship.
+
+#### 1.3.1 Reserved Keywords
+
+We have reserved several keywords used to fill out the `type` property to indicate the OWL object's specific type. The table below shows the complete list:
+
+| Node                       | Reserved keywords                                            |
+| -------------------------- | ------------------------------------------------------------ |
+| `Entity`                   | Class<br />DataProperty<br />ObjectProperty<br />AnnotationProperty<br />Individual<br />Datatype |
+| `ClassExpression`          | ObjectSomeValuesFrom<br />ObjectAllValuesFrom<br />ObjectHasValue<br />ObjectHasSelf<br />ObjectOneOf<br />ObjectIntersectionOf<br />ObjectUnionOf<br />ObjectComplementOf<br />ObjectMinCardinality<br />ObjectMaxCardinality<br />ObjectExactCardinality<br />DataSomeValuesFrom<br />DataAllValuesFrom<br />DataHasValue<br />DataMinCardinality<br />DataMaxCardinality<br />DataExactCardinality |
+| `ObjectPropertyExpression` | ObjectInverseOf                                              |
+| `Axiom`                    | SubClassOf<br />EquivalentClasses<br />DisjointClasses<br />DisjointUnion<br />SubObjectPropertyOf<br />EquivalentObjectProperties<br />DisjointObjectProperties<br />InverseObjectProperties<br />ObjectPropertyDomain<br />ObjectPropertyRange<br />FunctionalObjectProperties<br />InverseFunctionalObjectProperties<br />ReflexiveObjectProperties<br />IrreflexiveObjectProperties<br />SymmetricObjectProperties<br />AsymmetricObjectProperties<br />TransitiveObjectProperties<br />SubDataPropertyOf<br />EquivalentDataProperties<br />DisjointDataProperties<br />DataPropertyDomain<br />DataPropertyRange<br />FunctionalDataProperty<br />DatatypeDefinition<br />HasKey<br />SameIndividual<br />DifferentIndividual<br />ClassAssertion<br />ObjectPropertyAssertion<br />NegativeObjectPropertyAssertion<br /> DataPropertyAssertion<br />NegativeDataPropertyAssertion |
+| `Value`                    | Literal<br />IRI                                             |
+| `DataRange`                | DataIntersectionOf<br />DataUnionOf<br />DataComplementOf<br />DataOneOf<br />DatatypeRestriction |
+
+
+#### 1.3.2 Reading the Node
+
+Some nodes will have a `type` property to represent the *kind* of OWL objects. For example, the figure below indicates that the Entity node represents the OWL Class entity. The 'Class' string is a *reserved keyword* in the specification. 
 
 <img src="images/node-class-type.png" alt="node-class-type" width="200;" />
 
