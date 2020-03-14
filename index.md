@@ -2,8 +2,7 @@
 
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs (OWL2LPG)
 
-Working Draft, Updated: 20 March 2020
-
+Working Draft, Updated: 13 March 2020
 
 
 **Feedback**:
@@ -35,8 +34,6 @@ Working Draft, Updated: 20 March 2020
 ​	[José Antonio Bernabé Díaz](mailto:jose-antonio.bernabe-diaz@basf.com) (BASF)
 
 ​	[Juergen Mueller](mailto:juergen.a.mueller@basf.com) (BASF)
-
-
 
 ---
 
@@ -85,37 +82,42 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
        * [2.4.1 Existential and Universal Quantification](#241-existential-and-universal-quantification)
        * [2.4.2 Literal Value Restriction](#242-literal-value-restriction)
     * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
- * [3 Axioms](#3-axioms)
-    * [3.1 Class Expression Axioms](#31-class-expression-axioms)
-       * [3.1.1 Subclass](#311-subclass)
-       * [3.1.2 Equivalent Classes](#312-equivalent-classes)
-       * [3.1.3 Disjoint Classes](#313-disjoint-classes)
-    * [3.2 Object Property Axioms](#32-object-property-axioms)
-       * [3.2.1 Object Subproperty](#321-object-subproperty)
-       * [3.2.2 Equivalent Object Properties](#322-equivalent-object-properties)
-       * [3.2.3 Disjoint Object Properties](#323-disjoint-object-properties)
-       * [3.2.4 Inverse Object Properties](#324-inverse-object-properties)
-       * [3.2.5 Object Property Domain and Range](#325-object-property-domain-and-range)
-       * [3.2.6 Object Property Characteristics](#326-object-property-characteristics)
-    * [3.3 Data Property Axioms](#33-data-property-axioms)
-       * [3.3.1 Data Subproperty](#331-data-subproperty)
-       * [3.3.2 Equivalent Data Properties](#332-equivalent-data-properties)
-       * [3.3.3 Disjoint Data Properties](#333-disjoint-data-properties)
-       * [3.3.4 Data Property Domain](#334-data-property-domain)
-       * [3.3.5 Data Property Range](#335-data-property-range)
-       * [3.3.6 Data Property Characteristics](#336-data-property-characteristics)
-    * [3.4 Assertions](#34-assertions)
-       * [3.4.1 Class Assertions](#341-class-assertions)
-       * [3.4.2 Object Property Assertions](#342-object-property-assertions)
-       * [3.4.3 Data Property Assertions](#343-data-property-assertions)
-       * [3.4.4 Individual Equality](#344-individual-equality)
-       * [3.4.5 Individual Inequality](#345-individual-inequality)
- * [4 Annotations](#4-annotations)
-    * [4.1 Annotation of Ontologies, Axioms, and other Annotations](#41-annotation-of-ontologies-axioms-and-other-annotations)
-    * [4.2 Annotation Axioms](#42-annotation-axioms)
-       * [4.2.1 Annotation Assertions](#421-annotation-assertions)
-       * [4.2.2 Annotation Subproperty](#422-annotation-subproperty)
- * [5 Change History](#5-change-history)
+ * [3 Data Ranges](#3-data-ranges)
+    * [3.1 Intersection and Union of Data Ranges](#31-intersection-and-union-of-data-ranges)
+    * [3.2 Complement of Data Ranges](#32-complement-of-data-ranges)
+    * [3.3 Enumeration of Literals](#33-enumeration-of-literals)
+    * [3.4 Datatype Restrictions](#34-datatype-restrictions)
+ * [4 Axioms](#4-axioms)
+    * [4.1 Class Expression Axioms](#41-class-expression-axioms)
+       * [4.1.1 Subclass](#411-subclass)
+       * [4.1.2 Equivalent Classes](#412-equivalent-classes)
+       * [4.1.3 Disjoint Classes](#413-disjoint-classes)
+    * [4.2 Object Property Axioms](#42-object-property-axioms)
+       * [4.2.1 Object Subproperty](#421-object-subproperty)
+       * [4.2.2 Equivalent Object Properties](#422-equivalent-object-properties)
+       * [4.2.3 Disjoint Object Properties](#423-disjoint-object-properties)
+       * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
+       * [4.2.5 Object Property Domain and Range](#425-object-property-domain-and-range)
+       * [4.2.6 Object Property Characteristics](#426-object-property-characteristics)
+    * [4.3 Data Property Axioms](#43-data-property-axioms)
+       * [4.3.1 Data Subproperty](#431-data-subproperty)
+       * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
+       * [4.3.3 Disjoint Data Properties](#433-disjoint-data-properties)
+       * [4.3.4 Data Property Domain](#434-data-property-domain)
+       * [4.3.5 Data Property Range](#435-data-property-range)
+       * [4.3.6 Data Property Characteristics](#436-data-property-characteristics)
+    * [4.4 Assertions](#44-assertions)
+       * [4.4.1 Class Assertions](#441-class-assertions)
+       * [4.4.2 Object Property Assertions](#442-object-property-assertions)
+       * [4.4.3 Data Property Assertions](#443-data-property-assertions)
+       * [4.4.4 Individual Equality](#444-individual-equality)
+       * [4.4.5 Individual Inequality](#445-individual-inequality)
+ * [5 Annotations](#5-annotations)
+    * [5.1 Annotation of Ontologies, Axioms, and other Annotations](#51-annotation-of-ontologies-axioms-and-other-annotations)
+    * [5.2 Annotation Axioms](#52-annotation-axioms)
+       * [5.2.1 Annotation Assertions](#521-annotation-assertions)
+       * [5.2.2 Annotation Subproperty](#522-annotation-subproperty)
+ * [6 Change History](#6-change-history)
 
 ---
 
@@ -162,13 +164,15 @@ Our overarching design principle is to prioritize representational **consistency
 
   For example, consider the axioms: 
 
-```
+	```
 	AX1: A SubClassOf p some B
-  AX2: A SubClassOf p some C
-  AX3: B SubClassOf D
-```
+	AX2: A SubClassOf p some C
+	AX3: B SubClassOf D
+	```
 
-  The entity node `A` will be reused (and shared) by `AX1` and `AX2`, and the entity node `B` will be reused (and shared) by `AX1` and `AX3`. If the user deletes the entity node `A` then the axioms `AX1` and `AX2` will be removed as well because node `A` cannot receive the incoming edges `HAS_SUB` from those axioms. After the operation, the axiom `AX3` will become the only remaining axiom, along with the entity nodes `p`, `B`, `C` and `D`.
+	The entity node `A` will be reused (and shared) by `AX1` and `AX2`, and the entity node `B` will be reused (and shared) by `AX1` and `AX3`. If the user deletes the entity node `A` then the axioms `AX1` and `AX2` will be removed as well because node `A` cannot receive the incoming edges `HAS_SUB` from those axioms. After the operation, the axiom `AX3` will become the only remaining axiom, along with the entity nodes `p`, `B`, `C` and `D`.
+	
+	
 
 
 ### 1.3 Document Conventions
@@ -179,7 +183,7 @@ The Labelled Property Graphs diagram consists of nodes and edges. A node is depi
 
 #### 1.3.1 Reserved Nodes
 
-We have reserved 10 labelled nodes to construct an LPG:
+We have reserved 11 labelled nodes to construct an LPG:
 
 1. Ontology
 2. Entity
@@ -188,11 +192,12 @@ We have reserved 10 labelled nodes to construct an LPG:
 5. Axiom
 6. Value
 8. DataRange
+8. Facet
 9. Revision
 10. Operation
 11. Person
 
-The first 7 labelled nodes are used to construct an OWL 2 ontology, the `Revision` and `Operation` nodes are for building the change history graph, and lastly the node `Person` is used to store information about authorship.
+The first 8 labelled nodes are used to construct an OWL 2 ontology, the `Revision` and `Operation` nodes are for building the change history graph, and lastly the node `Person` is used to store information about authorship.
 
 #### 1.3.2 Reserved Keywords
 
@@ -430,11 +435,79 @@ In all cases, if `DR` is not present, it is taken to be *rdfs:Literal*.
 
 
 
-## 3 Axioms
+## 3 Data Ranges
 
-### 3.1 Class Expression Axioms
+### 3.1 Intersection and Union of Data Ranges
 
-#### 3.1.1 Subclass
+An *intersection* data range `DataIntersectionOf( DR1 ... DRn )` contains all tuples of literals that are contained in each data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
+
+A *union* data range `DataUnionOf( DR1 ... DRn )` contains all tuples of literals that are contained in the at least one data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
+
+<u>OWL 2 Notation</u>:
+
+  **DataIntersectionOf** := 'DataIntersectionOf' '(' **DataRange** **DataRange** { **DataRange** } ')'
+
+  **DataUnionOf** := 'DataUnionOf' '(' **DataRange** **DataRange** { **DataRange** } ')'
+
+<u>LPG Diagram</u>:
+
+![data-ranges-set-operations](images/data-ranges-set-operations.png)
+
+
+
+### 3.2 Complement of Data Ranges
+
+A complement data range `DataComplementOf( DR )` contains all tuples of literals that are not contained in the data range `DR`. The resulting data range has the arity equal to the arity of `DR`.
+
+<u>OWL 2 Notation</u>:
+
+  **DataComplementOf** := 'DataComplementOf' '(' **DataRange** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/data-ranges-complement.png" alt="data-ranges-complement" width="500" />
+
+
+
+### 3.3 Enumeration of Literals
+
+An enumeration of literals `DataOneOf( lt1 ... ltn )` contains exactly the explicitly specified literals `lti` with 1 ≤ i ≤ n. The resulting data range has arity one.
+
+<u>OWL 2 Notation</u>:
+
+  **DataOneOf** := 'DataOneOf' '(' **Literal** { **Literal** } ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/data-ranges-enumeration-of-literals.png" alt="data-ranges-enumeration-of-literals" width="500" />
+
+
+
+### 3.4 Datatype Restrictions
+
+A datatype restriction `DatatypeRestriction( DT F1 lt1 ... Fn ltn )` consists of a unary datatype `DT` and `n` pairs `( Fi , lti )`. The resulting data range is unary and is obtained by restricting the value space of `DT` according to the semantics of all `( Fi , vi )` (multiple pairs are interpreted conjunctively), where `vi` are the data values of the literals `lti`.
+
+In an OWL 2 DL ontology, each pair `( Fi , vi )` *must* be contained in the facet space of `DT` (see [Datatype Maps](https://www.w3.org/TR/owl2-syntax/#Datatype_Maps) from the OWL 2 specification document).
+
+<u>OWL 2 Notation</u>:
+
+  **DatatypeRestriction** := 'DatatypeRestriction' '(' **Datatype** **constrainingFacet** **restrictionValue** { **constrainingFacet** **restrictionValue** } ')'
+
+  **constrainingFacet** := **IRI**
+
+  **restrictionValue** := **Literal**
+
+<u>LPG Diagram</u>:
+
+![data-ranges-datatype-restriction](images/data-ranges-datatype-restriction.png)
+
+
+
+## 4 Axioms
+
+### 4.1 Class Expression Axioms
+
+#### 4.1.1 Subclass
 
 A subclass axiom `SubClassOf( CE1 CE2 )` states that the class expression `CE1` is a subclass of the class expression `CE2`. Roughly speaking, this states that `CE1` is more specific than `CE2`.
 
@@ -452,7 +525,7 @@ A subclass axiom `SubClassOf( CE1 CE2 )` states that the class expression `CE1` 
 
 
 
-#### 3.1.2 Equivalent Classes
+#### 4.1.2 Equivalent Classes
 
 An equivalent classes axiom `EquivalentClasses( CE1 ... CEn )` states that all of the class expressions `CEi`, 1 ≤ i ≤ n, are semantically equivalent to each other. This axiom allows one to use each `CEi` as a synonym for each `CEj` — that is, in any expression in the ontology containing such an axiom, `CEi` can be replaced with `CEj` without affecting the meaning of the ontology.
 
@@ -466,7 +539,7 @@ An equivalent classes axiom `EquivalentClasses( CE1 ... CEn )` states that all o
 
 
 
-#### 3.1.3 Disjoint Classes
+#### 4.1.3 Disjoint Classes
 
 A disjoint classes axiom `DisjointClasses( CE1 ... CEn )` states that all of the class expressions `CEi`, 1 ≤ i ≤ n, are pairwise disjoint; that is, no individual can be at the same time an instance of both `CEi` and `CEj` for i ≠ j. 
 
@@ -480,9 +553,9 @@ A disjoint classes axiom `DisjointClasses( CE1 ... CEn )` states that all of the
 
 
 
-### 3.2 Object Property Axioms
+### 4.2 Object Property Axioms
 
-#### 3.2.1 Object Subproperty
+#### 4.2.1 Object Subproperty
 
 An object sub property axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom states that the object property expression `OPE1` is a subproperty of the object property expression `OPE2` — that is, if an individual `x` is connected by `OPE1` to an individual `y`, then`x` is also connected by `OPE2` to `y`.
 
@@ -500,7 +573,7 @@ An object sub property axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom stat
 
 
 
-#### 3.2.2 Equivalent Object Properties
+#### 4.2.2 Equivalent Object Properties
 
 An equivalent object properties axiom `EquivalentObjectProperties( OPE1 ... OPEn )` states that all of the object property expressions `OPEi`, 1 ≤ i ≤ n, are semantically equivalent to each other. This axiom allows one to use each `OPEi` as a synonym for each `OPEj` — that is, in any expression in the ontology containing such an axiom, `OPEi` can be replaced with `OPEj` without affecting the meaning of the ontology.
 
@@ -514,7 +587,7 @@ An equivalent object properties axiom `EquivalentObjectProperties( OPE1 ... OPEn
 
 
 
-#### 3.2.3 Disjoint Object Properties
+#### 4.2.3 Disjoint Object Properties
 
 A disjoint object properties axiom `DisjointObjectProperties( OPE1 ... OPEn )` states that all of the object property expressions `OPEi`, 1 ≤ i ≤ n, are pairwise disjoint; that is, no individual `x` can be connected to an individual `y` by both `OPEi` and `OPEj` for i ≠ j.
 
@@ -528,7 +601,7 @@ A disjoint object properties axiom `DisjointObjectProperties( OPE1 ... OPEn )` s
 
 
 
-#### 3.2.4 Inverse Object Properties
+#### 4.2.4 Inverse Object Properties
 
 An inverse object properties axiom `InverseObjectProperties( OPE1 OPE2 )` states that the object property expression `OPE1` is an inverse of the object property expression `OPE2`. Thus, if an individual `x` is connected by `OPE1` to an individual `y`, then `y` is also connected by `OPE2` to `x`, and vice versa.
 
@@ -542,7 +615,7 @@ An inverse object properties axiom `InverseObjectProperties( OPE1 OPE2 )` states
 
 
 
-#### 3.2.5 Object Property Domain and Range
+#### 4.2.5 Object Property Domain and Range
 
 An object property *domain* axiom `ObjectPropertyDomain( OPE CE )` states that the domain of the object property expression `OPE` is the class expression `CE` — that is, if an individual `x` is connected by `OPE` with some other individual, then `x` is an instance of `CE`.
 
@@ -560,7 +633,7 @@ An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the
 
 
 
-#### 3.2.6 Object Property Characteristics
+#### 4.2.6 Object Property Characteristics
 
 An object property *functionality* axiom `FunctionalObjectProperty( OPE )` states that the object property expression `OPE` is functional — that is, for each individual `x`, there can be at most one distinct individual `y` such that `x` is connected by `OPE` to `y`.
 
@@ -598,9 +671,9 @@ An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states
 
 
 
-### 3.3 Data Property Axioms
+### 4.3 Data Property Axioms
 
-#### 3.3.1 Data Subproperty
+#### 4.3.1 Data Subproperty
 
 A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data property `DP1` is a subproperty of the data property `DP2` — that is, if an individual `x` is connected by `DP1` to a literal `y`, then `x` is connected by `DP2` to `y` as well.
 
@@ -618,7 +691,7 @@ A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data pro
 
 
 
-#### 3.3.2 Equivalent Data Properties
+#### 4.3.2 Equivalent Data Properties
 
 An equivalent data properties axiom `EquivalentDataProperties( DP1 ... DPn )` states that all the data property `DPi`, 1 ≤ i ≤ n, are semantically equivalent to each other. This axiom allows one to use each `DPi` as a synonym for each `DPj` — that is, in any expression in the ontology containing such an axiom, `DPi` can be replaced with `DPj` without affecting the meaning of the ontology. 
 
@@ -632,7 +705,7 @@ An equivalent data properties axiom `EquivalentDataProperties( DP1 ... DPn )` st
 
 
 
-#### 3.3.3 Disjoint Data Properties
+#### 4.3.3 Disjoint Data Properties
 
 A disjoint data properties axiom `DisjointDataProperties( DP1 ... DPn )` states that all of the data property `DPi`, 1 ≤ i ≤ n, are pairwise disjoint; that is, no individual `x` can be connected to a literal `y` by both `DPi` and `DPj` for i ≠ j.
 
@@ -646,7 +719,7 @@ A disjoint data properties axiom `DisjointDataProperties( DP1 ... DPn )` states 
 
 
 
-#### 3.3.4 Data Property Domain
+#### 4.3.4 Data Property Domain
 
 A data property domain axiom `DataPropertyDomain( DP CE )` states that the domain of the data property  `DP` is the class expression `CE` — that is, if an individual `x` is connected by `DP` with some literal, then `x` is an instance of `CE`.
 
@@ -660,7 +733,7 @@ A data property domain axiom `DataPropertyDomain( DP CE )` states that the domai
 
 
 
-#### 3.3.5 Data Property Range
+#### 4.3.5 Data Property Range
 
 A data property range axiom `DataPropertyRange( DP DR )` states that the range of the data property `DP` is the data range `DR` — that is, if some individual is connected by `DP` with a literal `x`, then `x` is in `DR`. The arity of `DR` *must* be one. 
 
@@ -674,7 +747,7 @@ A data property range axiom `DataPropertyRange( DP DR )` states that the range o
 
 
 
-#### 3.3.6 Data Property Characteristics
+#### 4.3.6 Data Property Characteristics
 
 A data property functionality axiom `FunctionalDataProperty( DP )` states that the data property `DP` is functional — that is, for each individual `x`, there can be at most one distinct literal `y` such that `x` is connected by `DP` with `y`.
 
@@ -688,9 +761,9 @@ A data property functionality axiom `FunctionalDataProperty( DP )` states that t
 
 
 
-### 3.4 Assertions
+### 4.4 Assertions
 
-#### 3.4.1 Class Assertions
+#### 4.4.1 Class Assertions
 
 A class assertion `ClassAssertion( CE a )` states that the individual `a` is an instance of the class expression `CE`.
 
@@ -704,7 +777,7 @@ A class assertion `ClassAssertion( CE a )` states that the individual `a` is an 
 
 
 
-#### 3.4.2 Object Property Assertions
+#### 4.4.2 Object Property Assertions
 
 A positive object property assertion `ObjectPropertyAssertion( OPE a1 a2 )` states that the individual `a1` is connected by the object property expression `OPE` to the individual `a2`.
 
@@ -722,7 +795,7 @@ A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2
 
 
 
-#### 3.4.3 Data Property Assertions
+#### 4.4.3 Data Property Assertions
 
 A positive data property assertion `DataPropertyAssertion( DP a lt )` states that the individual a is connected by the data property `DP` to the literal `lt`.
 
@@ -740,7 +813,7 @@ A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` st
 
 
 
-#### 3.4.4 Individual Equality
+#### 4.4.4 Individual Equality
 
 An individual equality axiom `SameIndividual( a1 ... an )` states that all of the individuals `ai`, 1 ≤ i ≤ n, are equal to each other. This axiom allows one to use each `ai` as a synonym for each `aj` — that is, in any expression in the ontology containing such an axiom, `ai` can be replaced with `aj` without affecting the meaning of the ontology.
 
@@ -752,7 +825,7 @@ An individual equality axiom `SameIndividual( a1 ... an )` states that all of th
 
 ![axiom-same-individual](images/axiom-same-individual.png)
 
-#### 3.4.5 Individual Inequality
+#### 4.4.5 Individual Inequality
 
 An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that all of the individuals `ai`, 1 ≤ i ≤ n, are different from each other; that is, no individuals `ai` and `aj` with i ≠ j can be derived to be equal. This axiom can be used to axiomatize the *unique name assumption* — the assumption that all different individual names denote different individuals.
 
@@ -766,9 +839,9 @@ An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that a
 
 
 
-## 4 Annotations
+## 5 Annotations
 
-### 4.1 Annotation of Ontologies, Axioms, and other Annotations
+### 5.1 Annotation of Ontologies, Axioms, and other Annotations
 
 Ontologies, axioms, and annotations themselves can be annotated using annotations. Such annotations consist of an annotation property and an annotation value, where the latter can be IRIs or literals.
 
@@ -782,9 +855,9 @@ Ontologies, axioms, and annotations themselves can be annotated using annotation
 
 ![annotation](images/annotation.png)
 
-### 4.2 Annotation Axioms
+### 5.2 Annotation Axioms
 
-#### 4.2.1 Annotation Assertions
+#### 5.2.1 Annotation Assertions
 
 An annotation assertion `AnnotationAssertion( AP as av )` states that the annotation subject as — an IRI  — is annotated with the annotation property `AP` and the annotation value `av`.
 
@@ -798,7 +871,7 @@ An annotation assertion `AnnotationAssertion( AP as av )` states that the annota
 
 ![axiom-annotation-assertion](images/axiom-annotation-assertion.png)
 
-#### 4.2.2 Annotation Subproperty
+#### 5.2.2 Annotation Subproperty
 
 An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that the annotation property `AP1` is a subproperty of the annotation property `AP2`.
 
@@ -818,7 +891,7 @@ An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that
 
 
 
-## 5 Change History
+## 6 Change History
 
 ![change-history](images/change-history.png)
 
