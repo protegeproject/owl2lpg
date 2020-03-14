@@ -1,5 +1,3 @@
-![W3C Logo](http://www.w3.org/Icons/w3c_home)
-
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs (OWL2LPG)
 
 Working Draft, Updated: 13 March 2020
