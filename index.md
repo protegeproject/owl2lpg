@@ -93,19 +93,19 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
        * [4.1.2 Equivalent Classes](#412-equivalent-classes)
        * [4.1.3 Disjoint Classes](#413-disjoint-classes)
     * [4.2 Object Property Axioms](#42-object-property-axioms)
-       * [4.2.1 Object Subproperty](#421-object-subproperty)
+       * [4.2.1 Object Subproperties](#421-object-subproperties)
        * [4.2.2 Equivalent Object Properties](#422-equivalent-object-properties)
        * [4.2.3 Disjoint Object Properties](#423-disjoint-object-properties)
        * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
        * [4.2.5 Object Property Domain and Range](#425-object-property-domain-and-range)
        * [4.2.6 Object Property Characteristics](#426-object-property-characteristics)
     * [4.3 Data Property Axioms](#43-data-property-axioms)
-       * [4.3.1 Data Subproperty](#431-data-subproperty)
+       * [4.3.1 Data Subproperties](#431-data-subproperties)
        * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
        * [4.3.3 Disjoint Data Properties](#433-disjoint-data-properties)
        * [4.3.4 Data Property Domain](#434-data-property-domain)
        * [4.3.5 Data Property Range](#435-data-property-range)
-       * [4.3.6 Data Property Characteristics](#436-data-property-characteristics)
+       * [4.3.6 Functional Data Properties](#436-functional-data-properties)
     * [4.4 Assertions](#44-assertions)
        * [4.4.1 Class Assertions](#441-class-assertions)
        * [4.4.2 Object Property Assertions](#442-object-property-assertions)
@@ -116,7 +116,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
     * [5.1 Annotation of Ontologies, Axioms, and other Annotations](#51-annotation-of-ontologies-axioms-and-other-annotations)
     * [5.2 Annotation Axioms](#52-annotation-axioms)
        * [5.2.1 Annotation Assertions](#521-annotation-assertions)
-       * [5.2.2 Annotation Subproperty](#522-annotation-subproperty)
+       * [5.2.2 Annotation Subproperties](#522-annotation-subproperties)
  * [6 Change History](#6-change-history)
 
 ---
@@ -156,11 +156,11 @@ TBA
 
 Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe in detail some key design choices:
 
-- **The OWL object type is specified by a property value**. Each OWL object is identified through a *reserved keyword* (see [1.3.2 Reserved Keywords](#132-reserved-keywords)) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity in the graph. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
+- **The types of OWL objects are specified by a property value in a LPG**. Each OWL object is identified through a *reserved keyword* (see [1.3.2 Reserved Keywords](#132-reserved-keywords)) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity in the graph. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
 
 - **Complex OWL constructs (e.g., class expression, axioms, data ranges) are depicted as a node with outgoing edges**. Depending on the type of the complex construction, the outgoing edge can be linked to a node or to another complex construction. For example, the OWL SubClassOf axiom will have one `Axiom` node (i.e., with a type equals to 'SubClassOf') and two outgoing edges (i.e., `HAS_SUB` and `HAS_SUPER`) that link to an `Entity` node (i.e., with a type equals to 'Class') or to a complex construction of *any* `ClassExpression` node, in any combinations.
 
-- **The `Entity` node is reusable through the incoming edges.** The OWL 2 specification defines 6 types of entity: class, object property, data property, annotation property, individual and datatype. These types of node are reusable throughout the entire ontology development, i.e., when the user add new entity expressions or new axioms. In the case of the user delete an entity, a status flag (e.g., `'status' = 'defunct'`) can be used as the removal indicator instead of actually removing the node itself. At this point, the entity cannot accept any incoming edges. If the user then introduce the same entity, a *new* entity node will be created and it can be reused until it gets decommissioned again. (Note: A node cannot be restored once it gets the `defunct` status flag).
+- **Each named OWL entity is mapped to a unique  `Entity` node in a LPG.** The OWL 2 specification defines 6 types of entity: class, object property, data property, annotation property, individual and datatype. OWL entities of each of these types are mapped to a unique node in a LPG, which is reused throughout the entire ontology development, i.e., when the user adds new entity expressions or new axioms. In case the user deletes an entity, a status flag (e.g., `'status' = 'defunct'`) can be used to indicate the removal instead of actually removing the node itself. At this point, the entity cannot accept any incoming edges. If the user then introduce the same entity, a *new* entity node will be created and it can be reused until it gets decommissioned again. (Note: A node cannot be restored once it gets the `defunct` status flag).
 
   For example, consider the axioms: 
 
@@ -555,9 +555,9 @@ A disjoint classes axiom `DisjointClasses( CE1 ... CEn )` states that all of the
 
 ### 4.2 Object Property Axioms
 
-#### 4.2.1 Object Subproperty
+#### 4.2.1 Object Subproperties
 
-An object sub property axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom states that the object property expression `OPE1` is a subproperty of the object property expression `OPE2` — that is, if an individual `x` is connected by `OPE1` to an individual `y`, then`x` is also connected by `OPE2` to `y`.
+An object subproperty axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom states that the object property expression `OPE1` is a subproperty of the object property expression `OPE2` — that is, if an individual `x` is connected by `OPE1` to an individual `y`, then`x` is also connected by `OPE2` to `y`.
 
 <u>OWL 2 Notation</u>:
 
@@ -673,7 +673,7 @@ An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states
 
 ### 4.3 Data Property Axioms
 
-#### 4.3.1 Data Subproperty
+#### 4.3.1 Data Subproperties
 
 A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data property `DP1` is a subproperty of the data property `DP2` — that is, if an individual `x` is connected by `DP1` to a literal `y`, then `x` is connected by `DP2` to `y` as well.
 
@@ -747,7 +747,7 @@ A data property range axiom `DataPropertyRange( DP DR )` states that the range o
 
 
 
-#### 4.3.6 Data Property Characteristics
+#### 4.3.6 Functional Data Properties
 
 A data property functionality axiom `FunctionalDataProperty( DP )` states that the data property `DP` is functional — that is, for each individual `x`, there can be at most one distinct literal `y` such that `x` is connected by `DP` with `y`.
 
@@ -871,7 +871,7 @@ An annotation assertion `AnnotationAssertion( AP as av )` states that the annota
 
 <img src="images/axiom-annotation-assertion.png" alt="axiom-annotation-assertion" width="800" />
 
-#### 5.2.2 Annotation Subproperty
+#### 5.2.2 Annotation Subproperties
 
 An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that the annotation property `AP1` is a subproperty of the annotation property `AP2`.
 
