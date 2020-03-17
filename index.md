@@ -1,17 +1,15 @@
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs (OWL2LPG)
 
-Working Draft, Updated: 13 March 2020
+Working Draft, Updated: 16 March 2020
 
 
 **Feedback**:
 
-​	[rafael.goncalves@stanford.edu](mailto:rafael.goncalves@stanford.edu)
-
-​	[josef.hardi@stanford.edu](mailto:josef.hardi@stanford.edu)
+​	[Protégé team](mailto:protege-basf@lists.stanford.edu)
 
 **Document Source Control**:
 
-​	[GitHub](https://github.com/protegeproject/owl2lpg/) (in branch: [gh-pages-markdown](https://github.com/protegeproject/owl2lpg/tree/gh-pages-markdown))
+​	[GitHub](https://github.com/protegeproject/owl2lpg/) (in branch: [gh-pages](https://github.com/protegeproject/owl2lpg/tree/gh-pages))
 
 **Issue Tracking**:
 
@@ -152,22 +150,29 @@ TBA
 
 ### 1.2 Design Choices
 
-Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe in detail some key design choices:
+Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe some key design choices:
 
-- **The types of OWL objects are specified by a property value in a LPG**. Each OWL object is identified through a *reserved keyword* (see [1.3.2 Reserved Keywords](#132-reserved-keywords)) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity in the graph. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
+- **Specific types of OWL objects are represented by the property `type` on nodes in a LPG**. Each OWL object is identified through a *reserved keyword* (see [1.3.2 Reserved Keywords](#132-reserved-keywords)) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
 
-- **Complex OWL constructs (e.g., class expression, axioms, data ranges) are depicted as a node with outgoing edges**. Depending on the type of the complex construction, the outgoing edge can be linked to a node or to another complex construction. For example, the OWL SubClassOf axiom will have one `Axiom` node (i.e., with a type equals to 'SubClassOf') and two outgoing edges (i.e., `HAS_SUB` and `HAS_SUPER`) that link to an `Entity` node (i.e., with a type equals to 'Class') or to a complex construction of *any* `ClassExpression` node, in any combinations.
+- **Complex OWL constructs (e.g., axioms, class expressions) are mapped to a LPG using a node to represent the construct type (e.g., a SomeValuesFrom class expression) with outgoing edges to its elements**. Each OWL axiom is assigned a unique node in a LPG, with at least one outgoing edge to a node representing an atomic entity or a complex expression. For example, an OWL SubClassOf axiom is mapped to a LPG using one `Axiom` node with a property on it to specify its type: `'type'='SubClassOf'`, and two outgoing edges:  `HAS_SUB` and `HAS_SUPER` that link to an `Entity` node (with a property `'type'='Class'`) or to a `ClassExpression` node. 
 
-- **Each named OWL entity is mapped to a unique  `Entity` node in a LPG.** The OWL 2 specification defines 6 types of entity: class, object property, data property, annotation property, individual and datatype. OWL entities of each of these types are mapped to a unique node in a LPG, which is reused throughout the entire ontology development, i.e., when the user adds new entity expressions or new axioms. In case the user deletes an entity, a status flag (e.g., `'status' = 'defunct'`) can be used to indicate the removal instead of actually removing the node itself. At this point, the entity cannot accept any incoming edges. If the user then introduce the same entity, a *new* entity node will be created and it can be reused until it gets decommissioned again. (Note: A node cannot be restored once it gets the `defunct` status flag).
+  Representing each OWL axiom with a unique node in a LPG allows two things to happen:
 
-  For example, consider the axioms: 
+  1. We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).
+  2. We can attach versioning information about the axiom (see [Change History](#change-history) for details).
 
+- **Each named OWL entity is mapped to a unique  `Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. 
+
+  In case the user deletes an entity, a status flag (e.g., `'status' = 'defunct'`) can be used to indicate the removal instead of actually removing the node itself. At this point, the entity cannot accept any incoming edges. If the user then introduce the same entity, a *new* entity node will be created and it can be reused until it gets decommissioned again. (Note: A node cannot be restored once it gets the `defunct` status flag).
+
+	For example, consider the axioms: 
+	
 	```
 	AX1: A SubClassOf p some B
 	AX2: A SubClassOf p some C
-	AX3: B SubClassOf D
+AX3: B SubClassOf D
 	```
-
+	
 	The entity node `A` will be reused (and shared) by `AX1` and `AX2`, and the entity node `B` will be reused (and shared) by `AX1` and `AX3`. If the user deletes the entity node `A` then the axioms `AX1` and `AX2` will be removed as well because node `A` cannot receive the incoming edges `HAS_SUB` from those axioms. After the operation, the axiom `AX3` will become the only remaining axiom, along with the entity nodes `p`, `B`, `C` and `D`.
 	
 	
@@ -175,13 +180,13 @@ Our overarching design principle is to prioritize representational **consistency
 
 ### 1.3 Document Conventions
 
-The OWL 2 Web Ontology Language notations are written in [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax).
+OWL axioms are written out using [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax) , similar to the OWL 2 specification.
 
-The Labelled Property Graphs diagram consists of nodes and edges. A node is depicted as a round edge rectangle and an edge is depicted as either a 1-directional arrow or a bi-directional arrow.
+A Labeled Property Graph diagram consists of nodes and edges. A node is depicted as a rectangle with rounded corners, and an edge is depicted as either a uni-directional arrow or a bi-directional arrow.
 
 #### 1.3.1 Reserved Nodes
 
-We have reserved 11 labelled nodes to construct an LPG:
+In this mapping, we use the following 11 "reserved" labeled nodes to construct a LPG:
 
 1. Ontology
 2. Entity
@@ -195,11 +200,11 @@ We have reserved 11 labelled nodes to construct an LPG:
 10. Operation
 11. Person
 
-The first 8 labelled nodes are used to construct an OWL 2 ontology, the `Revision` and `Operation` nodes are for building the change history graph, and lastly the node `Person` is used to store information about authorship.
+The labeled nodes 1-8 are used to map an OWL 2 ontology. The `Revision` and `Operation` nodes are used for representing the change history graph. Lastly, the node `Person` is used to represent the authors of changes.
 
 #### 1.3.2 Reserved Keywords
 
-We have reserved several keywords used to fill out the `type` property to indicate the OWL object's specific type. The table below shows the complete list:
+The table below shows the reserved keywords used in the mapping to fill out the `type` property, which indicates the specific type of OWL object.
 
 | Node                       | Reserved keywords                                            |
 | -------------------------- | ------------------------------------------------------------ |
@@ -211,17 +216,17 @@ We have reserved several keywords used to fill out the `type` property to indica
 | `DataRange`                | DataIntersectionOf<br />DataUnionOf<br />DataComplementOf<br />DataOneOf<br />DatatypeRestriction |
 
 
-#### 1.3.3 Reading the Node
+#### 1.3.3 Reading LPG Diagrams
 
-Some nodes will have a `type` property to represent the *kind* of OWL objects. For example, the figure below indicates that the Entity node represents the OWL Class entity. The 'Class' string is a *reserved keyword* in the specification. 
+Nodes have a `type` property to represent their specific *kind* of OWL object. For example, the figure below depicts a generic OWL Entity node of specific type `Class`. The 'Class' string is a *reserved keyword* in this specification. 
 
 <img src="images/node-class-type.png" alt="node-class-type" width="200;" />
 
-A node can have several keywords separated by a pipe (`|`) delimiter. For example, the figure below indicates that the Axiom node can be one of the object property characteristics.
+A node can be depicted with multiple possible keywords separated by a pipe (`|`) delimiter. For example, the figure below indicates that the Axiom node can have a value for the `type` property that is one of the listed values.
 
 <img src="images/node-many-types.png" alt="node-many-types" width="200" />
 
-Moreover, if the node has `'type' = any` then it means the value can be any keyword that the node can support. For example, the figure below indicates the Entity node can be any kind of OWL entities (i.e., Class, Data Property, Object Property, Annotation Property, Individual or Datatype).
+Moreover, if a node has a property `'type'='any'`, then it means that the value can be any specific type that the node supports. For example, the figure below indicates that the Entity node can be any type of OWL entity (i.e., Class, Data Property, Object Property, Annotation Property, Individual or Datatype).
 
 <img src="images/convention-type-any.png" alt="convention-type-any" width="500" />
 
@@ -229,11 +234,11 @@ Moreover, if the node has `'type' = any` then it means the value can be any keyw
 
 ### 1.4 Similar Works
 
-In this section we compare and contrast the mapping described in this document with existing approaches to transform OWL ontologies to LPGs.
+In this section we compare and contrast the mapping described in this document with existing approaches to map OWL ontologies to LPGs.
 
 #### 1.4.1 SciGraph
 
-The [SciGraph Neo4j Mapping](https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping) aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. *SciGraph does not aim to support creating ontologies based on the LPG.* Below we outline and briefly describe the main differences between ours and the SciGraph mapping.
+The [SciGraph Neo4j Mapping](https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping) aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. *SciGraph does not aim to support creating ontologies based on the LPG.* Below we outline and briefly describe key differences between ours and the SciGraph mapping.
 
 - **OWL axiom types are represented as edges in a LPG.** In the SciGraph mapping, axiom types such as `rdfs:subClassOf` are encoded as edges between nodes that represent the left and the right hand side of the axiom. Axiom annotations are represented as key-value string properties on the edge that denotes the axiom type. In our mapping, axiom types are represented as nodes, and therefore axiom annotations are represented uniformly like other annotation assertions.
 - **Annotation assertions are represented as key-value string properties in a LPG.** For example, `i:Individual {'rdfs:label' = 'Ruth'}`. As a consequence, annotations on annotations are not straightforwardly representable in SciGraph.
