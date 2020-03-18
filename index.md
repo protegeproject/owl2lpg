@@ -51,7 +51,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 **Table of Content**
 
- * [1 Introduction](#1-introduction)
+  * [1 Introduction](#1-introduction)
     * [1.1 Main Requirements](#11-main-requirements)
        * [1.1.1 Tooling Requirements](#111-tooling-requirements)
        * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
@@ -59,7 +59,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
     * [1.3 Document Conventions](#13-document-conventions)
        * [1.3.1 Reserved Nodes](#131-reserved-nodes)
        * [1.3.2 Reserved Keywords](#132-reserved-keywords)
-       * [1.3.3 Reading the Node](#133-reading-the-node)
+       * [1.3.3 Reading LPG Diagrams](#133-reading-lpg-diagrams)
     * [1.4 Similar Works](#14-similar-works)
        * [1.4.1 SciGraph](#141-scigraph)
        * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
@@ -95,7 +95,13 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
        * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
        * [4.2.5 Object Property Domain](#425-object-property-domain)
        * [4.2.6 Object Property Range](#426-object-property-range)
-       * [4.2.7 Object Property Characteristics](#427-object-property-characteristics)
+       * [4.2.7 Functional Object Property](#427-functional-object-property)
+       * [4.2.8 Inverse Functional ObjectProperty](#428-inverse-functional-objectproperty)
+       * [4.2.9 Reflexive Object Property](#429-reflexive-object-property)
+       * [4.2.10 Irreflexive Object Property](#4210-irreflexive-object-property)
+       * [4.2.11 Symmetric Object Property](#4211-symmetric-object-property)
+       * [4.2.12 Asymmetric Object Property](#4212-asymmetric-object-property)
+       * [4.2.13 Transitive Object Property](#4213-transitive-object-property)
     * [4.3 Data Property Axioms](#43-data-property-axioms)
        * [4.3.1 Data Subproperties](#431-data-subproperties)
        * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
@@ -647,41 +653,101 @@ An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the
 
 
 
-#### 4.2.7 Object Property Characteristics
+#### 4.2.7 Functional Object Property
 
 An object property *functionality* axiom `FunctionalObjectProperty( OPE )` states that the object property expression `OPE` is functional — that is, for each individual `x`, there can be at most one distinct individual `y` such that `x` is connected by `OPE` to `y`.
-
-An object property *inverse functionality* axiom `InverseFunctionalObjectProperty( OPE )` states that the object property expression `OPE` is inverse-functional — that is, for each individual `x`, there can be at most one individual `y` such that `y` is connected by `OPE` with `x`.
-
-An object property *reflexivity* axiom `ReflexiveObjectProperty( OPE )` states that the object property expression `OPE` is reflexive — that is, each individual is connected by `OPE` to itself.
-
-An object property *irreflexivity* axiom `IrreflexiveObjectProperty( OPE )` states that the object property expression `OPE` is irreflexive — that is, no individual is connected by `OPE` to itself.
-
-An object property *symmetry* axiom `SymmetricObjectProperty( OPE )` states that the object property expression `OPE` is symmetric — that is, if an individual `x` is connected by `OPE` to an individual `y`, then `y` is also connected by `OPE` to `x`.
-
-An object property *asymmetry* axiom `AsymmetricObjectProperty( OPE )` states that the object property expression `OPE` is asymmetric — that is, if an individual `x` is connected by `OPE` to an individual `y`, then `y` cannot be connected by `OPE` to `x`.
-
-An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states that the object property expression `OPE` is transitive — that is, if an individual `x` is connected by `OPE` to an individual `y` that is connected by `OPE` to an individual `z`, then `x` is also connected by `OPE` to `z`.
 
 <u>OWL 2 Notation</u>:
 
 ​	**FunctionalObjectProperty** := 'FunctionalObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-functional-objectproperty.png" alt="axiom-functional-objectproperty" width="500px" />
+
+
+
+#### 4.2.8 Inverse Functional ObjectProperty
+
+An object property *inverse functionality* axiom `InverseFunctionalObjectProperty( OPE )` states that the object property expression `OPE` is inverse-functional — that is, for each individual `x`, there can be at most one individual `y` such that `y` is connected by `OPE` with `x`.
+
+<u>OWL 2 Notation</u>:
+
 ​	**InverseFunctionalObjectProperty** := 'InverseFunctionalObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
 
-​	**ReflexiveObjectProperty** := 'ReflexiveObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'	
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-inversefunctional-objectproperty.png" alt="axiom-inverse-functional-objectproperty" width="500px" />
+
+
+
+#### 4.2.9 Reflexive Object Property
+
+An object property *reflexivity* axiom `ReflexiveObjectProperty( OPE )` states that the object property expression `OPE` is reflexive — that is, each individual is connected by `OPE` to itself.
+
+<u>OWL 2 Notation</u>:
+
+​	**ReflexiveObjectProperty** := 'ReflexiveObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-reflexive-objectproperty.png" alt="axiom-reflexive-objectproperty" width="500px" />
+
+
+
+#### 4.2.10 Irreflexive Object Property
+
+An object property *irreflexivity* axiom `IrreflexiveObjectProperty( OPE )` states that the object property expression `OPE` is irreflexive — that is, no individual is connected by `OPE` to itself.
+
+<u>OWL 2 Notation</u>:
 
 ​	**IrreflexiveObjectProperty** := 'IrreflexiveObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-irreflexive-objectproperty.png" alt="axiom-irreflexive-objectproperty" width="500px" />
+
+
+
+#### 4.2.11 Symmetric Object Property
+
+An object property *symmetry* axiom `SymmetricObjectProperty( OPE )` states that the object property expression `OPE` is symmetric — that is, if an individual `x` is connected by `OPE` to an individual `y`, then `y` is also connected by `OPE` to `x`.
+
+<u>OWL 2 Notation</u>:
+
 ​	**SymmetricObjectProperty** := 'SymmetricObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-symmetric-objectproperty.png" alt="axiom-symmetric-objectproperty" width="500px" />
+
+
+
+#### 4.2.12 Asymmetric Object Property
+
+An object property *asymmetry* axiom `AsymmetricObjectProperty( OPE )` states that the object property expression `OPE` is asymmetric — that is, if an individual `x` is connected by `OPE` to an individual `y`, then `y` cannot be connected by `OPE` to `x`.
+
+<u>OWL 2 Notation</u>:
+
 ​	**AsymmetricObjectProperty** := 'AsymmetricObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-asymmetric-objectproperty.png" alt="axiom-asymmetric-objectproperty" width="500px" />
+
+
+
+#### 4.2.13 Transitive Object Property
+
+An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states that the object property expression `OPE` is transitive — that is, if an individual `x` is connected by `OPE` to an individual `y` that is connected by `OPE` to an individual `z`, then `x` is also connected by `OPE` to `z`.
+
+<u>OWL 2 Notation</u>:
 
 ​	**TransitiveObjectProperty** := 'TransitiveObjectProperty' '(' { **Annotation** } **ObjectPropertyExpression** ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-objectproperty-characteristics.png" alt="axiom-objectproperty-characteristics" width="500px" />
+<img src="images/axiom-transitive-objectproperty.png" alt="axiom-transitive-objectproperty" width="500px" />
 
 
 
