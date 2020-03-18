@@ -159,30 +159,26 @@ TBA
 
 Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe some key design choices:
 
-- **Specific types of OWL objects are represented by the property `type` on nodes in a LPG**. Each OWL object is identified through a *reserved keyword* (see [1.3.2 Reserved Keywords](#132-reserved-keywords)) that satisfies the `type` property of a node. For example, the `'type' = 'Class'` pair indicates a node that represents an OWL Class entity. This  *type-of* method will provide the node the neccessary abstraction to deal with various complex structural constructions in the OWL language specification.
+- **The types of OWL objects are specified by the labels on nodes in a LPG**. The types of each OWL object are specified as labels on the nodes that represent those objects, using *reserved keywords* drawn from the OWL 2 specification (see [1.3.2 Reserved Keywords](#132-reserved-keywords)). For example, a node labeled `:Class:Entity:ClassExpression` represents an OWL class entity, which is an atomic class expression. Giving the most specific type along with the more generic one(s) allows us to retrieve, for example, all OWL entities in a LPG, or all OWL class expressions.
 
-- **Complex OWL constructs (e.g., axioms, class expressions) are mapped to a LPG using a node to represent the construct type (e.g., a SomeValuesFrom class expression) with outgoing edges to its elements**. Each OWL axiom is assigned a unique node in a LPG, with at least one outgoing edge to a node representing an atomic entity or a complex expression. For example, an OWL SubClassOf axiom is mapped to a LPG using one `Axiom` node with a property on it to specify its type: `'type'='SubClassOf'`, and two outgoing edges:  `HAS_SUB` and `HAS_SUPER` that link to an `Entity` node (with a property `'type'='Class'`) or to a `ClassExpression` node. 
+- **OWL axioms are mapped to a LPG using a unique node to represent the axiom type with outgoing edges to its elements**. Each OWL axiom is assigned a unique node in a LPG, with at least one outgoing edge to a node representing an entity expression. For example, an OWL SubClassOf axiom is mapped to a LPG using one `:SubClassOf:Axiom` (multi-label) node and two outgoing edges labeled `subClassExpression` and `superClassExpression` that link to a `:ClassExpression` node. Representing each OWL axiom with a unique node in a LPG allows the following:
 
-  Representing each OWL axiom with a unique node in a LPG allows two things to happen:
-
-  1. We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL entity annotations (as nodes attached to the annotated-entity node).
+  1. We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL annotations (as `:Literal` or `:IRI` nodes linked to the node that represents the annotation subject).
   2. We can attach versioning information about the axiom (see [Change History](#change-history) for details).
 
-- **Each named OWL entity is mapped to a unique  `Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. 
+- **Complex OWL constructs (e.g., class expressions, data ranges) are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements**. Unlike nodes to represent axiom types, a node to represent a particular type of class expression can be linked to from multiple axioms. For example, in mapping OWL to LPG there is a single node to represent an existential quantifier labeled `:SomeValuesFrom:ClassExpression`, which is used in all existential restrictions.
 
-  In case the user deletes an entity, a status flag (e.g., `'status' = 'defunct'`) can be used to indicate the removal instead of actually removing the node itself. At this point, the entity cannot accept any incoming edges. If the user then introduce the same entity, a *new* entity node will be created and it can be reused until it gets decommissioned again. (Note: A node cannot be restored once it gets the `defunct` status flag).
+- **Each named OWL entity is mapped to a unique  `:Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. For example, consider the axioms: 
 
-	For example, consider the axioms: 
-	
-	```
-	AX1: A SubClassOf p some B
-	AX2: A SubClassOf p some C
-AX3: B SubClassOf D
-	```
-	
-	The entity node `A` will be reused (and shared) by `AX1` and `AX2`, and the entity node `B` will be reused (and shared) by `AX1` and `AX3`. If the user deletes the entity node `A` then the axioms `AX1` and `AX2` will be removed as well because node `A` cannot receive the incoming edges `HAS_SUB` from those axioms. After the operation, the axiom `AX3` will become the only remaining axiom, along with the entity nodes `p`, `B`, `C` and `D`.
-	
-	
+  ```
+  AX1: A SubClassOf p some B
+  AX2: A SubClassOf p some C
+  AX3: B SubClassOf D
+  ```
+
+  The node for class `A` will be reused (and shared) by `AX1` and `AX2`, and the node for class `B` will be reused (and shared) by `AX1` and `AX3`.
+
+
 
 
 ### 1.3 Document Conventions
