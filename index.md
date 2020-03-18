@@ -51,85 +51,90 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 **Table of Content**
 
-  * [1 Introduction](#1-introduction)
-    * [1.1 Main Requirements](#11-main-requirements)
-       * [1.1.1 Tooling Requirements](#111-tooling-requirements)
-       * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
-    * [1.2 Design Choices](#12-design-choices)
-    * [1.3 Document Conventions](#13-document-conventions)
-       * [1.3.1 Reserved Nodes](#131-reserved-nodes)
-       * [1.3.2 Reserved Keywords](#132-reserved-keywords)
-       * [1.3.3 Reading LPG Diagrams](#133-reading-lpg-diagrams)
-    * [1.4 Similar Works](#14-similar-works)
-       * [1.4.1 SciGraph](#141-scigraph)
-       * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
-       * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
- * [2 Class Expressions](#2-class-expressions)
-    * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
-       * [2.1.1 Intersection of Class Expressions](#211-intersection-of-class-expressions)
-       * [2.1.2 Union of Class Expressions](#212-union-of-class-expressions)
-       * [2.1.3 Complement of Class Expressions](#213-complement-of-class-expressions)
-       * [2.1.4 Enumeration of Individuals](#214-enumeration-of-individuals)
-    * [2.2 Object Property Restrictions](#22-object-property-restrictions)
-       * [2.2.1 Existential Quantification](#221-existential-quantification)
-       * [2.2.2 Universal Quantification](#222-universal-quantification)
-       * [2.2.3 Individual Value Restriction](#223-individual-value-restriction)
-       * [2.2.4 Self-Restriction](#224-self-restriction)
-    * [2.3 Object Property Cardinality Restrictions](#23-object-property-cardinality-restrictions)
-       * [2.3.1 Minimum Cardinality](#231-minimum-cardinality)
-       * [2.3.2 Maximum Cardinality](#232-maximum-cardinality)
-       * [2.3.3 Exact Cardinality](#233-exact-cardinality)
-    * [2.4 Data Property Restrictions](#24-data-property-restrictions)
-       * [2.4.1 Existential Quantification](#241-existential-quantification)
-       * [2.4.2 Universal Quantification](#242-universal-quantification)
-       * [2.4.3 Literal Value Restriction](#243-literal-value-restriction)
-    * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
-       * [2.5.1 Minimum Cardinality](#251-minimum-cardinality)
-       * [2.5.2 Maximum Cardinality](#252-maximum-cardinality)
-       * [2.5.3 Exact Cardinality](#253-exact-cardinality)
- * [3 Data Ranges](#3-data-ranges)
-    * [3.1 Intersection and Union of Data Ranges](#31-intersection-and-union-of-data-ranges)
-    * [3.2 Complement of Data Ranges](#32-complement-of-data-ranges)
-    * [3.3 Enumeration of Literals](#33-enumeration-of-literals)
-    * [3.4 Datatype Restrictions](#34-datatype-restrictions)
- * [4 Axioms](#4-axioms)
-    * [4.1 Class Expression Axioms](#41-class-expression-axioms)
-       * [4.1.1 Subclass](#411-subclass)
-       * [4.1.2 Equivalent Classes](#412-equivalent-classes)
-       * [4.1.3 Disjoint Classes](#413-disjoint-classes)
-    * [4.2 Object Property Axioms](#42-object-property-axioms)
-       * [4.2.1 Object Subproperties](#421-object-subproperties)
-       * [4.2.2 Equivalent Object Properties](#422-equivalent-object-properties)
-       * [4.2.3 Disjoint Object Properties](#423-disjoint-object-properties)
-       * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
-       * [4.2.5 Object Property Domain](#425-object-property-domain)
-       * [4.2.6 Object Property Range](#426-object-property-range)
-       * [4.2.7 Functional Object Property](#427-functional-object-property)
-       * [4.2.8 Inverse Functional ObjectProperty](#428-inverse-functional-objectproperty)
-       * [4.2.9 Reflexive Object Property](#429-reflexive-object-property)
-       * [4.2.10 Irreflexive Object Property](#4210-irreflexive-object-property)
-       * [4.2.11 Symmetric Object Property](#4211-symmetric-object-property)
-       * [4.2.12 Asymmetric Object Property](#4212-asymmetric-object-property)
-       * [4.2.13 Transitive Object Property](#4213-transitive-object-property)
-    * [4.3 Data Property Axioms](#43-data-property-axioms)
-       * [4.3.1 Data Subproperties](#431-data-subproperties)
-       * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
-       * [4.3.3 Disjoint Data Properties](#433-disjoint-data-properties)
-       * [4.3.4 Data Property Domain](#434-data-property-domain)
-       * [4.3.5 Data Property Range](#435-data-property-range)
-       * [4.3.6 Functional Data Properties](#436-functional-data-properties)
-    * [4.4 Assertions](#44-assertions)
-       * [4.4.1 Class Assertions](#441-class-assertions)
-       * [4.4.2 Object Property Assertions](#442-object-property-assertions)
-       * [4.4.3 Data Property Assertions](#443-data-property-assertions)
-       * [4.4.4 Individual Equality](#444-individual-equality)
-       * [4.4.5 Individual Inequality](#445-individual-inequality)
- * [5 Annotations](#5-annotations)
-    * [5.1 Annotation of Ontologies, Axioms, and other Annotations](#51-annotation-of-ontologies-axioms-and-other-annotations)
-    * [5.2 Annotation Axioms](#52-annotation-axioms)
-       * [5.2.1 Annotation Assertions](#521-annotation-assertions)
-       * [5.2.2 Annotation Subproperties](#522-annotation-subproperties)
- * [6 Change History](#6-change-history)
+* [1 Introduction](#1-introduction)
+   * [1.1 Main Requirements](#11-main-requirements)
+      * [1.1.1 Tooling Requirements](#111-tooling-requirements)
+      * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
+   * [1.2 Design Choices](#12-design-choices)
+   * [1.3 Document Conventions](#13-document-conventions)
+      * [1.3.1 Reserved Nodes](#131-reserved-nodes)
+      * [1.3.2 Reserved Keywords](#132-reserved-keywords)
+      * [1.3.3 Reading LPG Diagrams](#133-reading-lpg-diagrams)
+   * [1.4 Similar Works](#14-similar-works)
+      * [1.4.1 SciGraph](#141-scigraph)
+      * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
+      * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
+* [2 Class Expressions](#2-class-expressions)
+   * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
+      * [2.1.1 Intersection of Class Expressions](#211-intersection-of-class-expressions)
+      * [2.1.2 Union of Class Expressions](#212-union-of-class-expressions)
+      * [2.1.3 Complement of Class Expressions](#213-complement-of-class-expressions)
+      * [2.1.4 Enumeration of Individuals](#214-enumeration-of-individuals)
+   * [2.2 Object Property Restrictions](#22-object-property-restrictions)
+      * [2.2.1 Existential Quantification](#221-existential-quantification)
+      * [2.2.2 Universal Quantification](#222-universal-quantification)
+      * [2.2.3 Individual Value Restriction](#223-individual-value-restriction)
+      * [2.2.4 Self-Restriction](#224-self-restriction)
+   * [2.3 Object Property Cardinality Restrictions](#23-object-property-cardinality-restrictions)
+      * [2.3.1 Minimum Cardinality](#231-minimum-cardinality)
+      * [2.3.2 Maximum Cardinality](#232-maximum-cardinality)
+      * [2.3.3 Exact Cardinality](#233-exact-cardinality)
+   * [2.4 Data Property Restrictions](#24-data-property-restrictions)
+      * [2.4.1 Existential Quantification](#241-existential-quantification)
+      * [2.4.2 Universal Quantification](#242-universal-quantification)
+      * [2.4.3 Literal Value Restriction](#243-literal-value-restriction)
+   * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
+      * [2.5.1 Minimum Cardinality](#251-minimum-cardinality)
+      * [2.5.2 Maximum Cardinality](#252-maximum-cardinality)
+      * [2.5.3 Exact Cardinality](#253-exact-cardinality)
+* [3 Data Ranges](#3-data-ranges)
+   * [3.1 Intersection of Data Ranges](#31-intersection-of-data-ranges)
+   * [3.2 Union of Data Ranges](#32-union-of-data-ranges)
+   * [3.3 Complement of Data Ranges](#33-complement-of-data-ranges)
+   * [3.4 Enumeration of Literals](#34-enumeration-of-literals)
+   * [3.5 Datatype Restrictions](#35-datatype-restrictions)
+* [4 Axioms](#4-axioms)
+   * [4.1 Class Expression Axioms](#41-class-expression-axioms)
+      * [4.1.1 Subclass](#411-subclass)
+      * [4.1.2 Equivalent Classes](#412-equivalent-classes)
+      * [4.1.3 Disjoint Classes](#413-disjoint-classes)
+   * [4.2 Object Property Axioms](#42-object-property-axioms)
+      * [4.2.1 Object Subproperties](#421-object-subproperties)
+      * [4.2.2 Equivalent Object Properties](#422-equivalent-object-properties)
+      * [4.2.3 Disjoint Object Properties](#423-disjoint-object-properties)
+      * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
+      * [4.2.5 Object Property Domain](#425-object-property-domain)
+      * [4.2.6 Object Property Range](#426-object-property-range)
+      * [4.2.7 Functional Object Property](#427-functional-object-property)
+      * [4.2.8 Inverse Functional Object Property](#428-inverse-functional-object-property)
+      * [4.2.9 Reflexive Object Property](#429-reflexive-object-property)
+      * [4.2.10 Irreflexive Object Property](#4210-irreflexive-object-property)
+      * [4.2.11 Symmetric Object Property](#4211-symmetric-object-property)
+      * [4.2.12 Asymmetric Object Property](#4212-asymmetric-object-property)
+      * [4.2.13 Transitive Object Property](#4213-transitive-object-property)
+   * [4.3 Data Property Axioms](#43-data-property-axioms)
+      * [4.3.1 Data Subproperties](#431-data-subproperties)
+      * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
+      * [4.3.3 Disjoint Data Properties](#433-disjoint-data-properties)
+      * [4.3.4 Data Property Domain](#434-data-property-domain)
+      * [4.3.5 Data Property Range](#435-data-property-range)
+      * [4.3.6 Functional Data Properties](#436-functional-data-properties)
+   * [4.4 Assertions](#44-assertions)
+      * [4.4.1 Class Assertions](#441-class-assertions)
+      * [4.4.2 Positive Object Property Assertions](#442-positive-object-property-assertions)
+      * [4.4.3 Negative Object Property Assertions](#443-negative-object-property-assertions)
+      * [4.4.4 Positive Data Property Assertions](#444-positive-data-property-assertions)
+      * [4.4.5 Negative Data Property Assertions](#445-negative-data-property-assertions)
+      * [4.4.6 Individual Equality](#446-individual-equality)
+      * [4.4.7 Individual Inequality](#447-individual-inequality)
+* [5 Annotations](#5-annotations)
+   * [5.1 Annotation of Ontologies, Axioms, and other Annotations](#51-annotation-of-ontologies-axioms-and-other-annotations)
+   * [5.2 Annotation Axioms](#52-annotation-axioms)
+      * [5.2.1 Annotation Assertions](#521-annotation-assertions)
+      * [5.2.2 Annotation Subproperties](#522-annotation-subproperties)
+      * [5.2.3 Annotation Property Domain](#523-annotation-property-domain)
+      * [5.2.4 Annotation Property Range](#524-annotation-property-range)
+* [6 Change History](#6-change-history)
 
 ---
 
@@ -739,7 +744,7 @@ An object property *functionality* axiom `FunctionalObjectProperty( OPE )` state
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-functional-objectproperty.png" alt="axiom-functional-objectproperty" width="500px" />
+<img src="images/axiom-functional-objectproperty.png" alt="axiom-functional-objectproperty" width="520" />
 
 
 
@@ -753,7 +758,7 @@ An object property *inverse functionality* axiom `InverseFunctionalObjectPropert
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-inversefunctional-objectproperty.png" alt="axiom-inverse-functional-objectproperty" width="500px" />
+<img src="images/axiom-inversefunctional-objectproperty.png" alt="axiom-inverse-functional-objectproperty" width="550" />
 
 
 
@@ -767,7 +772,7 @@ An object property *reflexivity* axiom `ReflexiveObjectProperty( OPE )` states t
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-reflexive-objectproperty.png" alt="axiom-reflexive-objectproperty" width="500px" />
+<img src="images/axiom-reflexive-objectproperty.png" alt="axiom-reflexive-objectproperty" width="520" />
 
 
 
@@ -781,7 +786,7 @@ An object property *irreflexivity* axiom `IrreflexiveObjectProperty( OPE )` stat
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-irreflexive-objectproperty.png" alt="axiom-irreflexive-objectproperty" width="500px" />
+<img src="images/axiom-irreflexive-objectproperty.png" alt="axiom-irreflexive-objectproperty" width="520" />
 
 
 
@@ -795,7 +800,7 @@ An object property *symmetry* axiom `SymmetricObjectProperty( OPE )` states that
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-symmetric-objectproperty.png" alt="axiom-symmetric-objectproperty" width="500px" />
+<img src="images/axiom-symmetric-objectproperty.png" alt="axiom-symmetric-objectproperty" width="520" />
 
 
 
@@ -809,7 +814,7 @@ An object property *asymmetry* axiom `AsymmetricObjectProperty( OPE )` states th
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-asymmetric-objectproperty.png" alt="axiom-asymmetric-objectproperty" width="500px" />
+<img src="images/axiom-asymmetric-objectproperty.png" alt="axiom-asymmetric-objectproperty" width="520" />
 
 
 
@@ -823,7 +828,7 @@ An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-transitive-objectproperty.png" alt="axiom-transitive-objectproperty" width="500px" />
+<img src="images/axiom-transitive-objectproperty.png" alt="axiom-transitive-objectproperty" width="520" />
 
 
 
@@ -913,7 +918,7 @@ A data property functionality axiom `FunctionalDataProperty( DP )` states that t
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-dataproperty-characteristics.png" alt="axiom-dataproperty-characteristics" width="500px" />
+<img src="images/axiom-functional-dataproperty.png" alt="axiom-functional-dataproperty" width="520" />
 
 
 
@@ -933,17 +938,13 @@ A class assertion `ClassAssertion( CE a )` states that the individual `a` is an 
 
 
 
-#### 4.4.2 Object Property Assertions
+#### 4.4.2 Positive Object Property Assertions
 
 A positive object property assertion `ObjectPropertyAssertion( OPE a1 a2 )` states that the individual `a1` is connected by the object property expression `OPE` to the individual `a2`.
-
-A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2 )` states that the individual `a1` is not connected by the object property expression `OPE` to the individual `a2`.
 
 <u>OWL 2 Notation</u>:
 
 ​	**ObjectPropertyAssertion** := 'ObjectPropertyAssertion' '(' { **Annotation** } **ObjectPropertyExpression** **sourceIndividual** **targetIndividual** ')'
-
-​	**NegativeObjectPropertyAssertion** := 'NegativeObjectPropertyAssertion' '(' { **Annotation** } **ObjectPropertyExpression** **sourceIndividual** **targetIndividual** ')'
 
 <u>LPG Diagram</u>:
 
@@ -951,17 +952,27 @@ A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2
 
 
 
-#### 4.4.3 Data Property Assertions
+#### 4.4.3 Negative Object Property Assertions
+
+A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2 )` states that the individual `a1` is not connected by the object property expression `OPE` to the individual `a2`.
+
+<u>OWL 2 Notation</u>:
+
+​	**NegativeObjectPropertyAssertion** := 'NegativeObjectPropertyAssertion' '(' { **Annotation** } **ObjectPropertyExpression** **sourceIndividual** **targetIndividual** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-negative-objectproperty-assertion.png" alt="axiom-negative-objectproperty-assertion" width="800" />
+
+
+
+#### 4.4.4 Positive Data Property Assertions
 
 A positive data property assertion `DataPropertyAssertion( DP a lt )` states that the individual a is connected by the data property `DP` to the literal `lt`.
-
-A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` states that the individual a is not connected by the data property `DP` to the literal `lt`.
 
 <u>OWL 2 Notation</u>:
 
 ​	**DataPropertyAssertion** := 'DataPropertyAssertion' '(' { **Annotation** } **DataPropertyExpression** **sourceIndividual** **targetValue** ')'
-
-​	**NegativeDataPropertyAssertion** := 'NegativeDataPropertyAssertion' '(' { **Annotation** } **DataPropertyExpression** **sourceIndividual** **targetValue** ')'	
 
 <u>LPG Diagram</u>:
 
@@ -969,7 +980,21 @@ A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` st
 
 
 
-#### 4.4.4 Individual Equality
+#### 4.4.5 Negative Data Property Assertions
+
+A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` states that the individual a is not connected by the data property `DP` to the literal `lt`.
+
+<u>OWL 2 Notation</u>:
+
+​	**NegativeDataPropertyAssertion** := 'NegativeDataPropertyAssertion' '(' { **Annotation** } **DataPropertyExpression** **sourceIndividual** **targetValue** ')'	
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-negative-dataproperty-assertion.png" alt="axiom-negative-dataproperty-assertion" width="800" />
+
+
+
+#### 4.4.6 Individual Equality
 
 An individual equality axiom `SameIndividual( a1 ... an )` states that all of the individuals `ai`, 1 ≤ i ≤ n, are equal to each other. This axiom allows one to use each `ai` as a synonym for each `aj` — that is, in any expression in the ontology containing such an axiom, `ai` can be replaced with `aj` without affecting the meaning of the ontology.
 
@@ -981,7 +1006,7 @@ An individual equality axiom `SameIndividual( a1 ... an )` states that all of th
 
 <img src="images/axiom-same-individual.png" alt="axiom-same-individual" width="800" />
 
-#### 4.4.5 Individual Inequality
+#### 4.4.7 Individual Inequality
 
 An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that all of the individuals `ai`, 1 ≤ i ≤ n, are different from each other; that is, no individuals `ai` and `aj` with i ≠ j can be derived to be equal. This axiom can be used to axiomatize the *unique name assumption* — the assumption that all different individual names denote different individuals.
 
@@ -1046,6 +1071,34 @@ An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that
 <u>LPG Diagram</u>:
 
 <img src="images/axiom-subannotationproperty-of.png" alt="axiom-subannotationproperty-of" width="800" />
+
+
+
+#### 5.2.3 Annotation Property Domain
+
+An annotation property domain axiom `AnnotationPropertyDomain( AP U )` states that the domain of the annotation property `AP` is the IRI `U`.
+
+<u>OWL 2 Notation</u>:
+
+​	**AnnotationPropertyDomain** := 'AnnotationPropertyDomain' '(' **axiomAnnotations** **AnnotationProperty** **IRI** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-annotationproperty-domain.png" alt="axiom-annotationproperty-domain" width="800" />
+
+
+
+#### 5.2.4 Annotation Property Range
+
+An annotation property range axiom `AnnotationPropertyRange( AP U )` states that the range of the annotation property `AP` is the IRI `U`.
+
+<u>OWL 2 Notation</u>:
+
+​	**AnnotationPropertyRange** := 'AnnotationPropertyRange' '(' **axiomAnnotations** **AnnotationProperty** **IRI** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-annotationproperty-range.png" alt="axiom-annotationproperty-range" width="800" />
 
 
 
