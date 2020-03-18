@@ -443,25 +443,31 @@ In all cases, if `DR` is not present, it is taken to be *rdfs:Literal*.
 
 ## 3 Data Ranges
 
-### 3.1 Intersection and Union of Data Ranges
+### 3.1 Intersection of Data Ranges
 
 An *intersection* data range `DataIntersectionOf( DR1 ... DRn )` contains all tuples of literals that are contained in each data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
-
-A *union* data range `DataUnionOf( DR1 ... DRn )` contains all tuples of literals that are contained in the at least one data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
 
 <u>OWL 2 Notation</u>:
 
   **DataIntersectionOf** := 'DataIntersectionOf' '(' **DataRange** **DataRange** { **DataRange** } ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/data-ranges-intersection.png" alt="data-ranges-intersection" width="800" />
+
+### 3.2 Union of Data Ranges
+
+A *union* data range `DataUnionOf( DR1 ... DRn )` contains all tuples of literals that are contained in the at least one data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
+
+<u>OWL 2 Notation</u>:
+
   **DataUnionOf** := 'DataUnionOf' '(' **DataRange** **DataRange** { **DataRange** } ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/data-ranges-set-operations.png" alt="data-ranges-set-operations" width="800" />
+<img src="images/data-ranges-union.png" alt="data-ranges-union" width="800" />
 
-
-
-### 3.2 Complement of Data Ranges
+### 3.3 Complement of Data Ranges
 
 A complement data range `DataComplementOf( DR )` contains all tuples of literals that are not contained in the data range `DR`. The resulting data range has the arity equal to the arity of `DR`.
 
@@ -475,7 +481,7 @@ A complement data range `DataComplementOf( DR )` contains all tuples of literals
 
 
 
-### 3.3 Enumeration of Literals
+### 3.4 Enumeration of Literals
 
 An enumeration of literals `DataOneOf( lt1 ... ltn )` contains exactly the explicitly specified literals `lti` with 1 ≤ i ≤ n. The resulting data range has arity one.
 
@@ -489,7 +495,7 @@ An enumeration of literals `DataOneOf( lt1 ... ltn )` contains exactly the expli
 
 
 
-### 3.4 Datatype Restrictions
+### 3.5 Datatype Restrictions
 
 A datatype restriction `DatatypeRestriction( DT F1 lt1 ... Fn ltn )` consists of a unary datatype `DT` and `n` pairs `( Fi , lti )`. The resulting data range is unary and is obtained by restricting the value space of `DT` according to the semantics of all `( Fi , vi )` (multiple pairs are interpreted conjunctively), where `vi` are the data values of the literals `lti`.
 
