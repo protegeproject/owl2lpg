@@ -999,13 +999,15 @@ An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that a
 
 ### 5.1 Annotation of Ontologies, Axioms, and other Annotations
 
-Ontologies, axioms, and annotations themselves can be annotated using annotations. Such annotations consist of an annotation property and an annotation value, where the latter can be IRIs or literals.
+Ontologies, axioms, and annotations themselves can be annotated using annotations. Such annotations consist of an annotation property and an annotation value, where the latter can be anonymous individuals, IRIs, and literals.
 
 <u>OWL 2 Notation</u>:
 
-​	**Annotation** := 'Annotation' '(' { **Annotation** } **AnnotationProperty** **AnnotationValue** ')'
+​	**Annotation** := 'Annotation' '(' **annotationAnnotations**  **AnnotationProperty** **AnnotationValue** ')'
 
-​	**AnnotationValue** :=  **Literal** | **IRI**
+​	**annotationAnnotations** := { **Annotation** }
+
+​	**AnnotationValue** := **AnonymousIndividual** | **IRI** | **Literal** 
 
 <u>LPG Diagram</u>:
 
@@ -1015,13 +1017,15 @@ Ontologies, axioms, and annotations themselves can be annotated using annotation
 
 #### 5.2.1 Annotation Assertions
 
-An annotation assertion `AnnotationAssertion( AP as av )` states that the annotation subject as — an IRI  — is annotated with the annotation property `AP` and the annotation value `av`.
+An annotation assertion `AnnotationAssertion( AP as av )` states that the annotation subject `as` — an IRI or an anonymous individual — is annotated with the annotation property `AP` and the annotation value `av`.
 
 <u>OWL 2 Notation</u>:
 
 ​	**AnnotationAssertion** := 'AnnotationAssertion' '(' { **Annotation** } **AnnotationProperty** **AnnotationSubject** **AnnotationValue** ')'
 
-​	**AnnotationValue** :=  **Literal** | **IRI**
+​	**AnnotationSubject** := **IRI** | **AnonymousIndividual**
+
+​	**AnnotationValue** := **AnonymousIndividual** | **IRI** | **Literal** 
 
 <u>LPG Diagram</u>:
 
