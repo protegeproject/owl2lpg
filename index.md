@@ -93,8 +93,9 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
        * [4.2.2 Equivalent Object Properties](#422-equivalent-object-properties)
        * [4.2.3 Disjoint Object Properties](#423-disjoint-object-properties)
        * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
-       * [4.2.5 Object Property Domain and Range](#425-object-property-domain-and-range)
-       * [4.2.6 Object Property Characteristics](#426-object-property-characteristics)
+       * [4.2.5 Object Property Domain and Range](#425-object-property-domain)
+       * [4.2.6 Object Property Domain and Range](#426-object-property-range)
+       * [4.2.7 Object Property Characteristics](#427-object-property-characteristics)
     * [4.3 Data Property Axioms](#43-data-property-axioms)
        * [4.3.1 Data Subproperties](#431-data-subproperties)
        * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
@@ -618,25 +619,35 @@ An inverse object properties axiom `InverseObjectProperties( OPE1 OPE2 )` states
 
 
 
-#### 4.2.5 Object Property Domain and Range
+#### 4.2.5 Object Property Domain
 
 An object property *domain* axiom `ObjectPropertyDomain( OPE CE )` states that the domain of the object property expression `OPE` is the class expression `CE` — that is, if an individual `x` is connected by `OPE` with some other individual, then `x` is an instance of `CE`.
-
-An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the range of the object property expression `OPE` is the class expression `CE` — that is, if some individual is connected by `OPE` with an individual `x`, then `x` is an instance of `CE`. 
 
 <u>OWL 2 Notation</u>:
 
 ​	**ObjectPropertyDomain** := 'ObjectPropertyDomain' '(' { **Annotation** } **ObjectPropertyExpression** **ClassExpression** ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-objectproperty-domain.png" alt="axiom-objectproperty-domain" width="800" />
+
+
+
+#### 4.2.6 Object Property Range
+
+An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the range of the object property expression `OPE` is the class expression `CE` — that is, if some individual is connected by `OPE` with an individual `x`, then `x` is an instance of `CE`. 
+
+<u>OWL 2 Notation</u>:
+
 ​	**ObjectPropertyRange** := 'ObjectPropertyRange' '(' { **Annotation** } **ObjectPropertyExpression** **ClassExpression** ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-objectproperty-domainrange.png" alt="axiom-objectproperty-domainrange" width="800" />
+<img src="images/axiom-objectproperty-range.png" alt="axiom-objectproperty-range" width="800" />
 
 
 
-#### 4.2.6 Object Property Characteristics
+#### 4.2.7 Object Property Characteristics
 
 An object property *functionality* axiom `FunctionalObjectProperty( OPE )` states that the object property expression `OPE` is functional — that is, for each individual `x`, there can be at most one distinct individual `y` such that `x` is connected by `OPE` to `y`.
 
