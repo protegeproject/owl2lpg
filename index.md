@@ -66,18 +66,27 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
        * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
  * [2 Class Expressions](#2-class-expressions)
     * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
-       * [2.1.1 Intersection and Union of Class Expressions](#211-intersection-and-union-of-class-expressions)
-       * [2.1.2 Complement of Class Expressions](#212-complement-of-class-expressions)
-       * [2.1.3 Enumeration of Individuals](#213-enumeration-of-individuals)
+       * [2.1.1 Intersection of Class Expressions](#211-intersection-of-class-expressions)
+       * [2.1.2 Union of Class Expressions](#212-union-of-class-expressions)
+       * [2.1.3 Complement of Class Expressions](#213-complement-of-class-expressions)
+       * [2.1.4 Enumeration of Individuals](#214-enumeration-of-individuals)
     * [2.2 Object Property Restrictions](#22-object-property-restrictions)
-       * [2.2.1 Existential and Universal Quantification](#221-existential-and-universal-quantification)
-       * [2.2.2 Individual Value Restriction](#222-individual-value-restriction)
-       * [2.2.3 Self-Restriction](#223-self-restriction)
+       * [2.2.1 Existential Quantification](#221-existential-quantification)
+       * [2.2.2 Universal Quantification](#222-universal-quantification)
+       * [2.2.3 Individual Value Restriction](#223-individual-value-restriction)
+       * [2.2.4 Self-Restriction](#224-self-restriction)
     * [2.3 Object Property Cardinality Restrictions](#23-object-property-cardinality-restrictions)
+       * [2.3.1 Minimum Cardinality](#231-minimum-cardinality)
+       * [2.3.2 Maximum Cardinality](#232-maximum-cardinality)
+       * [2.3.3 Exact Cardinality](#233-exact-cardinality)
     * [2.4 Data Property Restrictions](#24-data-property-restrictions)
-       * [2.4.1 Existential and Universal Quantification](#241-existential-and-universal-quantification)
-       * [2.4.2 Literal Value Restriction](#242-literal-value-restriction)
+       * [2.4.1 Existential Quantification](#241-existential-quantification)
+       * [2.4.2 Universal Quantification](#242-universal-quantification)
+       * [2.4.3 Literal Value Restriction](#243-literal-value-restriction)
     * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
+       * [2.5.1 Minimum Cardinality](#251-minimum-cardinality)
+       * [2.5.2 Maximum Cardinality](#252-maximum-cardinality)
+       * [2.5.3 Exact Cardinality](#253-exact-cardinality)
  * [3 Data Ranges](#3-data-ranges)
     * [3.1 Intersection and Union of Data Ranges](#31-intersection-and-union-of-data-ranges)
     * [3.2 Complement of Data Ranges](#32-complement-of-data-ranges)
@@ -265,25 +274,35 @@ The [OWL2Neo4J tool](https://github.com/flekschas/owl2neo4j) allows converting O
 
 ### 2.1 Propositional Connectives and Enumeration of Individuals
 
-#### 2.1.1 Intersection and Union of Class Expressions
+#### 2.1.1 Intersection of Class Expressions
 
 An *intersection* class expression `ObjectIntersectionOf( CE1 ... CEn )` contains all individuals that are instances of all class expressions `CEi` for 1 ≤ i ≤ n.
-
-A *union* class expression `ObjectUnionOf( CE1 ... CEn )` contains all individuals that are instances of at least one class expression `CEi` for 1 ≤ i ≤ n.
 
 <u>OWL 2 Notation</u>:
 
 ​	**ObjectIntersectionOf** := 'ObjectIntersectionOf' '(' **ClassExpression** **ClassExpression** ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-object-intersection.png" alt="class-expression-object-intersection" width="800" />
+
+
+
+#### 2.1.2 Union of Class Expressions
+
+A *union* class expression `ObjectUnionOf( CE1 ... CEn )` contains all individuals that are instances of at least one class expression `CEi` for 1 ≤ i ≤ n.
+
+<u>OWL 2 Notation</u>:
+
 ​	**ObjectUnionOf** := 'ObjectUnionOf' '(' **ClassExpression** **ClassExpression** ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-set-operations.png" alt="class-expression-object-set-operations" width="800" />
+<img src="images/class-expression-object-union.png" alt="class-expression-object-union" width="800" />
 
 
 
-#### 2.1.2 Complement of Class Expressions
+#### 2.1.3 Complement of Class Expressions
 
 A complement class expression `ObjectComplementOf( CE )` contains all individuals that are not instances of the class expression `CE`.
 
@@ -297,7 +316,7 @@ A complement class expression `ObjectComplementOf( CE )` contains all individual
 
 
 
-#### 2.1.3 Enumeration of Individuals
+#### 2.1.4 Enumeration of Individuals
 
 An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the individuals `ai` with 1 ≤ i ≤ n.
 
@@ -313,25 +332,33 @@ An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the in
 
 ### 2.2 Object Property Restrictions
 
-#### 2.2.1 Existential and Universal Quantification
+#### 2.2.1 Existential Quantification
 
 An *existential* class expression `ObjectSomeValuesFrom( OPE CE )` consists of an object property expression `OPE` and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to an individual that is an instance of `CE`. 
-
-A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an object property expression `OPE` and a class expression `CE`, and it contains all those individuals that are connected by `OPE` only to individuals that are instances of `CE`. 
 
 <u>OWL 2 Notation</u>:
 
 ​	**ObjectSomeValuesFrom** := 'ObjectSomeValuesFrom' '(' **ObjectPropertyExpression** **ClassExpression** ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-object-some-values.png" alt="class-expression-object-some-values" width="800" />
+
+
+#### 2.2.2 Universal Quantification
+
+A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an object property expression `OPE` and a class expression `CE`, and it contains all those individuals that are connected by `OPE` only to individuals that are instances of `CE`. 
+
+<u>OWL 2 Notation</u>:
+
 ​	**ObjectAllValuesFrom** := 'ObjectAllValuesFrom' '(' **ObjectPropertyExpression** **ClassExpression** ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-restrictions.png" alt="class-expression-object-restrictions" width="800" />
+<img src="images/class-expression-object-all-values.png" alt="class-expression-object-all-values" width="800" />
 
 
-
-#### 2.2.2 Individual Value Restriction
+#### 2.2.3 Individual Value Restriction
 
 A has-value class expression `ObjectHasValue( OPE a )` consists of an object property expression `OPE` and an individual a, and it contains all those individuals that are connected by `OPE` to `a`. 
 
@@ -345,7 +372,7 @@ A has-value class expression `ObjectHasValue( OPE a )` consists of an object pro
 
 
 
-#### 2.2.3 Self-Restriction
+#### 2.2.4 Self-Restriction
 
 A self-restriction `ObjectHasSelf( OPE )` consists of an object property expression `OPE`, and it contains all those individuals that are connected by `OPE` to themselves.
 
@@ -361,49 +388,77 @@ A self-restriction `ObjectHasSelf( OPE )` consists of an object property express
 
 ### 2.3 Object Property Cardinality Restrictions
 
-A *minimum cardinality* expression `ObjectMinCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at least `n` different individuals that are instances of `CE`.
+#### 2.3.1 Minimum Cardinality
 
-A *maximum cardinality* expression `ObjectMaxCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at most `n` different individuals that are instances of `CE`.
-
-An *exact cardinality* expression `ObjectExactCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to exactly `n` different individuals that are instances of `CE`.
-
-In all cases, if `CE` is missing, it is taken to be *owl:Thing*.
+A *minimum cardinality* expression `ObjectMinCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at least `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
 
 <u>OWL 2 Notation</u>:
 
 ​	**ObjectMinCardinality** := 'ObjectMinCardinality' '(' **nonNegativeInteger** **ObjectPropertyExpression** [ **ClassExpression** ] ')'
 
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-object-min-cardinality.png" alt="class-expression-object-min-cardinality" width="800" />
+
+
+#### 2.3.2 Maximum Cardinality
+
+A *maximum cardinality* expression `ObjectMaxCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at most `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
+
+<u>OWL 2 Notation</u>:
+
 ​	**ObjectMaxCardinality** := 'ObjectMaxCardinality' '(' **nonNegativeInteger** **ObjectPropertyExpression** [ **ClassExpression** ] ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-object-max-cardinality.png" alt="class-expression-object-max-cardinality" width="800" />
+
+
+#### 2.3.3 Exact Cardinality
+
+An *exact cardinality* expression `ObjectExactCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to exactly `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
+
+<u>OWL 2 Notation</u>:
 
 ​	**ObjectExactCardinality** := 'ObjectExactCardinality' '(' **nonNegativeInteger** **ObjectPropertyExpression** [ **ClassExpression** ] ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-cardinality.png" alt="class-expression-object-cardinality" width="800" />
+<img src="images/class-expression-object-exact-cardinality.png" alt="class-expression-object-exact-cardinality" width="800" />
 
 
 
 ### 2.4 Data Property Restrictions
 
-#### 2.4.1 Existential and Universal Quantification
+#### 2.4.1 Existential Quantification
 
-An *existential* class expression `DataSomeValuesFrom( DP1 ... DPn DR )` consists of `n` data properties `DPi`, 1 ≤ i ≤ n, and a data range `DR` whose arity *must* be `n`. Such a class expression contains all those individuals that are connected by `DPi` to literals `lti`, 1 ≤ i ≤ n, such that the tuple `( lt1 , ..., ltn )` is in `DR`.
-
-A *universal* class expression `DataAllValuesFrom( DP1 ... DPn DR )` consists of `n` data properties `DPi`, 1 ≤ i ≤ n, and a data range `DR` whose arity *must* be `n`. Such a class expression contains all those individuals that are connected by `DPi` only to literals `lti`, 1 ≤ i ≤ n, such that each tuple `( lt1 , ..., ltn )` is in `DR`.
+An *existential* class expression `DataSomeValuesFrom( DPE1 ... DPEn DR )` consists of `n` data property expressions `DPEi`, 1 ≤ i ≤ n, and a data range `DR` whose arity *must* be `n`. Such a class expression contains all those individuals that are connected by `DPi` to literals `lti`, 1 ≤ i ≤ n, such that the tuple `( lt1 , ..., ltn )` is in `DR`.
 
 <u>OWL 2 Notation</u>:
 
-​	**DataSomeValuesFrom** := 'DataSomeValuesFrom' '(' **DataProperty** { **DataProperty** } **DataRange** ')'
-
-​	**DataAllValuesFrom** := 'DataAllValuesFrom' '(' **DataProperty** { **DataProperty** } **DataRange** ')'
+​	**DataSomeValuesFrom** := 'DataSomeValuesFrom' '(' **DataPropertyExpression** { **DataPropertyExpression** } **DataRange** ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-data-restrictions.png" alt="class-expression-data-restrictions" width="800" />
+<img src="images/class-expression-data-some-values.png" alt="class-expression-data-some-values" width="800" />
 
 
 
-#### 2.4.2 Literal Value Restriction
+#### 2.4.2 Universal Quantification
+
+A *universal* class expression `DataAllValuesFrom( DPE1 ... DPEn DR )` consists of `n` data property expressions `DPEi`, 1 ≤ i ≤ n, and a data range `DR` whose arity *must* be `n`. Such a class expression contains all those individuals that are connected by `DPi` only to literals `lti`, 1 ≤ i ≤ n, such that each tuple `( lt1 , ..., ltn )` is in `DR`.
+
+<u>OWL 2 Notation</u>:
+
+​	**DataAllValuesFrom** := 'DataAllValuesFrom' '(' **DataPropertyExpression** { **DataPropertyExpression** } **DataRange** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-data-all-values.png" alt="class-expression-data-all-values" width="800" />
+
+
+
+#### 2.4.3 Literal Value Restriction
 
 A has-value class expression `DataHasValue( DP lt )` consists of a data property `DP` and a literal `lt`, and it contains all those individuals that are connected by `DP` to `lt`.
 
@@ -419,25 +474,44 @@ A has-value class expression `DataHasValue( DP lt )` consists of a data property
 
 ### 2.5 Data Property Cardinality Restrictions
 
-A *minimum cardinality* expression `DataMinCardinality( n DP DR )` consists of a nonnegative integer `n`, a data property `DP`, and a unary data range `DR`, and it contains all those individuals that are connected by `DP` to at least `n` different literals in `DR`.
+#### 2.5.1 Minimum Cardinality 
 
-A *maximum cardinality* expression `DataMaxCardinality( n DP DR )` consists of a nonnegative integer `n`, a data property `DP`, and a unary data range `DR`, and it contains all those individuals that are connected by `DP` to at most `n` different literals in `DR`.
-
-An *exact cardinality* expression `DataExactCardinality( n DP DR )` consists of a nonnegative integer `n`, a data property `DP`, and a unary data range `DR`, and it contains all those individuals that are connected by `DP` to exactly `n` different literals in `DR`.
-
-In all cases, if `DR` is not present, it is taken to be *rdfs:Literal*.
+A *minimum cardinality* expression `DataMinCardinality( n DPE DR )` consists of a nonnegative integer `n`, a data property expression `DPE`, and a unary data range `DR`, and it contains all those individuals that are connected by `DPE` to at least `n` different literals in `DR`. If `DR` is not present, it is taken to be *rdfs:Literal*.
 
 <u>OWL 2 Notation</u>:
 
-​	**DataMinCardinality** := 'DataMinCardinality' '(' **nonNegativeInteger** **DataProperty** [ **DataRange** ] ')'
-
-​	**DataMaxCardinality** := 'DataMaxCardinality' '(' **nonNegativeInteger** **DataProperty** [ **DataRange** ] ')'
-
-​	**DataExactCardinality** := 'DataExactCardinality' '(' **nonNegativeInteger** **DataProperty** [ **DataRange** ] ')'
+​	**DataMinCardinality** := 'DataMinCardinality' '(' **nonNegativeInteger** **DataPropertyExpression** [ **DataRange** ] ')'
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-data-cardinalities.png" alt="class-expression-data-cardinalities" width="800" />
+<img src="images/class-expression-data-min-cardinality.png" alt="class-expression-data-cardinalities" width="800" />
+
+
+#### 2.5.2 Maximum Cardinality 
+
+A *maximum cardinality* expression `DataMaxCardinality( n DPE DR )` consists of a nonnegative integer `n`, a data property expression `DPE`, and a unary data range `DR`, and it contains all those individuals that are connected by `DPE` to at most `n` different literals in `DR`. If `DR` is not present, it is taken to be *rdfs:Literal*.
+
+<u>OWL 2 Notation</u>:
+
+​	**DataMaxCardinality** := 'DataMaxCardinality' '(' **nonNegativeInteger** **DataPropertyExpression** [ **DataRange** ] ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-data-max-cardinality.png" alt="class-expression-data-max-cardinality" width="800" />
+
+
+
+#### 2.5.3 Exact Cardinality 
+
+An *exact cardinality* expression `DataExactCardinality( n DPE DR )` consists of a nonnegative integer `n`, a data property expression `DPE`, and a unary data range `DR`, and it contains all those individuals that are connected by `DPE` to exactly `n` different literals in `DR`. If `DR` is not present, it is taken to be *rdfs:Literal*.
+
+<u>OWL 2 Notation</u>:
+
+​	**DataExactCardinality** := 'DataExactCardinality' '(' **nonNegativeInteger** **DataPropertyExpression** [ **DataRange** ] ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/class-expression-data-exact-cardinality.png" alt="class-expression-data-exact-cardinality" width="800" />
 
 
 
@@ -669,7 +743,7 @@ An object property *functionality* axiom `FunctionalObjectProperty( OPE )` state
 
 
 
-#### 4.2.8 Inverse Functional ObjectProperty
+#### 4.2.8 Inverse Functional Object Property
 
 An object property *inverse functionality* axiom `InverseFunctionalObjectProperty( OPE )` states that the object property expression `OPE` is inverse-functional — that is, for each individual `x`, there can be at most one individual `y` such that `y` is connected by `OPE` with `x`.
 
