@@ -203,37 +203,21 @@ A Labeled Property Graph diagram consists of nodes and edges. A node is depicted
 
 **Non-Terminal Node**
 
-TBA
+<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-non-terminal.png" alt="node-non-terminal" width="180" />
 
 **Terminal Node**
 
-TBA
+<img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-terminal.png" alt="node-terminal" width="180" />
 
 
 
-#### 1.3.1 Entity Nodes
-
-TBA
-
-#### 1.3.2 Class Expression Nodes
-
-TBA
-
-#### 1.3.3 Object Property Expression Nodes
-
-TBA
-
-#### 1.3.4 Data Property Expression Nodes
-
-TBA
-
-#### 1.3.5 Literal Nodes
-
-TBA
-
-#### 1.3.6 Individual Nodes
-
-TBA
+| Non-Terminal Node                                            | Terminal Node                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-class-expression.png" alt="node-class-expression" width="180" /> | **Complex Expression**<br />See [Section 2 Class Expressions](#2-class-expressions) to browse the complete list.<br /><br />**Class Entity**<br /><img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-entity-class.png" alt="node-entity-class" width="480" /> |
+| <img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-object-property-expression.png" alt="node-object-property-expression" width="180" /> |                                                              |
+| <img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-data-property-expression.png" alt="node-data-property-expression" width="180" /> |                                                              |
+| <img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-individual.png" alt="node-individual" width="180" /> |                                                              |
+| <img src="/Users/jhardi/Documents/Projects/Github/owl2lpg/images/node-literal.png" alt="node-literal" width="180" /> |                                                              |
 
 
 
