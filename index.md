@@ -317,7 +317,7 @@ A complement class expression `ObjectComplementOf( CE )` contains all individual
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-complement.png" alt="class-expression-object-complement" width="500px"/>
+<img src="images/class-expression-object-complement.png" alt="class-expression-object-complement" width="520"/>
 
 
 
@@ -331,7 +331,7 @@ An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the in
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-one-of.png" alt="class-expression-object-one-of" width="500px" />
+<img src="images/class-expression-object-one-of.png" alt="class-expression-object-one-of" width="520" />
 
 
 
@@ -350,6 +350,7 @@ An *existential* class expression `ObjectSomeValuesFrom( OPE CE )` consists of a
 <img src="images/class-expression-object-some-values.png" alt="class-expression-object-some-values" width="800" />
 
 
+
 #### 2.2.2 Universal Quantification
 
 A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an object property expression `OPE` and a class expression `CE`, and it contains all those individuals that are connected by `OPE` only to individuals that are instances of `CE`. 
@@ -361,6 +362,7 @@ A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an ob
 <u>LPG Diagram</u>:
 
 <img src="images/class-expression-object-all-values.png" alt="class-expression-object-all-values" width="800" />
+
 
 
 #### 2.2.3 Individual Value Restriction
@@ -387,7 +389,7 @@ A self-restriction `ObjectHasSelf( OPE )` consists of an object property express
 
 <u>LPG Diagram</u>:
 
-<img src="images/class-expression-object-has-self.png" alt="class-expression-object-has-self" width="500px" />
+<img src="images/class-expression-object-has-self.png" alt="class-expression-object-has-self" width="520" />
 
 
 
@@ -406,6 +408,7 @@ A *minimum cardinality* expression `ObjectMinCardinality( n OPE CE )` consists o
 <img src="images/class-expression-object-min-cardinality.png" alt="class-expression-object-min-cardinality" width="800" />
 
 
+
 #### 2.3.2 Maximum Cardinality
 
 A *maximum cardinality* expression `ObjectMaxCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at most `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
@@ -417,6 +420,7 @@ A *maximum cardinality* expression `ObjectMaxCardinality( n OPE CE )` consists o
 <u>LPG Diagram</u>:
 
 <img src="images/class-expression-object-max-cardinality.png" alt="class-expression-object-max-cardinality" width="800" />
+
 
 
 #### 2.3.3 Exact Cardinality
@@ -473,7 +477,7 @@ A has-value class expression `DataHasValue( DP lt )` consists of a data property
 
 <u>LPG Diagram</u>:
 
-<img src="images/axiom-hasvalue-dataproperties.png" alt="axiom-hasvalue-dataproperties" width="800" />
+<img src="images/class-expression-data-has-value.png" alt="class-expression-data-has-value" width="800" />
 
 
 
@@ -490,6 +494,7 @@ A *minimum cardinality* expression `DataMinCardinality( n DPE DR )` consists of 
 <u>LPG Diagram</u>:
 
 <img src="images/class-expression-data-min-cardinality.png" alt="class-expression-data-cardinalities" width="800" />
+
 
 
 #### 2.5.2 Maximum Cardinality 
