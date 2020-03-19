@@ -201,51 +201,39 @@ OWL axioms are written out using [OWL Functional-Style syntax](https://www.w3.or
 
 A Labeled Property Graph diagram consists of nodes and edges. A node is depicted as a rectangle with rounded corners, and an edge is depicted as either a uni-directional arrow or a bi-directional arrow.
 
-#### 1.3.1 Reserved Nodes
+**Non-Terminal Node**
 
-In this mapping, we use the following 11 "reserved" labeled nodes to construct a LPG:
+TBA
 
-1. Ontology
-2. Entity
-3. ClassExpression
-4. ObjectPropertyExpression
-5. Axiom
-6. Value
-8. DataRange
-8. Facet
-9. Revision
-10. Operation
-11. Person
+**Terminal Node**
 
-The labeled nodes 1-8 are used to map an OWL 2 ontology. The `Revision` and `Operation` nodes are used for representing the change history graph. Lastly, the node `Person` is used to represent the authors of changes.
-
-#### 1.3.2 Reserved Keywords
-
-The table below shows the reserved keywords used in the mapping to fill out the `type` property, which indicates the specific type of OWL object.
-
-| Node                       | Reserved keywords                                            |
-| -------------------------- | ------------------------------------------------------------ |
-| `Entity`                   | Class<br />DataProperty<br />ObjectProperty<br />AnnotationProperty<br />Individual<br />Datatype |
-| `ClassExpression`          | ObjectSomeValuesFrom<br />ObjectAllValuesFrom<br />ObjectHasValue<br />ObjectHasSelf<br />ObjectOneOf<br />ObjectIntersectionOf<br />ObjectUnionOf<br />ObjectComplementOf<br />ObjectMinCardinality<br />ObjectMaxCardinality<br />ObjectExactCardinality<br />DataSomeValuesFrom<br />DataAllValuesFrom<br />DataHasValue<br />DataMinCardinality<br />DataMaxCardinality<br />DataExactCardinality |
-| `ObjectPropertyExpression` | ObjectInverseOf                                              |
-| `Axiom`                    | SubClassOf<br />EquivalentClasses<br />DisjointClasses<br />DisjointUnion<br />SubObjectPropertyOf<br />EquivalentObjectProperties<br />DisjointObjectProperties<br />InverseObjectProperties<br />ObjectPropertyDomain<br />ObjectPropertyRange<br />FunctionalObjectProperties<br />InverseFunctionalObjectProperties<br />ReflexiveObjectProperties<br />IrreflexiveObjectProperties<br />SymmetricObjectProperties<br />AsymmetricObjectProperties<br />TransitiveObjectProperties<br />SubDataPropertyOf<br />EquivalentDataProperties<br />DisjointDataProperties<br />DataPropertyDomain<br />DataPropertyRange<br />FunctionalDataProperty<br />DatatypeDefinition<br />HasKey<br />SameIndividual<br />DifferentIndividual<br />ClassAssertion<br />ObjectPropertyAssertion<br />NegativeObjectPropertyAssertion<br />DataPropertyAssertion<br />NegativeDataPropertyAssertion |
-| `Value`                    | Literal<br />IRI                                             |
-| `DataRange`                | DataIntersectionOf<br />DataUnionOf<br />DataComplementOf<br />DataOneOf<br />DatatypeRestriction |
+TBA
 
 
-#### 1.3.3 Reading LPG Diagrams
 
-Nodes have a `type` property to represent their specific *kind* of OWL object. For example, the figure below depicts a generic OWL Entity node of specific type `Class`. The 'Class' string is a *reserved keyword* in this specification. 
+#### 1.3.1 Entity Nodes
 
-<img src="images/node-class-type.png" alt="node-class-type" width="200;" />
+TBA
 
-A node can be depicted with multiple possible keywords separated by a pipe (`|`) delimiter. For example, the figure below indicates that the Axiom node can have a value for the `type` property that is one of the listed values.
+#### 1.3.2 Class Expression Nodes
 
-<img src="images/node-many-types.png" alt="node-many-types" width="200" />
+TBA
 
-Moreover, if a node has a property `'type'='any'`, then it means that the value can be any specific type that the node supports. For example, the figure below indicates that the Entity node can be any type of OWL entity (i.e., Class, Data Property, Object Property, Annotation Property, Individual or Datatype).
+#### 1.3.3 Object Property Expression Nodes
 
-<img src="images/convention-type-any.png" alt="convention-type-any" width="500" />
+TBA
+
+#### 1.3.4 Data Property Expression Nodes
+
+TBA
+
+#### 1.3.5 Literal Nodes
+
+TBA
+
+#### 1.3.6 Individual Nodes
+
+TBA
 
 
 
