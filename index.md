@@ -57,84 +57,94 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
       * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
    * [1.2 Design Choices](#12-design-choices)
    * [1.3 Document Conventions](#13-document-conventions)
-      * [1.3.1 Reserved Nodes](#131-reserved-nodes)
-      * [1.3.2 Reserved Keywords](#132-reserved-keywords)
-      * [1.3.3 Reading LPG Diagrams](#133-reading-lpg-diagrams)
    * [1.4 Similar Works](#14-similar-works)
       * [1.4.1 SciGraph](#141-scigraph)
       * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
       * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
-* [2 Class Expressions](#2-class-expressions)
-   * [2.1 Propositional Connectives and Enumeration of Individuals](#21-propositional-connectives-and-enumeration-of-individuals)
-      * [2.1.1 Intersection of Class Expressions](#211-intersection-of-class-expressions)
-      * [2.1.2 Union of Class Expressions](#212-union-of-class-expressions)
-      * [2.1.3 Complement of Class Expressions](#213-complement-of-class-expressions)
-      * [2.1.4 Enumeration of Individuals](#214-enumeration-of-individuals)
-   * [2.2 Object Property Restrictions](#22-object-property-restrictions)
-      * [2.2.1 Existential Quantification](#221-existential-quantification)
-      * [2.2.2 Universal Quantification](#222-universal-quantification)
-      * [2.2.3 Individual Value Restriction](#223-individual-value-restriction)
-      * [2.2.4 Self-Restriction](#224-self-restriction)
-   * [2.3 Object Property Cardinality Restrictions](#23-object-property-cardinality-restrictions)
-      * [2.3.1 Minimum Cardinality](#231-minimum-cardinality)
-      * [2.3.2 Maximum Cardinality](#232-maximum-cardinality)
-      * [2.3.3 Exact Cardinality](#233-exact-cardinality)
-   * [2.4 Data Property Restrictions](#24-data-property-restrictions)
-      * [2.4.1 Existential Quantification](#241-existential-quantification)
-      * [2.4.2 Universal Quantification](#242-universal-quantification)
-      * [2.4.3 Literal Value Restriction](#243-literal-value-restriction)
-   * [2.5 Data Property Cardinality Restrictions](#25-data-property-cardinality-restrictions)
-      * [2.5.1 Minimum Cardinality](#251-minimum-cardinality)
-      * [2.5.2 Maximum Cardinality](#252-maximum-cardinality)
-      * [2.5.3 Exact Cardinality](#253-exact-cardinality)
-* [3 Data Ranges](#3-data-ranges)
-   * [3.1 Intersection of Data Ranges](#31-intersection-of-data-ranges)
-   * [3.2 Union of Data Ranges](#32-union-of-data-ranges)
-   * [3.3 Complement of Data Ranges](#33-complement-of-data-ranges)
-   * [3.4 Enumeration of Literals](#34-enumeration-of-literals)
-   * [3.5 Datatype Restrictions](#35-datatype-restrictions)
-* [4 Axioms](#4-axioms)
-   * [4.1 Class Expression Axioms](#41-class-expression-axioms)
-      * [4.1.1 Subclass](#411-subclass)
-      * [4.1.2 Equivalent Classes](#412-equivalent-classes)
-      * [4.1.3 Disjoint Classes](#413-disjoint-classes)
-   * [4.2 Object Property Axioms](#42-object-property-axioms)
-      * [4.2.1 Object Subproperties](#421-object-subproperties)
-      * [4.2.2 Equivalent Object Properties](#422-equivalent-object-properties)
-      * [4.2.3 Disjoint Object Properties](#423-disjoint-object-properties)
-      * [4.2.4 Inverse Object Properties](#424-inverse-object-properties)
-      * [4.2.5 Object Property Domain](#425-object-property-domain)
-      * [4.2.6 Object Property Range](#426-object-property-range)
-      * [4.2.7 Functional Object Property](#427-functional-object-property)
-      * [4.2.8 Inverse Functional Object Property](#428-inverse-functional-object-property)
-      * [4.2.9 Reflexive Object Property](#429-reflexive-object-property)
-      * [4.2.10 Irreflexive Object Property](#4210-irreflexive-object-property)
-      * [4.2.11 Symmetric Object Property](#4211-symmetric-object-property)
-      * [4.2.12 Asymmetric Object Property](#4212-asymmetric-object-property)
-      * [4.2.13 Transitive Object Property](#4213-transitive-object-property)
-   * [4.3 Data Property Axioms](#43-data-property-axioms)
-      * [4.3.1 Data Subproperties](#431-data-subproperties)
-      * [4.3.2 Equivalent Data Properties](#432-equivalent-data-properties)
-      * [4.3.3 Disjoint Data Properties](#433-disjoint-data-properties)
-      * [4.3.4 Data Property Domain](#434-data-property-domain)
-      * [4.3.5 Data Property Range](#435-data-property-range)
-      * [4.3.6 Functional Data Properties](#436-functional-data-properties)
-   * [4.4 Assertions](#44-assertions)
-      * [4.4.1 Class Assertions](#441-class-assertions)
-      * [4.4.2 Positive Object Property Assertions](#442-positive-object-property-assertions)
-      * [4.4.3 Negative Object Property Assertions](#443-negative-object-property-assertions)
-      * [4.4.4 Positive Data Property Assertions](#444-positive-data-property-assertions)
-      * [4.4.5 Negative Data Property Assertions](#445-negative-data-property-assertions)
-      * [4.4.6 Individual Equality](#446-individual-equality)
-      * [4.4.7 Individual Inequality](#447-individual-inequality)
-* [5 Annotations](#5-annotations)
-   * [5.1 Annotation of Ontologies, Axioms, and other Annotations](#51-annotation-of-ontologies-axioms-and-other-annotations)
-   * [5.2 Annotation Axioms](#52-annotation-axioms)
-      * [5.2.1 Annotation Assertions](#521-annotation-assertions)
-      * [5.2.2 Annotation Subproperties](#522-annotation-subproperties)
-      * [5.2.3 Annotation Property Domain](#523-annotation-property-domain)
-      * [5.2.4 Annotation Property Range](#524-annotation-property-range)
-* [6 Change History](#6-change-history)
+* [2 Entities, Literals, and Annonymous Individuals](#2-entities-literals-and-annonymous-individuals)
+   * [2.1 Entities](#21-entities)
+      * [2.1.1 Class](#211-class)
+      * [2.1.2 Object Property](#212-object-property)
+      * [2.1.3 Data Property](#213-data-property)
+      * [2.1.4 Annotation Property](#214-annotation-property)
+      * [2.1.5 Named Individual](#215-named-individual)
+      * [2.1.6 Datatype](#216-datatype)
+      * [2.1.7 Entity Declaration Axiom](#217-entity-declaration-axiom)
+   * [2.2 Literals](#22-literals)
+   * [2.3 Annonymous Individuals](#23-annonymous-individuals)
+* [3 Class Expressions](#3-class-expressions)
+   * [3.1 Propositional Connectives and Enumeration of Individuals](#31-propositional-connectives-and-enumeration-of-individuals)
+      * [3.1.1 Intersection of Class Expressions](#311-intersection-of-class-expressions)
+      * [3.1.2 Union of Class Expressions](#312-union-of-class-expressions)
+      * [3.1.3 Complement of Class Expressions](#313-complement-of-class-expressions)
+      * [3.1.4 Enumeration of Individuals](#314-enumeration-of-individuals)
+   * [3.2 Object Property Restrictions](#32-object-property-restrictions)
+      * [3.2.1 Existential Quantification](#321-existential-quantification)
+      * [3.2.2 Universal Quantification](#322-universal-quantification)
+      * [3.2.3 Individual Value Restriction](#323-individual-value-restriction)
+      * [3.2.4 Self-Restriction](#324-self-restriction)
+   * [3.3 Object Property Cardinality Restrictions](#33-object-property-cardinality-restrictions)
+      * [3.3.1 Minimum Cardinality](#331-minimum-cardinality)
+      * [3.3.2 Maximum Cardinality](#332-maximum-cardinality)
+      * [3.3.3 Exact Cardinality](#333-exact-cardinality)
+   * [3.4 Data Property Restrictions](#34-data-property-restrictions)
+      * [3.4.1 Existential Quantification](#341-existential-quantification)
+      * [3.4.2 Universal Quantification](#342-universal-quantification)
+      * [3.4.3 Literal Value Restriction](#343-literal-value-restriction)
+   * [3.5 Data Property Cardinality Restrictions](#35-data-property-cardinality-restrictions)
+      * [3.5.1 Minimum Cardinality](#351-minimum-cardinality)
+      * [3.5.2 Maximum Cardinality](#352-maximum-cardinality)
+      * [3.5.3 Exact Cardinality](#353-exact-cardinality)
+* [4 Property Expressions](#4-property-expressions)
+   * [4.1 Inverse Object Properties](#41-inverse-object-properties)
+* [5 Data Ranges](#5-data-ranges)
+   * [5.1 Intersection of Data Ranges](#51-intersection-of-data-ranges)
+   * [5.2 Union of Data Ranges](#52-union-of-data-ranges)
+   * [5.3 Complement of Data Ranges](#53-complement-of-data-ranges)
+   * [5.4 Enumeration of Literals](#54-enumeration-of-literals)
+   * [5.5 Datatype Restrictions](#55-datatype-restrictions)
+* [6 Axioms](#6-axioms)
+   * [6.1 Class Expression Axioms](#61-class-expression-axioms)
+      * [6.1.1 Subclass](#611-subclass)
+      * [6.1.2 Equivalent Classes](#612-equivalent-classes)
+      * [6.1.3 Disjoint Classes](#613-disjoint-classes)
+   * [6.2 Object Property Axioms](#62-object-property-axioms)
+      * [6.2.1 Object Subproperties](#621-object-subproperties)
+      * [6.2.2 Equivalent Object Properties](#622-equivalent-object-properties)
+      * [6.2.3 Disjoint Object Properties](#623-disjoint-object-properties)
+      * [6.2.4 Inverse Object Properties](#624-inverse-object-properties)
+      * [6.2.5 Object Property Domain](#625-object-property-domain)
+      * [6.2.6 Object Property Range](#626-object-property-range)
+      * [6.2.7 Functional Object Property](#627-functional-object-property)
+      * [6.2.8 Inverse Functional Object Property](#628-inverse-functional-object-property)
+      * [6.2.9 Reflexive Object Property](#629-reflexive-object-property)
+      * [6.2.10 Irreflexive Object Property](#6210-irreflexive-object-property)
+      * [6.2.11 Symmetric Object Property](#6211-symmetric-object-property)
+      * [6.2.12 Asymmetric Object Property](#6212-asymmetric-object-property)
+      * [6.2.13 Transitive Object Property](#6213-transitive-object-property)
+   * [6.3 Data Property Axioms](#63-data-property-axioms)
+      * [6.3.1 Data Subproperties](#631-data-subproperties)
+      * [6.3.2 Equivalent Data Properties](#632-equivalent-data-properties)
+      * [6.3.3 Disjoint Data Properties](#633-disjoint-data-properties)
+      * [6.3.4 Data Property Domain](#634-data-property-domain)
+      * [6.3.5 Data Property Range](#635-data-property-range)
+      * [6.3.6 Functional Data Properties](#636-functional-data-properties)
+   * [6.4 Assertions](#64-assertions)
+      * [6.4.1 Class Assertions](#641-class-assertions)
+      * [6.4.2 Positive Object Property Assertions](#642-positive-object-property-assertions)
+      * [6.4.3 Negative Object Property Assertions](#643-negative-object-property-assertions)
+      * [6.4.4 Positive Data Property Assertions](#644-positive-data-property-assertions)
+      * [6.4.5 Negative Data Property Assertions](#645-negative-data-property-assertions)
+      * [6.4.6 Individual Equality](#646-individual-equality)
+      * [6.4.7 Individual Inequality](#647-individual-inequality)
+* [7 Annotations](#7-annotations)
+   * [7.1 Annotation of Ontologies, Axioms, and other Annotations](#71-annotation-of-ontologies-axioms-and-other-annotations)
+   * [7.2 Annotation Axioms](#72-annotation-axioms)
+      * [7.2.1 Annotation Assertions](#721-annotation-assertions)
+      * [7.2.2 Annotation Subproperties](#722-annotation-subproperties)
+      * [7.2.3 Annotation Property Domain](#723-annotation-property-domain)
+      * [7.2.4 Annotation Property Range](#724-annotation-property-range)
+* [8 Change History](#8-change-history)   
 
 ---
 
@@ -213,11 +223,11 @@ A Labeled Property Graph diagram consists of nodes and edges. A node is depicted
 
 | Non-Terminal Node                                            | Terminal Node                                                |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="images/node-class-expression.png" alt="node-class-expression" width="180" /> | **Complex Expression**<br />See [Section 2 Class Expressions](#2-class-expressions) to browse the complete list.<br /><br />**Class Entity**<br /><img src="images/node-entity-class.png" alt="node-entity-class" width="480" /> |
-| <img src="images/node-object-property-expression.png" alt="node-object-property-expression" width="180" /> |                                                              |
-| <img src="images/node-data-property-expression.png" alt="node-data-property-expression" width="180" /> |                                                              |
-| <img src="images/node-individual.png" alt="node-individual" width="180" /> |                                                              |
-| <img src="images/node-literal.png" alt="node-literal" width="180" /> |                                                              |
+| <img src="images/node-class-expression.png" alt="node-class-expression" width="180" /> | 1) **Named Class**. See [Section 2.1.1 Class](#211-Class).<br />2) **Complex Class Expressions**. See [Section 3 Class Expressions](#3-class-expressions). |
+| <img src="images/node-object-property-expression.png" alt="node-object-property-expression" width="180" /> | 1) **Named Object Property**. See [Section 2.1.2 Object Property](212-object-property)<br />2) **Complex Object Property Expressions**. See [Section 4 Property Expressions](#4-property-expressions). |
+| <img src="images/node-data-property-expression.png" alt="node-data-property-expression" width="180" /> | **Named Data Property**. See [Section 2.1.3 Data Property](#213-data-property). |
+| <img src="images/node-individual.png" alt="node-individual" width="180" /> | 1) **Named Individual**. See [Section 2.1.5 Named Individual](#215-named-individual).<br />2) **Annonymous Individual**. See [Section 2.3 Annonymous Individuals](23-annonymous-individuals). |
+| <img src="images/node-data-range.png" alt="node-data-range" width="180" /> | **Data Range Expressions**. See [Section 5 Data Ranges](#5-data-ranges). |
 
 
 
@@ -234,12 +244,17 @@ The [SciGraph Neo4j Mapping](https://github.com/SciGraph/SciGraph/wiki/Neo4jMapp
 - **Representation of source ontology in SciGraph is done both at the node and edge level of a LPG.** In the SciGraph mapping, nodes have an outgoing edge named `isDefinedBy` to a node of type `Ontology` that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI. In our mapping, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., `rdfs:SubClassOf, owl:EquivalentClasses`).
 - **SciGraph represents OWL properties as both nodes and edges in a LPG.** It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG **nodes** that represent the OWL properties (e.g., `hasSibling:ObjectProperty {'symmetric' = true}`). And then SciGraph uses OWL properties as **edges** in axioms such as object property assertions (e.g., `rafael:Individual --hasSibling:ObjectProperty --> ruth:Individual`. In our mapping, we consistently represent OWL properties as nodes. More, we represent OWL property characteristics similarly to the OWL/XML and Functional-style syntaxes of OWL. E.g., `hasSibling:ObjectProperty --> SymmetricObjectProperty:Axiom`.
 
+
+
 #### 1.4.2 VirtualFlyBrain
+
 The [VirtualFlyBrain OWL 2 EL to Neo4J Mapping](https://github.com/VirtualFlyBrain/neo4j2owl) allows importing "a well defined subset of OWL 2 EL ontologies into and export them from Neo4J, in such a way that entailments and annotations are preserved (not however the syntactic structure) in the ontology after the round-trip." The VirtualFlyBrain (VFB) mapping is explicit about its design goal of facilitating intuitive writing of Cypher queries. In that sense, VFB does not create "anonymous" nodes to represent axiom types or class expression types, and instead encodes these details on edges (relying on both edge names and key-value string properties on edges).
 
 - **Object property names and axiom types are encoded as edge names.** For example, the axioms: `A SubClassOf B. A SubClassOf r some C` would be encoded in LPG as: `A--SubClassOf-->B. A--r-->B`. The restriction qualifiers (or quantifiers) are encoded as key-value properties on edges.
 - **The VFB mapping represents OWL properties as both nodes and edges.** Similar to SciGraph, OWL object properties are represented as edges, and then they are also represented as nodes to be able to express axioms such as annotations on those properties.
 - **Data and Annotation property assertions are represented as key-value string properties.** Also similar to SciGraph, both data and annotation property assertions are represented as key-value string properties on nodes. As a consequence, annotations on annotations are not straightforwardly representable in VFB.
+
+
 
 #### 1.4.3 OWL2Neo4J
 
@@ -247,11 +262,107 @@ The [OWL2Neo4J tool](https://github.com/flekschas/owl2neo4j) allows converting O
 
 
 
-## 2 Class Expressions
+## 2 Entities, Literals, and Annonymous Individuals
 
-### 2.1 Propositional Connectives and Enumeration of Individuals
+### 2.1 Entities
 
-#### 2.1.1 Intersection of Class Expressions
+#### 2.1.1 Class
+
+*Classes* can be understood as sets of individuals.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-entity-class.png" alt="node-entity-class" width="520" />
+
+
+
+#### 2.1.2 Object Property
+
+*Object properties* connect pairs of individuals.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-entity-object-property.png" alt="node-entity-object-property" width="520" />
+
+
+
+#### 2.1.3 Data Property
+
+*Data properties* connect individuals with literals. In some knowledge representation systems, functional data properties are called *attributes*.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-entity-data-property.png" alt="node-entity-data-property" width="520" />
+
+
+
+#### 2.1.4 Annotation Property
+
+*Annotation properties* can be used to provide an annotation for an ontology, axiom, or an IRI. The structure of annotations is further described in Section XXX.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-entity-annotation-property.png" alt="node-entity-annotation-property" width="520" />
+
+
+
+#### 2.1.5 Named Individual
+
+*Individuals* represent actual objects from the domain. There are two types of individuals in the syntax of OWL 2. *Named individuals* are given an explicit name that can be used in any ontology to refer to the same object. *Named individuals* are identified using an IRI.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-entity-named-individual.png" alt="node-entity-named-individual" width="520" />
+
+
+
+#### 2.1.6 Datatype
+
+*Datatypes* are entities that refer to sets of data values. Thus, datatypes are analogous to classes, the main difference being that the former contain data values such as strings and numbers, rather than individuals. Datatypes are a kind of data range, which allows them to be used in restrictions. As explained in Section XXX, each data range is associated with an arity; for datatypes, the arity is always one.
+
+The built-in datatype *rdfs:Literal* denotes any set of data values that contains the union of the value spaces of all datatypes.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-entity-datatype.png" alt="node-entity-datatype" width="520" />
+
+
+
+#### 2.1.7 Entity Declaration Axiom
+
+In OWL 2, declarations are a type of axiom; thus, to declare an entity in an ontology, one can simply include the appropriate axiom in the ontology. These axioms are nonlogical in the sense that they do not affect the consequences of an OWL 2 ontology.
+
+<u>LPG Diagram</u>:
+
+<img src="images/axiom-entity-declaration.png" alt="axiom-entity-declaration" width="800" />
+
+
+
+### 2.2 Literals
+
+*Literals* represent data values such as particular strings or integers. Each literal consists of a lexical form, which is a string, a datatype and an optional language tag. A literal consisting of a lexical form "abc" and a datatype identified by the IRI *datatypeIRI* is written as "abc"^^*datatypeIRI*. Furthermore, literals whose datatype is *rdf:PlainLiteral* can be abbreviated as plain RDF literals.
+
+ <u>LPG Diagram</u>:
+
+<img src="images/node-literal.png" alt="node-literal" width="800" />
+
+
+
+### 2.3 Annonymous Individuals
+
+If an individual is not expected to be used outside a particular ontology, one can use an *anonymous individual*, which is identified by a local node ID rather than a global IRI.
+
+<u>LPG Diagram</u>:
+
+<img src="images/node-annonymous-individual.png" alt="node-annonymous-individual" width="320" />
+
+#### 
+
+## 3 Class Expressions
+
+### 3.1 Propositional Connectives and Enumeration of Individuals
+
+#### 3.1.1 Intersection of Class Expressions
 
 An *intersection* class expression `ObjectIntersectionOf( CE1 ... CEn )` contains all individuals that are instances of all class expressions `CEi` for 1 ≤ i ≤ n.
 
@@ -265,7 +376,7 @@ An *intersection* class expression `ObjectIntersectionOf( CE1 ... CEn )` contain
 
 
 
-#### 2.1.2 Union of Class Expressions
+#### 3.1.2 Union of Class Expressions
 
 A *union* class expression `ObjectUnionOf( CE1 ... CEn )` contains all individuals that are instances of at least one class expression `CEi` for 1 ≤ i ≤ n.
 
@@ -279,7 +390,7 @@ A *union* class expression `ObjectUnionOf( CE1 ... CEn )` contains all individua
 
 
 
-#### 2.1.3 Complement of Class Expressions
+#### 3.1.3 Complement of Class Expressions
 
 A complement class expression `ObjectComplementOf( CE )` contains all individuals that are not instances of the class expression `CE`.
 
@@ -293,7 +404,7 @@ A complement class expression `ObjectComplementOf( CE )` contains all individual
 
 
 
-#### 2.1.4 Enumeration of Individuals
+#### 3.1.4 Enumeration of Individuals
 
 An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the individuals `ai` with 1 ≤ i ≤ n.
 
@@ -307,9 +418,9 @@ An enumeration of individuals `ObjectOneOf( a1 ... an )` contains exactly the in
 
 
 
-### 2.2 Object Property Restrictions
+### 3.2 Object Property Restrictions
 
-#### 2.2.1 Existential Quantification
+#### 3.2.1 Existential Quantification
 
 An *existential* class expression `ObjectSomeValuesFrom( OPE CE )` consists of an object property expression `OPE` and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to an individual that is an instance of `CE`. 
 
@@ -323,7 +434,7 @@ An *existential* class expression `ObjectSomeValuesFrom( OPE CE )` consists of a
 
 
 
-#### 2.2.2 Universal Quantification
+#### 3.2.2 Universal Quantification
 
 A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an object property expression `OPE` and a class expression `CE`, and it contains all those individuals that are connected by `OPE` only to individuals that are instances of `CE`. 
 
@@ -337,7 +448,7 @@ A *universal* class expression `ObjectAllValuesFrom( OPE CE )` consists of an ob
 
 
 
-#### 2.2.3 Individual Value Restriction
+#### 3.2.3 Individual Value Restriction
 
 A has-value class expression `ObjectHasValue( OPE a )` consists of an object property expression `OPE` and an individual a, and it contains all those individuals that are connected by `OPE` to `a`. 
 
@@ -351,7 +462,7 @@ A has-value class expression `ObjectHasValue( OPE a )` consists of an object pro
 
 
 
-#### 2.2.4 Self-Restriction
+#### 3.2.4 Self-Restriction
 
 A self-restriction `ObjectHasSelf( OPE )` consists of an object property expression `OPE`, and it contains all those individuals that are connected by `OPE` to themselves.
 
@@ -365,9 +476,9 @@ A self-restriction `ObjectHasSelf( OPE )` consists of an object property express
 
 
 
-### 2.3 Object Property Cardinality Restrictions
+### 3.3 Object Property Cardinality Restrictions
 
-#### 2.3.1 Minimum Cardinality
+#### 3.3.1 Minimum Cardinality
 
 A *minimum cardinality* expression `ObjectMinCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at least `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
 
@@ -381,7 +492,7 @@ A *minimum cardinality* expression `ObjectMinCardinality( n OPE CE )` consists o
 
 
 
-#### 2.3.2 Maximum Cardinality
+#### 3.3.2 Maximum Cardinality
 
 A *maximum cardinality* expression `ObjectMaxCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to at most `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
 
@@ -395,7 +506,7 @@ A *maximum cardinality* expression `ObjectMaxCardinality( n OPE CE )` consists o
 
 
 
-#### 2.3.3 Exact Cardinality
+#### 3.3.3 Exact Cardinality
 
 An *exact cardinality* expression `ObjectExactCardinality( n OPE CE )` consists of a nonnegative integer `n`, an object property expression `OPE`, and a class expression `CE`, and it contains all those individuals that are connected by `OPE` to exactly `n` different individuals that are instances of `CE`. If `CE` is missing, it is taken to be *owl:Thing*.
 
@@ -409,9 +520,9 @@ An *exact cardinality* expression `ObjectExactCardinality( n OPE CE )` consists 
 
 
 
-### 2.4 Data Property Restrictions
+### 3.4 Data Property Restrictions
 
-#### 2.4.1 Existential Quantification
+#### 3.4.1 Existential Quantification
 
 An *existential* class expression `DataSomeValuesFrom( DPE1 ... DPEn DR )` consists of `n` data property expressions `DPEi`, 1 ≤ i ≤ n, and a data range `DR` whose arity *must* be `n`. Such a class expression contains all those individuals that are connected by `DPi` to literals `lti`, 1 ≤ i ≤ n, such that the tuple `( lt1 , ..., ltn )` is in `DR`.
 
@@ -425,7 +536,7 @@ An *existential* class expression `DataSomeValuesFrom( DPE1 ... DPEn DR )` consi
 
 
 
-#### 2.4.2 Universal Quantification
+#### 3.4.2 Universal Quantification
 
 A *universal* class expression `DataAllValuesFrom( DPE1 ... DPEn DR )` consists of `n` data property expressions `DPEi`, 1 ≤ i ≤ n, and a data range `DR` whose arity *must* be `n`. Such a class expression contains all those individuals that are connected by `DPi` only to literals `lti`, 1 ≤ i ≤ n, such that each tuple `( lt1 , ..., ltn )` is in `DR`.
 
@@ -439,7 +550,7 @@ A *universal* class expression `DataAllValuesFrom( DPE1 ... DPEn DR )` consists 
 
 
 
-#### 2.4.3 Literal Value Restriction
+#### 3.4.3 Literal Value Restriction
 
 A has-value class expression `DataHasValue( DP lt )` consists of a data property `DP` and a literal `lt`, and it contains all those individuals that are connected by `DP` to `lt`.
 
@@ -453,9 +564,9 @@ A has-value class expression `DataHasValue( DP lt )` consists of a data property
 
 
 
-### 2.5 Data Property Cardinality Restrictions
+### 3.5 Data Property Cardinality Restrictions
 
-#### 2.5.1 Minimum Cardinality 
+#### 3.5.1 Minimum Cardinality 
 
 A *minimum cardinality* expression `DataMinCardinality( n DPE DR )` consists of a nonnegative integer `n`, a data property expression `DPE`, and a unary data range `DR`, and it contains all those individuals that are connected by `DPE` to at least `n` different literals in `DR`. If `DR` is not present, it is taken to be *rdfs:Literal*.
 
@@ -469,7 +580,7 @@ A *minimum cardinality* expression `DataMinCardinality( n DPE DR )` consists of 
 
 
 
-#### 2.5.2 Maximum Cardinality 
+#### 3.5.2 Maximum Cardinality 
 
 A *maximum cardinality* expression `DataMaxCardinality( n DPE DR )` consists of a nonnegative integer `n`, a data property expression `DPE`, and a unary data range `DR`, and it contains all those individuals that are connected by `DPE` to at most `n` different literals in `DR`. If `DR` is not present, it is taken to be *rdfs:Literal*.
 
@@ -483,7 +594,7 @@ A *maximum cardinality* expression `DataMaxCardinality( n DPE DR )` consists of 
 
 
 
-#### 2.5.3 Exact Cardinality 
+#### 3.5.3 Exact Cardinality 
 
 An *exact cardinality* expression `DataExactCardinality( n DPE DR )` consists of a nonnegative integer `n`, a data property expression `DPE`, and a unary data range `DR`, and it contains all those individuals that are connected by `DPE` to exactly `n` different literals in `DR`. If `DR` is not present, it is taken to be *rdfs:Literal*.
 
@@ -497,9 +608,25 @@ An *exact cardinality* expression `DataExactCardinality( n DPE DR )` consists of
 
 
 
-## 3 Data Ranges
+## 4 Property Expressions
 
-### 3.1 Intersection of Data Ranges
+### 4.1 Inverse Object Properties
+
+An inverse object property expression ObjectInverseOf( P ) connects an individual I1 with I2 if and only if the object property P connects I2 with I1.
+
+<u>OWL 2 Notation</u>:
+
+​	**InverseObjectProperty** := 'ObjectInverseOf' '(' **ObjectProperty** ')'
+
+<u>LPG Diagram</u>:
+
+<img src="images/property-expression-inverse-objectproperty.png" alt="property-expression-inverse-objectproperty" width="640" />
+
+
+
+## 5 Data Ranges
+
+### 5.1 Intersection of Data Ranges
 
 An *intersection* data range `DataIntersectionOf( DR1 ... DRn )` contains all tuples of literals that are contained in each data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
 
@@ -511,7 +638,7 @@ An *intersection* data range `DataIntersectionOf( DR1 ... DRn )` contains all tu
 
 <img src="images/data-ranges-intersection.png" alt="data-ranges-intersection" width="800" />
 
-### 3.2 Union of Data Ranges
+### 5.2 Union of Data Ranges
 
 A *union* data range `DataUnionOf( DR1 ... DRn )` contains all tuples of literals that are contained in the at least one data range `DRi` for 1 ≤ i ≤ n. All data ranges `DRi` *must* be of the same arity, and the resulting data range is of that arity as well.
 
@@ -523,7 +650,7 @@ A *union* data range `DataUnionOf( DR1 ... DRn )` contains all tuples of literal
 
 <img src="images/data-ranges-union.png" alt="data-ranges-union" width="800" />
 
-### 3.3 Complement of Data Ranges
+### 5.3 Complement of Data Ranges
 
 A complement data range `DataComplementOf( DR )` contains all tuples of literals that are not contained in the data range `DR`. The resulting data range has the arity equal to the arity of `DR`.
 
@@ -537,7 +664,7 @@ A complement data range `DataComplementOf( DR )` contains all tuples of literals
 
 
 
-### 3.4 Enumeration of Literals
+### 5.4 Enumeration of Literals
 
 An enumeration of literals `DataOneOf( lt1 ... ltn )` contains exactly the explicitly specified literals `lti` with 1 ≤ i ≤ n. The resulting data range has arity one.
 
@@ -551,7 +678,7 @@ An enumeration of literals `DataOneOf( lt1 ... ltn )` contains exactly the expli
 
 
 
-### 3.5 Datatype Restrictions
+### 5.5 Datatype Restrictions
 
 A datatype restriction `DatatypeRestriction( DT F1 lt1 ... Fn ltn )` consists of a unary datatype `DT` and `n` pairs `( Fi , lti )`. The resulting data range is unary and is obtained by restricting the value space of `DT` according to the semantics of all `( Fi , vi )` (multiple pairs are interpreted conjunctively), where `vi` are the data values of the literals `lti`.
 
@@ -571,11 +698,11 @@ In an OWL 2 DL ontology, each pair `( Fi , vi )` *must* be contained in the face
 
 
 
-## 4 Axioms
+## 6 Axioms
 
-### 4.1 Class Expression Axioms
+### 6.1 Class Expression Axioms
 
-#### 4.1.1 Subclass
+#### 6.1.1 Subclass
 
 A subclass axiom `SubClassOf( CE1 CE2 )` states that the class expression `CE1` is a subclass of the class expression `CE2`. Roughly speaking, this states that `CE1` is more specific than `CE2`.
 
@@ -593,7 +720,7 @@ A subclass axiom `SubClassOf( CE1 CE2 )` states that the class expression `CE1` 
 
 
 
-#### 4.1.2 Equivalent Classes
+#### 6.1.2 Equivalent Classes
 
 An equivalent classes axiom `EquivalentClasses( CE1 ... CEn )` states that all of the class expressions `CEi`, 1 ≤ i ≤ n, are semantically equivalent to each other. This axiom allows one to use each `CEi` as a synonym for each `CEj` — that is, in any expression in the ontology containing such an axiom, `CEi` can be replaced with `CEj` without affecting the meaning of the ontology.
 
@@ -607,7 +734,7 @@ An equivalent classes axiom `EquivalentClasses( CE1 ... CEn )` states that all o
 
 
 
-#### 4.1.3 Disjoint Classes
+#### 6.1.3 Disjoint Classes
 
 A disjoint classes axiom `DisjointClasses( CE1 ... CEn )` states that all of the class expressions `CEi`, 1 ≤ i ≤ n, are pairwise disjoint; that is, no individual can be at the same time an instance of both `CEi` and `CEj` for i ≠ j. 
 
@@ -621,9 +748,9 @@ A disjoint classes axiom `DisjointClasses( CE1 ... CEn )` states that all of the
 
 
 
-### 4.2 Object Property Axioms
+### 6.2 Object Property Axioms
 
-#### 4.2.1 Object Subproperties
+#### 6.2.1 Object Subproperties
 
 An object subproperty axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom states that the object property expression `OPE1` is a subproperty of the object property expression `OPE2` — that is, if an individual `x` is connected by `OPE1` to an individual `y`, then`x` is also connected by `OPE2` to `y`.
 
@@ -641,7 +768,7 @@ An object subproperty axiom `SubObjectPropertyOf( OPE1 OPE2 )`. This axiom state
 
 
 
-#### 4.2.2 Equivalent Object Properties
+#### 6.2.2 Equivalent Object Properties
 
 An equivalent object properties axiom `EquivalentObjectProperties( OPE1 ... OPEn )` states that all of the object property expressions `OPEi`, 1 ≤ i ≤ n, are semantically equivalent to each other. This axiom allows one to use each `OPEi` as a synonym for each `OPEj` — that is, in any expression in the ontology containing such an axiom, `OPEi` can be replaced with `OPEj` without affecting the meaning of the ontology.
 
@@ -655,7 +782,7 @@ An equivalent object properties axiom `EquivalentObjectProperties( OPE1 ... OPEn
 
 
 
-#### 4.2.3 Disjoint Object Properties
+#### 6.2.3 Disjoint Object Properties
 
 A disjoint object properties axiom `DisjointObjectProperties( OPE1 ... OPEn )` states that all of the object property expressions `OPEi`, 1 ≤ i ≤ n, are pairwise disjoint; that is, no individual `x` can be connected to an individual `y` by both `OPEi` and `OPEj` for i ≠ j.
 
@@ -669,7 +796,7 @@ A disjoint object properties axiom `DisjointObjectProperties( OPE1 ... OPEn )` s
 
 
 
-#### 4.2.4 Inverse Object Properties
+#### 6.2.4 Inverse Object Properties
 
 An inverse object properties axiom `InverseObjectProperties( OPE1 OPE2 )` states that the object property expression `OPE1` is an inverse of the object property expression `OPE2`. Thus, if an individual `x` is connected by `OPE1` to an individual `y`, then `y` is also connected by `OPE2` to `x`, and vice versa.
 
@@ -683,7 +810,7 @@ An inverse object properties axiom `InverseObjectProperties( OPE1 OPE2 )` states
 
 
 
-#### 4.2.5 Object Property Domain
+#### 6.2.5 Object Property Domain
 
 An object property *domain* axiom `ObjectPropertyDomain( OPE CE )` states that the domain of the object property expression `OPE` is the class expression `CE` — that is, if an individual `x` is connected by `OPE` with some other individual, then `x` is an instance of `CE`.
 
@@ -697,7 +824,7 @@ An object property *domain* axiom `ObjectPropertyDomain( OPE CE )` states that t
 
 
 
-#### 4.2.6 Object Property Range
+#### 6.2.6 Object Property Range
 
 An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the range of the object property expression `OPE` is the class expression `CE` — that is, if some individual is connected by `OPE` with an individual `x`, then `x` is an instance of `CE`. 
 
@@ -711,7 +838,7 @@ An object property *range* axiom `ObjectPropertyRange( OPE CE )` states that the
 
 
 
-#### 4.2.7 Functional Object Property
+#### 6.2.7 Functional Object Property
 
 An object property *functionality* axiom `FunctionalObjectProperty( OPE )` states that the object property expression `OPE` is functional — that is, for each individual `x`, there can be at most one distinct individual `y` such that `x` is connected by `OPE` to `y`.
 
@@ -725,7 +852,7 @@ An object property *functionality* axiom `FunctionalObjectProperty( OPE )` state
 
 
 
-#### 4.2.8 Inverse Functional Object Property
+#### 6.2.8 Inverse Functional Object Property
 
 An object property *inverse functionality* axiom `InverseFunctionalObjectProperty( OPE )` states that the object property expression `OPE` is inverse-functional — that is, for each individual `x`, there can be at most one individual `y` such that `y` is connected by `OPE` with `x`.
 
@@ -739,7 +866,7 @@ An object property *inverse functionality* axiom `InverseFunctionalObjectPropert
 
 
 
-#### 4.2.9 Reflexive Object Property
+#### 6.2.9 Reflexive Object Property
 
 An object property *reflexivity* axiom `ReflexiveObjectProperty( OPE )` states that the object property expression `OPE` is reflexive — that is, each individual is connected by `OPE` to itself.
 
@@ -753,7 +880,7 @@ An object property *reflexivity* axiom `ReflexiveObjectProperty( OPE )` states t
 
 
 
-#### 4.2.10 Irreflexive Object Property
+#### 6.2.10 Irreflexive Object Property
 
 An object property *irreflexivity* axiom `IrreflexiveObjectProperty( OPE )` states that the object property expression `OPE` is irreflexive — that is, no individual is connected by `OPE` to itself.
 
@@ -767,7 +894,7 @@ An object property *irreflexivity* axiom `IrreflexiveObjectProperty( OPE )` stat
 
 
 
-#### 4.2.11 Symmetric Object Property
+#### 6.2.11 Symmetric Object Property
 
 An object property *symmetry* axiom `SymmetricObjectProperty( OPE )` states that the object property expression `OPE` is symmetric — that is, if an individual `x` is connected by `OPE` to an individual `y`, then `y` is also connected by `OPE` to `x`.
 
@@ -781,7 +908,7 @@ An object property *symmetry* axiom `SymmetricObjectProperty( OPE )` states that
 
 
 
-#### 4.2.12 Asymmetric Object Property
+#### 6.2.12 Asymmetric Object Property
 
 An object property *asymmetry* axiom `AsymmetricObjectProperty( OPE )` states that the object property expression `OPE` is asymmetric — that is, if an individual `x` is connected by `OPE` to an individual `y`, then `y` cannot be connected by `OPE` to `x`.
 
@@ -795,7 +922,7 @@ An object property *asymmetry* axiom `AsymmetricObjectProperty( OPE )` states th
 
 
 
-#### 4.2.13 Transitive Object Property
+#### 6.2.13 Transitive Object Property
 
 An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states that the object property expression `OPE` is transitive — that is, if an individual `x` is connected by `OPE` to an individual `y` that is connected by `OPE` to an individual `z`, then `x` is also connected by `OPE` to `z`.
 
@@ -809,9 +936,9 @@ An object property *transitivity* axiom `TransitiveObjectProperty( OPE )` states
 
 
 
-### 4.3 Data Property Axioms
+### 6.3 Data Property Axioms
 
-#### 4.3.1 Data Subproperties
+#### 6.3.1 Data Subproperties
 
 A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data property `DP1` is a subproperty of the data property `DP2` — that is, if an individual `x` is connected by `DP1` to a literal `y`, then `x` is connected by `DP2` to `y` as well.
 
@@ -829,7 +956,7 @@ A data subproperty axiom `SubDataPropertyOf( DP1 DP2 )` states that the data pro
 
 
 
-#### 4.3.2 Equivalent Data Properties
+#### 6.3.2 Equivalent Data Properties
 
 An equivalent data properties axiom `EquivalentDataProperties( DP1 ... DPn )` states that all the data property `DPi`, 1 ≤ i ≤ n, are semantically equivalent to each other. This axiom allows one to use each `DPi` as a synonym for each `DPj` — that is, in any expression in the ontology containing such an axiom, `DPi` can be replaced with `DPj` without affecting the meaning of the ontology. 
 
@@ -843,7 +970,7 @@ An equivalent data properties axiom `EquivalentDataProperties( DP1 ... DPn )` st
 
 
 
-#### 4.3.3 Disjoint Data Properties
+#### 6.3.3 Disjoint Data Properties
 
 A disjoint data properties axiom `DisjointDataProperties( DP1 ... DPn )` states that all of the data property `DPi`, 1 ≤ i ≤ n, are pairwise disjoint; that is, no individual `x` can be connected to a literal `y` by both `DPi` and `DPj` for i ≠ j.
 
@@ -857,7 +984,7 @@ A disjoint data properties axiom `DisjointDataProperties( DP1 ... DPn )` states 
 
 
 
-#### 4.3.4 Data Property Domain
+#### 6.3.4 Data Property Domain
 
 A data property domain axiom `DataPropertyDomain( DP CE )` states that the domain of the data property  `DP` is the class expression `CE` — that is, if an individual `x` is connected by `DP` with some literal, then `x` is an instance of `CE`.
 
@@ -871,7 +998,7 @@ A data property domain axiom `DataPropertyDomain( DP CE )` states that the domai
 
 
 
-#### 4.3.5 Data Property Range
+#### 6.3.5 Data Property Range
 
 A data property range axiom `DataPropertyRange( DP DR )` states that the range of the data property `DP` is the data range `DR` — that is, if some individual is connected by `DP` with a literal `x`, then `x` is in `DR`. The arity of `DR` *must* be one. 
 
@@ -885,7 +1012,7 @@ A data property range axiom `DataPropertyRange( DP DR )` states that the range o
 
 
 
-#### 4.3.6 Functional Data Properties
+#### 6.3.6 Functional Data Properties
 
 A data property functionality axiom `FunctionalDataProperty( DP )` states that the data property `DP` is functional — that is, for each individual `x`, there can be at most one distinct literal `y` such that `x` is connected by `DP` with `y`.
 
@@ -899,9 +1026,9 @@ A data property functionality axiom `FunctionalDataProperty( DP )` states that t
 
 
 
-### 4.4 Assertions
+### 6.4 Assertions
 
-#### 4.4.1 Class Assertions
+#### 6.4.1 Class Assertions
 
 A class assertion `ClassAssertion( CE a )` states that the individual `a` is an instance of the class expression `CE`.
 
@@ -915,7 +1042,7 @@ A class assertion `ClassAssertion( CE a )` states that the individual `a` is an 
 
 
 
-#### 4.4.2 Positive Object Property Assertions
+#### 6.4.2 Positive Object Property Assertions
 
 A positive object property assertion `ObjectPropertyAssertion( OPE a1 a2 )` states that the individual `a1` is connected by the object property expression `OPE` to the individual `a2`.
 
@@ -929,7 +1056,7 @@ A positive object property assertion `ObjectPropertyAssertion( OPE a1 a2 )` stat
 
 
 
-#### 4.4.3 Negative Object Property Assertions
+#### 6.4.3 Negative Object Property Assertions
 
 A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2 )` states that the individual `a1` is not connected by the object property expression `OPE` to the individual `a2`.
 
@@ -943,7 +1070,7 @@ A negative object property assertion `NegativeObjectPropertyAssertion( OPE a1 a2
 
 
 
-#### 4.4.4 Positive Data Property Assertions
+#### 6.4.4 Positive Data Property Assertions
 
 A positive data property assertion `DataPropertyAssertion( DP a lt )` states that the individual a is connected by the data property `DP` to the literal `lt`.
 
@@ -957,7 +1084,7 @@ A positive data property assertion `DataPropertyAssertion( DP a lt )` states tha
 
 
 
-#### 4.4.5 Negative Data Property Assertions
+#### 6.4.5 Negative Data Property Assertions
 
 A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` states that the individual a is not connected by the data property `DP` to the literal `lt`.
 
@@ -971,7 +1098,7 @@ A negative data property assertion `NegativeDataPropertyAssertion( DP a lt )` st
 
 
 
-#### 4.4.6 Individual Equality
+#### 6.4.6 Individual Equality
 
 An individual equality axiom `SameIndividual( a1 ... an )` states that all of the individuals `ai`, 1 ≤ i ≤ n, are equal to each other. This axiom allows one to use each `ai` as a synonym for each `aj` — that is, in any expression in the ontology containing such an axiom, `ai` can be replaced with `aj` without affecting the meaning of the ontology.
 
@@ -983,7 +1110,7 @@ An individual equality axiom `SameIndividual( a1 ... an )` states that all of th
 
 <img src="images/axiom-same-individual.png" alt="axiom-same-individual" width="800" />
 
-#### 4.4.7 Individual Inequality
+#### 6.4.7 Individual Inequality
 
 An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that all of the individuals `ai`, 1 ≤ i ≤ n, are different from each other; that is, no individuals `ai` and `aj` with i ≠ j can be derived to be equal. This axiom can be used to axiomatize the *unique name assumption* — the assumption that all different individual names denote different individuals.
 
@@ -997,9 +1124,9 @@ An individual inequality axiom `DifferentIndividuals( a1 ... an )` states that a
 
 
 
-## 5 Annotations
+## 7 Annotations
 
-### 5.1 Annotation of Ontologies, Axioms, and other Annotations
+### 7.1 Annotation of Ontologies, Axioms, and other Annotations
 
 Ontologies, axioms, and annotations themselves can be annotated using annotations. Such annotations consist of an annotation property and an annotation value, where the latter can be anonymous individuals, IRIs, and literals.
 
@@ -1015,9 +1142,9 @@ Ontologies, axioms, and annotations themselves can be annotated using annotation
 
 <img src="images/annotation.png" alt="annotation" width="800" />
 
-### 5.2 Annotation Axioms
+### 7.2 Annotation Axioms
 
-#### 5.2.1 Annotation Assertions
+#### 7.2.1 Annotation Assertions
 
 An annotation assertion `AnnotationAssertion( AP as av )` states that the annotation subject `as` — an IRI or an anonymous individual — is annotated with the annotation property `AP` and the annotation value `av`.
 
@@ -1033,7 +1160,7 @@ An annotation assertion `AnnotationAssertion( AP as av )` states that the annota
 
 <img src="images/axiom-annotation-assertion.png" alt="axiom-annotation-assertion" width="800" />
 
-#### 5.2.2 Annotation Subproperties
+#### 7.2.2 Annotation Subproperties
 
 An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that the annotation property `AP1` is a subproperty of the annotation property `AP2`.
 
@@ -1051,7 +1178,7 @@ An annotation subproperty axiom `SubAnnotationPropertyOf( AP1 AP2 )` states that
 
 
 
-#### 5.2.3 Annotation Property Domain
+#### 7.2.3 Annotation Property Domain
 
 An annotation property domain axiom `AnnotationPropertyDomain( AP U )` states that the domain of the annotation property `AP` is the IRI `U`.
 
@@ -1065,7 +1192,7 @@ An annotation property domain axiom `AnnotationPropertyDomain( AP U )` states th
 
 
 
-#### 5.2.4 Annotation Property Range
+#### 7.2.4 Annotation Property Range
 
 An annotation property range axiom `AnnotationPropertyRange( AP U )` states that the range of the annotation property `AP` is the IRI `U`.
 
@@ -1081,7 +1208,7 @@ An annotation property range axiom `AnnotationPropertyRange( AP U )` states that
 
 
 
-## 6 Change History
+## 8 Change History
 
 <img src="images/change-history.png" alt="change-history" width="800" />
 
