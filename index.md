@@ -223,10 +223,10 @@ A Labeled Property Graph diagram consists of nodes and edges. A node is depicted
 
 | Non-Terminal Node                                            | Terminal Node                                                |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="images/node-class-expression.png" alt="node-class-expression" width="180" /> | 1) **Named Class**. See [Section 2.1.1 Class](#211-Class).<br />2) **Complex Class Expressions**. See [Section 3 Class Expressions](#3-class-expressions). |
-| <img src="images/node-object-property-expression.png" alt="node-object-property-expression" width="180" /> | 1) **Named Object Property**. See [Section 2.1.2 Object Property](212-object-property)<br />2) **Complex Object Property Expressions**. See [Section 4 Property Expressions](#4-property-expressions). |
+| <img src="images/node-class-expression.png" alt="node-class-expression" width="180" /> | 1) **Named Class**. See [Section 2.1.1 Class](#211-class).<br />2) **Complex Class Expressions**. See [Section 3 Class Expressions](#3-class-expressions). |
+| <img src="images/node-object-property-expression.png" alt="node-object-property-expression" width="180" /> | 1) **Named Object Property**. See [Section 2.1.2 Object Property](#212-object-property)<br />2) **Complex Object Property Expressions**. See [Section 4 Property Expressions](#4-property-expressions). |
 | <img src="images/node-data-property-expression.png" alt="node-data-property-expression" width="180" /> | **Named Data Property**. See [Section 2.1.3 Data Property](#213-data-property). |
-| <img src="images/node-individual.png" alt="node-individual" width="180" /> | 1) **Named Individual**. See [Section 2.1.5 Named Individual](#215-named-individual).<br />2) **Annonymous Individual**. See [Section 2.3 Annonymous Individuals](23-annonymous-individuals). |
+| <img src="images/node-individual.png" alt="node-individual" width="180" /> | 1) **Named Individual**. See [Section 2.1.5 Named Individual](#215-named-individual).<br />2) **Annonymous Individual**. See [Section 2.3 Annonymous Individuals](#23-annonymous-individuals). |
 | <img src="images/node-data-range.png" alt="node-data-range" width="180" /> | **Data Range Expressions**. See [Section 5 Data Ranges](#5-data-ranges). |
 
 
@@ -356,7 +356,7 @@ If an individual is not expected to be used outside a particular ontology, one c
 
 <img src="images/node-annonymous-individual.png" alt="node-annonymous-individual" width="320" />
 
-#### 
+
 
 ## 3 Class Expressions
 
