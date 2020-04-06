@@ -152,7 +152,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 ## 1 Introduction
 
-This document specifies a mapping of OWL 2 axioms to a Labeled Property Graph (LPG) representation, and vice-versa.
+This document specifies a mapping of OWL 2 axioms to a Labeled Property Graph (LPG) representation, and vice-versa. For standard use, please refer to the [NORMATIVE](https://protegeproject.github.io/owl2lpg/mapping) document. 
 
 
 
