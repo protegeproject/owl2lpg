@@ -1,6 +1,6 @@
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs (OWL2LPG)
 
-Working Draft, Updated: 16 March 2020
+Working Draft, Updated: 6 April 2020
 
 
 **Feedback**:
@@ -9,7 +9,7 @@ Working Draft, Updated: 16 March 2020
 
 **Document Source Control**:
 
-​	[GitHub](https://github.com/protegeproject/owl2lpg/) (in branch: [gh-pages](https://github.com/protegeproject/owl2lpg/tree/gh-pages))
+​	[GitHub](https://github.com/protegeproject/owl2lpg/)
 
 **Issue Tracking**:
 
@@ -152,7 +152,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 ## 1 Introduction
 
-This document specifies a mapping of OWL 2 axioms to a Labeled Property Graph (LPG) representation, and vice-versa. For standard use, please refer to the [NORMATIVE](https://protegeproject.github.io/owl2lpg/mapping) document. 
+This document describes a mapping of OWL 2 axioms to a Labeled Property Graph (LPG) representation, and vice-versa. The full specification of the mapping (e.g., for implementation) is given in the [NORMATIVE](https://protegeproject.github.io/owl2lpg/mapping) document. 
 
 
 
@@ -166,12 +166,12 @@ Here we enumerate illustrative examples of the kinds of queries that should be b
 
 Example queries:
 1. Get the axioms in a frame for class `A`.
-2. Get the axioms that mention `A`.
+2. Get the axioms that mention class `A`.
 3. Get the revisions for an ontology `O`.
-4. Get the revisions that alter the frame for `A`.
-5. Get the authors of changes to `A`.
-6. Get the last changes for `A`.
-7. Get the axioms in the latest revision of `O`.
+4. Get the revisions that alter the frame for class `A`.
+5. Get the authors of changes to class `A`.
+6. Get the last changes for class `A`.
+7. Get the axioms in the latest revision of ontology `O`.
 
 #### 1.1.2 BASF Use-Case Requirements
 
@@ -185,12 +185,12 @@ Our overarching design principle is to prioritize representational **consistency
 
 - **The types of OWL objects are specified by the labels on nodes in a LPG**. The types of each OWL object are specified as labels on the nodes that represent those objects, using *reserved keywords* drawn from the OWL 2 specification (see [1.3.2 Reserved Keywords](#132-reserved-keywords)). For example, a node labeled `:Class:Entity:ClassExpression` represents an OWL class entity, which is an atomic class expression. Giving the most specific type along with the more generic one(s) allows us to retrieve, for example, all OWL entities in a LPG, or all OWL class expressions.
 
-- **OWL axioms are mapped to a LPG using a unique node to represent the axiom type with outgoing edges to its elements**. Each OWL axiom is assigned a unique node in a LPG, with at least one outgoing edge to a node representing an entity expression. For example, an OWL SubClassOf axiom is mapped to a LPG using one `:SubClassOf:Axiom` (multi-label) node and two outgoing edges labeled `subClassExpression` and `superClassExpression` that link to a `:ClassExpression` node. Representing each OWL axiom with a unique node in a LPG allows the following:
+- **OWL axioms are mapped to a LPG using a unique node to represent the axiom type with outgoing edges to its elements**. Each OWL axiom is assigned a unique node in a LPG, with at least one outgoing edge to a node representing an entity expression. For example, an OWL SubClassOf axiom is mapped to a LPG using one `:SubClassOf:Axiom` (multi-label) node and two outgoing edges labeled `subClassExpression` and `superClassExpression` that link to `:ClassExpression` nodes. Representing each OWL axiom with a unique node in a LPG allows the following:
 
-  1. We can encode OWL axiom annotations in a manner that is consistent with our overall representation of OWL annotations (as `:Literal` or `:IRI` nodes linked to the node that represents the annotation subject).
-  2. We can attach versioning information about the axiom (see [Change History](#change-history) for details).
+  1. Encoding OWL axiom annotations in a manner that is consistent with our overall representation of OWL annotations (as `:Literal` or `:IRI` nodes linked to the node that represents the annotation subject).
+  2. Attaching versioning information about the axiom (see [Change History](#change-history) for details).
 
-- **Complex OWL constructs (e.g., class expressions, data ranges) are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements**. Unlike nodes to represent axiom types, a node to represent a particular type of class expression can be linked to from multiple axioms. For example, in mapping OWL to LPG there is a single node to represent an existential quantifier labeled `:SomeValuesFrom:ClassExpression`, which is used in all existential restrictions.
+- **Complex OWL constructs (e.g., class expressions, data ranges) are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements**. Unlike nodes to represent axiom types, a node to represent a particular type of class expression can be linked to from multiple axioms. For example, this mapping of OWL to LPG uses a single node to represent an existential quantifier labeled `:SomeValuesFrom:ClassExpression`, which is used in all existential restrictions.
 
 - **Each named OWL entity is mapped to a unique  `:Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. For example, consider the axioms: 
 
@@ -298,7 +298,7 @@ The [OWL2Neo4J tool](https://github.com/flekschas/owl2neo4j) allows converting O
 
 #### 2.1.4 Annotation Property
 
-*Annotation properties* can be used to provide an annotation for an ontology, axiom, or an IRI. The structure of annotations is further described in Section XXX.
+*Annotation properties* can be used to provide an annotation for an ontology, axiom, or an IRI. The structure of annotations is further described in [Annotations](#7-annotations).
 
 <u>LPG Diagram</u>:
 
@@ -318,7 +318,7 @@ The [OWL2Neo4J tool](https://github.com/flekschas/owl2neo4j) allows converting O
 
 #### 2.1.6 Datatype
 
-*Datatypes* are entities that refer to sets of data values. Thus, datatypes are analogous to classes, the main difference being that the former contain data values such as strings and numbers, rather than individuals. Datatypes are a kind of data range, which allows them to be used in restrictions. As explained in Section XXX, each data range is associated with an arity; for datatypes, the arity is always one.
+*Datatypes* are entities that refer to sets of data values. Thus, datatypes are analogous to classes, the main difference being that the former contain data values such as strings and numbers, rather than individuals. Datatypes are a kind of data range, which allows them to be used in restrictions. As explained in [Data Ranges](#5-data-ranges), each data range is associated with an arity; for datatypes, the arity is always one.
 
 The built-in datatype *rdfs:Literal* denotes any set of data values that contains the union of the value spaces of all datatypes.
 
