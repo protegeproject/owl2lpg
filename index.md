@@ -1,4 +1,4 @@
-# Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs (OWL2LPG)
+# Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs
 
 Working Draft, Updated: 6 April 2020
 
