@@ -37,7 +37,7 @@ Working Draft, Updated: 6 April 2020
 
 ## Abstract
 
-This document specificies a mapping of OWL 2 Web Ontology Language to Labeled Property Graphs (LPGs), and vice versa.
+This document specificies a mapping of the OWL 2 Web Ontology Language to Labeled Property Graphs (LPGs), and vice versa.
 
 
 
@@ -152,7 +152,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 ## 1 Introduction
 
-This document describes a mapping of OWL 2 axioms to a Labeled Property Graph (LPG) representation, and vice-versa. The full specification of the mapping (e.g., for implementation) is given in the [NORMATIVE](https://protegeproject.github.io/owl2lpg/mapping) document. 
+This document describes a mapping of OWL 2 ontologies to a Labeled Property Graph (LPG) representation, and vice-versa. The full specification of the mapping (e.g., for implementation) is given in the [NORMATIVE](https://protegeproject.github.io/owl2lpg/mapping) document. 
 
 
 
@@ -183,14 +183,14 @@ TBA
 
 Our overarching design principle is to prioritize representational **consistency over convenience** (of query writing, of query response time, etc.). Below we describe some key design choices:
 
-- **The types of OWL objects are specified by the labels on nodes in a LPG**. The types of each OWL object are specified as labels on the nodes that represent those objects, using *reserved keywords* drawn from the OWL 2 specification (see [1.3 Document Conventions](#13-document-conventions)). For example, a node labeled `:Class:Entity:ClassExpression` represents an OWL class entity, which is an atomic class expression. Giving the most specific type along with the more generic one(s) allows us to retrieve, for example, all OWL entities in a LPG, or all OWL class expressions.
+- **The types of OWL objects are specified by the labels on nodes in a LPG**. The types of each OWL object are specified as labels on the nodes that represent those objects, using *reserved keywords* drawn from the OWL 2 specification (see [1.3 Document Conventions](#13-document-conventions)). For example, a node labeled `:Class:Entity:ClassExpression` represents an OWL class entity, which is an atomic class expression. Giving the most specific type along with the more generic type(s) allows us to retrieve, for example, all OWL entities in a LPG, or all OWL class expressions.
 
 - **OWL axioms are mapped to a LPG using a unique node to represent the axiom type with outgoing edges to its elements**. Each OWL axiom is assigned a unique node in a LPG, with at least one outgoing edge to a node representing an entity expression. For example, an OWL SubClassOf axiom is mapped to a LPG using one `:SubClassOf:Axiom` (multi-label) node and two outgoing edges labeled `subClassExpression` and `superClassExpression` that link to `:ClassExpression` nodes. Representing each OWL axiom with a unique node in a LPG allows the following:
 
   1. Encoding OWL axiom annotations in a manner that is consistent with our overall representation of OWL annotations (as `:Literal` or `:IRI` nodes linked to the node that represents the annotation subject).
   2. Attaching versioning information about the axiom (see [Change History](#change-history) for details).
 
-- **Complex OWL constructs (e.g., class expressions, data ranges) are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements**. Unlike nodes to represent axiom types, a node to represent a particular type of class expression can be linked to from multiple axioms. For example, this mapping of OWL to LPG uses a single node to represent an existential quantifier labeled `:SomeValuesFrom:ClassExpression`, which is used in all existential restrictions.
+- **Complex OWL constructs (e.g., class expressions, data ranges) are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements**. Unlike nodes to represent axiom types, a node to represent a particular type of class expression can be linked to from multiple axioms. For example, when mapping an OWL ontology to a LPG there is a single node to represent an existential quantifier, labeled `:SomeValuesFrom:ClassExpression`, which is used in all existential restrictions.
 
 - **Each named OWL entity is mapped to a unique  `:Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. For example, consider the axioms: 
 
@@ -209,7 +209,7 @@ Our overarching design principle is to prioritize representational **consistency
 
 OWL axioms are written out using [OWL Functional-Style syntax](https://www.w3.org/TR/owl2-syntax) , similar to the OWL 2 specification.
 
-A Labeled Property Graph diagram consists of nodes and edges. A node is depicted as a rectangle with rounded corners, and an edge is depicted as either a uni-directional arrow or a bi-directional arrow.
+A Labeled Property Graph diagram consists of nodes and edges. A node is depicted as a rectangle with rounded corners. An edge is depicted as either a uni-directional arrow or a bi-directional arrow.
 
 **Non-Terminal Node**
 
