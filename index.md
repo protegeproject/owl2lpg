@@ -1217,7 +1217,7 @@ An annotation property range axiom `AnnotationPropertyRange( AP U )` states that
 
 Each ontology change is represented in a LPG as a node labeled `:OntologyChange:Change` connected to another node labeled `:OntologyId` that represents the ontology, as shown below.
 
-<img src="images/change-history-ontology-change.svg" alt="ontology-changes" width="800" />
+<img src="images/change-history-ontology-change.svg" alt="ontology-changes" width="600" />
 
 
 
@@ -1225,7 +1225,7 @@ Each ontology change is represented in a LPG as a node labeled `:OntologyChange:
 
 Axiom changes are represented in a LPG by a node labeled `:AxiomChange` that is connected to an `:Axiom` node, which gives the axiom in the change, and to an `:OntologyId` node, which stands for the ontology that the change applies to.
 
-<img src="images/change-history-axiom-change.svg" alt="axiom-changes" width="800" />
+<img src="images/change-history-axiom-change.svg" alt="axiom-changes" width="600" />
 
 
 
@@ -1233,7 +1233,7 @@ Axiom changes are represented in a LPG by a node labeled `:AxiomChange` that is 
 
 Annotation changes are represented similarly to axiom changes, although with different names for labels and edges. For example, ontology annotation changes are represented by a node labeled `:OntologyAnnotationChange`, which is connected to the `:Annotation` node via an edge labeled `ontologyAnnotation`.
 
-<img src="images/change-history-annotation-change.svg" alt="annotation-changes" width="800" />
+<img src="images/change-history-annotation-change.svg" alt="annotation-changes" width="600" />
 
 
 
@@ -1245,4 +1245,4 @@ Annotation changes are represented similarly to axiom changes, although with dif
 
 #### 8.2.1 High-Level Descriptions
 
-<img src="images/change-history-description.svg" alt="change-description" width="800" />
+<img src="images/change-history-description.svg" alt="change-description" width="400" />
