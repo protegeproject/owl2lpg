@@ -145,6 +145,11 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
       * [7.2.3 Annotation Property Domain](#723-annotation-property-domain)
       * [7.2.4 Annotation Property Range](#724-annotation-property-range)
 * [8 Change History](#8-change-history)   
+   * [8.1 Ontology Changes](#81-ontology-changes)
+      * [8.1.1 Axiom Changes](#811-axiom-changes)
+      * [8.1.2 Annotation Changes](#812-annotation-changes)
+   * [8.2 Project History](#82-project-history)
+      * [8.2.1 High-Level Descriptions](#821-high-level-descriptions)
 
 ---
 
@@ -1206,11 +1211,38 @@ An annotation property range axiom `AnnotationPropertyRange( AP U )` states that
 
 
 
-
-
 ## 8 Change History
 
-<img src="images/change-history.png" alt="change-history" width="800" />
+### 8.1 Ontology Changes
+
+Each ontology change is represented in a LPG as a node labeled `:OntologyChange:Change` connected to another node labeled `:OntologyId` that represents the ontology, as shown below.
+
+<img src="images/change-history-ontology-change.svg" alt="ontology-changes" width="800" />
 
 
 
+#### 8.1.1 Axiom Changes
+
+Axiom changes are represented in a LPG by a node labeled `:AxiomChange` that is connected to an `:Axiom` node, which gives the axiom in the change, and to an `:OntologyId` node, which stands for the ontology that the change applies to.
+
+<img src="images/change-history-axiom-change.svg" alt="axiom-changes" width="800" />
+
+
+
+#### 8.1.2 Annotation Changes
+
+Annotation changes are represented similarly to axiom changes, although with different names for labels and edges. For example, ontology annotation changes are represented by a node labeled `:OntologyAnnotationChange`, which is connected to the `:Annotation` node via an edge labeled `ontologyAnnotation`.
+
+<img src="images/change-history-annotation-change.svg" alt="annotation-changes" width="800" />
+
+
+
+### 8.2 Project History
+
+<img src="images/change-history.svg" alt="change-history" width="800" />
+
+
+
+#### 8.2.1 High-Level Descriptions
+
+<img src="images/change-history-description.svg" alt="change-description" width="800" />
