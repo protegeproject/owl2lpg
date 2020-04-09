@@ -195,9 +195,9 @@ Our overarching design principle is to prioritize representational **consistency
   1. Encoding OWL axiom annotations in a manner that is consistent with our overall representation of OWL annotations (as `:Literal` or `:IRI` nodes linked to the node that represents the annotation subject).
   2. Attaching versioning information about the axiom (see [Change History](#change-history) for details).
 
-- **Complex OWL constructs (e.g., class expressions, data ranges) are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements**. Unlike nodes to represent axiom types, a node to represent a particular type of class expression can be linked to from multiple axioms. For example, when mapping an OWL ontology to a LPG there is a single node to represent an existential quantifier, labeled `:SomeValuesFrom:ClassExpression`, which is used in all existential restrictions.
+  Similarly, other OWL constructs such as class expressions and data ranges are mapped to a LPG using a node to represent the construct type (e.g., SomeValuesFrom class expression) with outgoing edges to its elements.
 
-- **Each named OWL entity is mapped to a unique  `:Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. For example, consider the axioms: 
+- **Each named OWL entity is mapped to a unique `:Entity` node in a LPG.** Every named OWL 2 entity (class, object property, data property, annotation property, individual or datatype) maps to a unique node in a LPG, which is reused whenever the entity is mentioned in axioms. For example, consider the axioms: 
 
   ```
   AX1: A SubClassOf p some B
