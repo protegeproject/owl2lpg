@@ -154,7 +154,7 @@ In this section we describe a collection of augmenting edges that are used in co
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
 | SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
-| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", {, iri=IRI(`OPE`)})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
+| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`OPE`) })<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
 | EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {})<br />...<br />EDGE(T(`CEn`), T(`ax`), "isSubjectOf", {}) |
 | EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
 | SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE1`), T(`ax`), "isSubjectOf", {}) |
@@ -167,9 +167,9 @@ In this section we describe a collection of augmenting edges that are used in co
 | DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "domain", {})<br />EDGE(T(`DPE`), T(`ax`), "isSubjectOf", {}) |
 | DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "range", {})<br />EDGE(T(`DPE`), T(`ax`), "isSubjectOf", {}) |
 | ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})<br />EDGE(T(`a`), T(`ax`), "isSubjectOf", {}) |
-| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", {, iri=IRI(`OPE`)})<br />EDGE(T(`a1`), T(`ax`), "isSubjectOf", {}) |
-| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE(T(`a`), T(`lt`), "relatedTo", {, iri=IRI(`DPE`)})<br />EDGE(T(`a`), T(`ax`), "isSubjectOf", {}) |
-| AnnotationAssertion(`AP` `as` `av`)                          | EDGE(T(`as`), T(`av`), "relatedTo", {, iri=IRI(`AP`)})<br />EDGE(T(`as`), T(`ax`), "isSubjectOf", {}) |
+| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", { iri=IRI(`OPE`) })<br />EDGE(T(`a1`), T(`ax`), "isSubjectOf", {}) |
+| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE(T(`a`), T(`lt`), "relatedTo", { iri=IRI(`DPE`) })<br />EDGE(T(`a`), T(`ax`), "isSubjectOf", {}) |
+| AnnotationAssertion(`AP` `as` `av`)                          | EDGE(T(`as`), T(`av`), "relatedTo", { iri=IRI(`AP`) })<br />EDGE(T(`as`), T(`ax`), "isSubjectOf", {}) |
 | SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {})<br />EDGE(T(`AP1`), T(`ax`), "isSubjectOf", {}) |
 | AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "domain", {})<br />EDGE(T(`AP`), T(`ax`), "isSubjectOf", {}) |
 | AnnotationPropertyRange(`AP` `U`)                            | EDGE(T(`AP`), T(`U`), "range", {})<br />EDGE(T(`AP`), T(`ax`), "isSubjectOf", {}) |
