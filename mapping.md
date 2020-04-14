@@ -152,24 +152,24 @@ In this section we describe a collection of so-called ***derived edges*** that a
 
 | OWL Axiom                                                    | Derived Edge(s) generated                                    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| SubClassOf(`CE1` `CE2`)                                      | EDGE( T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false}) |
-| SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE( T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false})<br />...<br />EDGE( T(`CEn-1`), T(`CEn`), "subClassOf", {structuralSpec=false}) |
-| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE( T(`CE1`), T(`CE2`), "relatedTo", {structuralSpec=false, iri=IRI(`OPE`)}) |
-| EquivalentClasses(`CE1` ... `CEn`)                           | EDGE( T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false})<br />EDGE( T(`CE2`), T(`CE1`), "subClassOf", {structuralSpec=false})<br />...<br/>EDGE( T(`CEn-1`), T(`CEn`), "subClassOf", {structuralSpec=false} )<br />EDGE( T(`CEn`), T(`CEn-1`), "subClassOf", {structuralSpec=false}) |
-| EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE( T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false} )<br />EDGE( T(`CE2`), T(`CE1`), "subClassOf", {structuralSpec=false} )...<br />EDGE( T(`CEn-1`), T(`CEn`), "subClassOf", {structuralSpec=false})<br />EDGE( T(`CEn`), T(`CEn-1`), "subClassOf", {structuralSpec=false}) |
-| SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE( T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {structuralSpec=false} ) |
-| EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE( T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {structuralSpec=false})<br />EDGE( T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {structuralSpec=false})<br />...<br/>EDGE( T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {structuralSpec=false})<br />EDGE( T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {structuralSpec=false}) |
-| ObjectPropertyDomain(`OPE` `CE`)                             | EDGE( T(`OPE`), T(`CE`), "domain", {structuralSpec=false})   |
-| ObjectPropertyRange(`OPE` `CE`)                              | EDGE( T(`OPE`), T(`CE`), "range", {structuralSpec=false})    |
-| InverseObjectProperties(`OPE1` `OPE2`))                      | EDGE( T(`OPE1`), T(`OPE2`), "inverseOf", {structuralSpec=false})<br />EDGE( T(`OPE2`), T(`OPE1`), "inverseOf", {structuralSpec=false}) |
-| SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE( T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {structuralSpec=false}) |
-| EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE( T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {structuralSpec=false})<br />EDGE( T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {structuralSpec=false})<br />...<br/>EDGE( T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {structuralSpec=false})<br />EDGE( T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {structuralSpec=false}) |
-| DataPropertyDomain(`DPE` `CE`)                               | EDGE( T(`DPE`), T(`CE`), "domain", {structuralSpec=false})   |
-| DataPropertyRange(`DPE` `DR`)                                | EDGE( T(`DPE`), T(`DR`), "range", {structuralSpec=false})    |
-| ClassAssertion(`CE` `a`)                                     | EDGE( T(`a`), T(`CE`), "type", {structuralSpec=false})       |
-| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE( T(`a1`), T(`a2`), "relatedTo", {structuralSpec=false, iri=IRI(`OPE`)}) |
-| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE( T(`a`), T(`lt`), "relatedTo", {structuralSpec=false, iri=IRI(`DPE`)}) |
-| AnnotationAssertion(`AP` `as` `av`)                          | EDGE( T(`as`), T(`av`), "relatedTo", {structuralSpec=false, iri=IRI(`AP`)}) |
-| SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE( T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {structuralSpec=false}) |
-| AnnotationPropertyDomain(`AP` `U`)                           | EDGE( T(`AP`), T(`U`), "domain", {structuralSpec=false})     |
-| AnnotationPropertyRange(`AP` `U`)                            | EDGE( T(`AP`), T(`U`), "range", {structuralSpec=false})      |
+| SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false}) |
+| SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false})<br />...<br />EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {structuralSpec=false}) |
+| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", {structuralSpec=false, iri=IRI(`OPE`)}) |
+| EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {structuralSpec=false})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {structuralSpec=false})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {structuralSpec=false}) |
+| EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {structuralSpec=false} )<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {structuralSpec=false} )...<br />EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {structuralSpec=false})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {structuralSpec=false}) |
+| SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {structuralSpec=false}) |
+| EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {structuralSpec=false})<br />EDGE(T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {structuralSpec=false})<br />...<br/>EDGE(T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {structuralSpec=false})<br />EDGE(T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {structuralSpec=false}) |
+| ObjectPropertyDomain(`OPE` `CE`)                             | EDGE(T(`OPE`), T(`CE`), "domain", {structuralSpec=false})    |
+| ObjectPropertyRange(`OPE` `CE`)                              | EDGE(T(`OPE`), T(`CE`), "range", {structuralSpec=false})     |
+| InverseObjectProperties(`OPE1` `OPE2`)                       | EDGE(T(`OPE1`), T(`OPE2`), "inverseOf", {structuralSpec=false})<br />EDGE(T(`OPE2`), T(`OPE1`), "inverseOf", {structuralSpec=false}) |
+| SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {structuralSpec=false}) |
+| EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {structuralSpec=false})<br />EDGE(T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {structuralSpec=false})<br />...<br/>EDGE(T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {structuralSpec=false})<br />EDGE(T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {structuralSpec=false}) |
+| DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "domain", {structuralSpec=false})    |
+| DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "range", {structuralSpec=false})     |
+| ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {structuralSpec=false})        |
+| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", {structuralSpec=false, iri=IRI(`OPE`)}) |
+| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE(T(`a`), T(`lt`), "relatedTo", {structuralSpec=false, iri=IRI(`DPE`)}) |
+| AnnotationAssertion(`AP` `as` `av`)                          | EDGE(T(`as`), T(`av`), "relatedTo", {structuralSpec=false, iri=IRI(`AP`)}) |
+| SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {structuralSpec=false}) |
+| AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "domain", {structuralSpec=false})      |
+| AnnotationPropertyRange(`AP` `U`)                            | EDGE(T(`AP`), T(`U`), "range", {structuralSpec=false})       |
