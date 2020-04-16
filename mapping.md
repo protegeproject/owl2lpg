@@ -153,8 +153,8 @@ In this section we describe a collection of augmenting edges that are used in co
 | OWL axiom `ax`                                               | Derived Edge(s) generated                                    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
-| SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
-| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`OPE`) })<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
+| SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {}) |
+| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`OPE`) })    |
 | EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {})<br />...<br />EDGE(T(`CEn`), T(`ax`), "isSubjectOf", {}) |
 | EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
 | SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE1`), T(`ax`), "isSubjectOf", {}) |
