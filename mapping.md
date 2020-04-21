@@ -116,7 +116,7 @@ In this section, T(`SEQ` `y1` ... `yn`) denotes the translation of a sequence of
 | ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | ***assertionNode*** = NODE(["ObjectPropertyAssertion", "Assertion", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />*sourceIndividualNode* = T(`a1`)<br />*targetIndividualNode* = T(`a2`)<br />EDGE(*assertionNode*, *propertyExpressionNode*, "objectPropertyExpression", {})<br />EDGE(*assertionNode*, *sourceIndividualNode*, "sourceIndividual", {})<br />EDGE(*assertionNode*, *targetIndividualNode*, "targetIndividual", {}) |
 | NegativeObjectPropertyAssertion(`OPE` `a1` `a2`)             | ***assertionNode*** = NODE(["NegativeObjectPropertyAssertion", "Assertion", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />*sourceIndividualNode* = T(`a1`)<br />*targetIndividualNode* = T(`a2`)<br />EDGE(*assertionNode*, *propertyExpressionNode*, "objectPropertyExpression", {})<br />EDGE(*assertionNode*, *sourceIndividualNode*, "sourceIndividual", {})<br />EDGE(*assertionNode*, *targetIndividualNode*, "targetIndividual", {}) |
 | DataPropertyAssertion(`DPE` `a` `lt`)                        | ***assertionNode*** = NODE(["DataPropertyAssertion", "Assertion", "Axiom"], {})<br />*propertyExpressionNode* = T(`DPE`)<br />*sourceIndividualNode* = T(`a`)<br />*targetLiteralNode* = T(`lt`)<br />EDGE(*assertionNode*, *propertyExpressionNode*, "dataPropertyExpression", {})<br />EDGE(*assertionNode*, *sourceIndividualNode*, "sourceIndividual", {})<br />EDGE(*assertionNode*, *targetLiteralNode*, "targetValue", {}) |
-| NegativeDataPropertyAssertion(`DPE` `a` `lt`)                | ***assertionNode*** = NODE(["NegativeDataPropertyAssertion", "Assertion", "Axiom"], {})<br />propertyExpressionNode* = T(`DPE`)<br />*sourceIndividualNode* = T(`a`)<br />*targetLiteralNode* = T(`lt`)<br />EDGE(*assertionNode*, *propertyExpressionNode*, "dataPropertyExpression", {})<br />EDGE(*assertionNode*, *sourceIndividualNode*, "sourceIndividual", {})<br />EDGE(*assertionNode*, *targetLiteralNode*, "targetValue", {}) |
+| NegativeDataPropertyAssertion(`DPE` `a` `lt`)                | ***assertionNode*** = NODE(["NegativeDataPropertyAssertion", "Assertion", "Axiom"], {})<br />*propertyExpressionNode* = T(`DPE`)<br />*sourceIndividualNode* = T(`a`)<br />*targetLiteralNode* = T(`lt`)<br />EDGE(*assertionNode*, *propertyExpressionNode*, "dataPropertyExpression", {})<br />EDGE(*assertionNode*, *sourceIndividualNode*, "sourceIndividual", {})<br />EDGE(*assertionNode*, *targetLiteralNode*, "targetValue", {}) |
 | AnnotationAssertion(`AP` `as` `av`)                          | ***assertionNode*** = NODE(["AnnotationAssertion", "AnnotationAxiom", "Axiom"], {})<br />*annotationPropertyNode* = T(`AP`)<br />*annotationSubjectNode* = T(`as`)<br />*annotationValueNode* = T(`av`)<br />EDGE(*assertionNode*, *annotationPropertyNode*, "annotationProperty", {})<br />EDGE(*assertionNode*, *annotationSubjectNode*, "annotationSubject", {})<br />EDGE(*assertionNode*, *annotationValueNode*, "annotationValue", {}) |
 | SubAnnotationPropertyOf(`AP1` `AP2`)                         | ***axiomNode*** = NODE(["SubAnnotationPropertyOf", "AnnotationAxiom", "Axiom"], {})<br />*subPropertyNode* = T(`AP1`)<br />*superPropertyNode* = T(`AP2`)<br />EDGE(*axiomNode*, *subPropertyNode*, "subAnnotationProperty", {})<br />EDGE(*axiomNode*, *superPropertyNode*, "superAnnotationProperty", {}) |
 | AnnotationPropertyDomain(`AP` `U`)                           | ***axiomNode*** = NODE(["AnnotationPropertyDomain", "AnnotationAxiom", "Axiom"], {})<br />*propertyNode* = T(`AP`)<br />*iriNode* = T(`U`)<br />EDGE(*axiomNode*, *propertyNode*, "annotationProperty", {})<br />EDGE(*axiomNode*, *iriNode*, "domain", {}) |
@@ -132,7 +132,7 @@ In this section, T(`SEQ` `y1` ... `yn`) denotes the translation of a sequence of
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `annotation1` ... `annotationn`                              | ***nodes*** = { n \| TANN(`annotation1`) ... TANN(`annotationn`) } |
 | Annotation(`AP` `av`)                                        | ***annotationNode*** = NODE(["Annotation"], {})<br />*annotationPropertyNode* = T(`AP`)<br />*annotationValueNode* = T(`av`)<br />EDGE(*annotationNode*, *annotationPropertyNode*, "annotationProperty", {})<br />EDGE(*annotationNode*, *annotationValueNode*, "annotationValue", {}) |
-| Annotation(<br />   `annotation1`  ...  `annotationn` <br />   `AP` `av`) | ***annotationNode*** = NODE(["Annotation"], {})<br />*annotationPropertyNode* = T(`AP`)<br />*annotationValueNode* = T(`av`)<br />*annotationAnnotationsNode* = TANN(`annotation` ... `annotationn`)<br />EDGES( *annotationNode*, *annotationAnnotationsNode*, "annotationAnnotation", {})<br />EDGE(*annotationNode*, *annotationPropertyNode*, "annotationProperty", {})<br />EDGE(*annotationNode*, *annotationValueNode*, "annotationValue", {}) |
+| Annotation(<br />   `annotation1`  ...  `annotationn` <br />   `AP` `av`) | ***annotationNode*** = NODE(["Annotation"], {})<br />*annotationPropertyNode* = T(`AP`)<br />*annotationValueNode* = T(`av`)<br />*annotationAnnotationsNode* = TANN(`annotation` ... `annotationn`)<br />EDGES(*annotationNode*, *annotationAnnotationsNode*, "annotationAnnotation", {})<br />EDGE(*annotationNode*, *annotationPropertyNode*, "annotationProperty", {})<br />EDGE(*annotationNode*, *annotationValueNode*, "annotationValue", {}) |
 
 
 
@@ -141,3 +141,36 @@ In this section, T(`SEQ` `y1` ... `yn`) denotes the translation of a sequence of
 If an axiom `ax` is annotated with annotations `annotation1` ... `annotationm`, its mapping to LPG is obtained by translating `ax` using **Table 1** and invoking TANN(`annotation1` ... `annotatiom`) using **Table 2** to translate the annotations. An annotated axiom `ax` is translated as follows:
 
 ***axiomNode*** = T(`ax`)<br />axiomAnnotationNodes = TANN(`annotation1` ... `annotationm`)<br />EDGES( *axiomNode*, *axiomAnnotationNodes*, "axiomAnnotation", {})
+
+
+
+## 4 Augmenting Edges
+
+In this section we describe a collection of augmenting edges that are used in conjunction with the rest of the mapping above. The additional edges in **Table 3** are designed to facilitate such tasks as building entity hierarchies out of labeled property graphs generated with this mapping.
+
+**Table 3**: Additional edges that augment LPGs obtained using the translation functions described in previous sections.
+
+| OWL axiom `ax`                                               | Derived Edge(s) generated                                    |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
+| SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {}) |
+| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`OPE`) })    |
+| EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {})<br />...<br />EDGE(T(`CEn`), T(`ax`), "isSubjectOf", {}) |
+| EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CE1`), T(`ax`), "isSubjectOf", {}) |
+| SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE1`), T(`ax`), "isSubjectOf", {}) |
+| EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {})<br />...<br/>EDGE(T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {})<br />EDGE(T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE1`), T(`ax`), "isSubjectOf", {})<br />EDGE(T(`OPEn`), T(`ax`), "isSubjectOf", {}) |
+| ObjectPropertyDomain(`OPE` `CE`)                             | EDGE(T(`OPE`), T(`CE`), "domain", {})<br />EDGE(T(`OPE`), T(`ax`), "isSubjectOf", {}) |
+| ObjectPropertyRange(`OPE` `CE`)                              | EDGE(T(`OPE`), T(`CE`), "range", {})<br />EDGE(T(`OPE`), T(`ax`), "isSubjectOf", {}) |
+| InverseObjectProperties(`OPE1` `OPE2`)                       | EDGE(T(`OPE1`), T(`OPE2`), "inverseOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "inverseOf", {})<br />EDGE(T(`OPE1`), T(`ax`), "isSubjectOf", {}) |
+| SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`DPE1`), T(`ax`), "isSubjectOf", {}) |
+| EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {})<br />...<br/>EDGE(T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {})<br />EDGE(T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {})<br />EDGE(T(`DPE1`), T(`ax`), "isSubjectOf", {})<br />...<br />EDGE(T(`DPEn`), T(`ax`), "isSubjectOf", {}) |
+| DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "domain", {})<br />EDGE(T(`DPE`), T(`ax`), "isSubjectOf", {}) |
+| DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "range", {})<br />EDGE(T(`DPE`), T(`ax`), "isSubjectOf", {}) |
+| ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})<br />EDGE(T(`a`), T(`ax`), "isSubjectOf", {}) |
+| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", { iri=IRI(`OPE`) })<br />EDGE(T(`a1`), T(`ax`), "isSubjectOf", {}) |
+| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE(T(`a`), T(`lt`), "relatedTo", { iri=IRI(`DPE`) })<br />EDGE(T(`a`), T(`ax`), "isSubjectOf", {}) |
+| AnnotationAssertion(`AP` `as` `av`)                          | EDGE(T(`as`), T(`av`), "relatedTo", { iri=IRI(`AP`) })<br />EDGE(T(`as`), T(`ax`), "isSubjectOf", {}) |
+| SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {})<br />EDGE(T(`AP1`), T(`ax`), "isSubjectOf", {}) |
+| AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "domain", {})<br />EDGE(T(`AP`), T(`ax`), "isSubjectOf", {}) |
+| AnnotationPropertyRange(`AP` `U`)                            | EDGE(T(`AP`), T(`U`), "range", {})<br />EDGE(T(`AP`), T(`ax`), "isSubjectOf", {}) |
+
