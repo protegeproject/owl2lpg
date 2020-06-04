@@ -155,6 +155,7 @@ In this section we describe a collection of augmenting edges that are used in co
 | SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "hasSubject", {}) |
 | SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {}) |
 | SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`OPE`) })    |
+| SubClassOf(`CE1` DataSomeValuesFrom(`DPE` `CE2`))            | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`DPE`) })    |
 | EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`CEn`), "hasSubject", {}) |
 | EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "hasSubject", {}) |
 | SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "hasSubject", {}) |
