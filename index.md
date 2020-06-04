@@ -1,6 +1,6 @@
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs
 
-Working Draft, Updated: 6 April 2020
+Working Draft, Updated: 2 June 2020
 
 
 **Feedback**:
@@ -54,7 +54,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 * [1 Introduction](#1-introduction)
    * [1.1 Main Requirements](#11-main-requirements)
       * [1.1.1 Tooling Requirements](#111-tooling-requirements)
-      * [1.1.2 BASF Use-Case Requirements](#112-basf-use-case-requirements)
+      * [1.1.2 Other Requirements](#112-other-requirements)
    * [1.2 Design Choices](#12-design-choices)
    * [1.3 Document Conventions](#13-document-conventions)
    * [1.4 Similar Works](#14-similar-works)
@@ -157,7 +157,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 ## 1 Introduction
 
-This document describes a mapping of OWL 2 ontologies to a Labeled Property Graph (LPG) representation, and vice-versa. The full specification of the mapping (e.g., for implementation) is given in the [NORMATIVE](https://protegeproject.github.io/owl2lpg/mapping) document. 
+This document describes a mapping of OWL 2 ontologies to a Labeled Property Graph (LPG) representation, and vice-versa. The full specification of the mapping is given in the [MAPPING](https://protegeproject.github.io/owl2lpg/mapping) document (e.g., for implementation). 
 
 
 
@@ -178,7 +178,7 @@ Example queries:
 6. Get the last changes for class `A`.
 7. Get the axioms in the latest revision of ontology `O`.
 
-#### 1.1.2 BASF Use-Case Requirements
+#### 1.1.2 Other Requirements
 
 TBA
 
