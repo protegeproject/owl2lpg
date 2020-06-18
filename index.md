@@ -1,6 +1,6 @@
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs
 
-Working Draft, Updated: 2 June 2020
+Working Draft, Updated: 17 June 2020
 
 
 **Feedback**:
@@ -349,7 +349,7 @@ In OWL 2, declarations are a type of axiom; thus, to declare an entity in an ont
 
  <u>LPG Diagram</u>:
 
-<img src="images/node-literal.png" alt="node-literal" width="800" />
+<img src="images/node-literal.pdf" alt="node-literal" width="320" />
 
 
 
@@ -359,7 +359,7 @@ If an individual is not expected to be used outside a particular ontology, one c
 
 <u>LPG Diagram</u>:
 
-<img src="images/node-annonymous-individual.png" alt="node-annonymous-individual" width="320" />
+<img src="images/node-annonymous-individual.png" alt="node-annonymous-individual" width="400" />
 
 
 
