@@ -37,18 +37,19 @@ In this section, T(`SEQ` `y1` ... `yn`) denotes the translation of a sequence of
 | `y1` ... `yn`                                                | ***nodes*** = { n \| T(`y1`) ... T(`yn`) }                   |
 | `SEQ` `y1` ... `yn`                                          | **node** = T(`y1`)<br />EDGE(*node*, T(`SEQ` `y2` ... `yn`), "next", {}) |
 | Ontology(<br />   `ontologyIRI`<br />   [`versionIRI`]<br />   Import(`ontologyIRI1`) ... <br />      Import(`ontologyIRIk`)<br />   `annotation1` ... `annotationm`<br />   `axiom1` ... `axiomn`) | ***ontologyNode*** = T(`ontologyIRI`)<br />*importOntologyNodes* = T(`ontologyIRI1` ... `ontologyIRIk`)<br />*axiomAnnotationNodes* = TANN(`annotation1` ... `annotationm`)<br />*axiomNodes* = T(`axiom1` ... `axiomn`)<br />EDGES( *ontologyNode*, *importOntologyNodes*,  "importOntology", {})<br />EDGES( *ontologyNode*, *axiomAnnotationNodes*, "axiomAnnotation", {})<br />EDGES( *ontologyNode*, *axiomNodes*, "axiom", {}) |
-| `C`                                                          | ***entityNode*** = NODE(["Class", "ClassExpression", "Entity"], {})<br />*iriNode* = T(IRI(`C`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
-| `DT`                                                         | ***entityNode*** = NODE(["Datatype", "Entity"], {})<br />*iriNode* = T(IRI(`DT`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
-| `OP`                                                         | ***entityNode*** = NODE(["ObjectProperty", "ObjectPropertyExpression", "Entity"], {})<br />*iriNode* = T(IRI(`OP`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
-| `DP`                                                         | ***entityNode*** = NODE(["DataProperty", "DataPropertyExpression", "Entity"], {})<br />iriNode = T(IRI(`DP`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
-| `AP`                                                         | ***entityNode*** = NODE(["AnnotationProperty", "Entity"], {})<br />*iriNode* = T(IRI(`AP`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
-| `*:a`                                                        | ***entityNode*** = NODE(["NamedIndividual", "Individual", "Entity"], {})<br />*iriNode* = T(IRI(`*:a`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
-| `_:a`                                                        | ***anonNode*** = NODE(["AnonymousIndividual"], { nodeID=`blank_node_label` }) |
-| `U`                                                          | ***iriNode*** = NODE(["IRI"], { value=`U` })                 |
-| `F lt`                                                       | ***restrictionNode*** = NODE(["FacetRestriction"], {})<br />*constrainingFacetNode* = T(IRI(`F`))<br />*literalNode* = T(`lt`)<br />EDGE(*restrictionNode*, *constraintFacetNode*, "constrainingFacet", {})<br />EDGE(*restrictionNode*, *literalNode*, "restrictionValue", {}) |
-| "abc@"^^*rdf:PlainLiteral*                                   | ***literalNode*** = NODE(["Literal"], { lexicalForm="abc", language="", datatype= T(rdf:PlainLiteral) }) |
-| "abc@`langTag`"^^*rdf:PlainLiteral*                          | ***literalNode*** = NODE(["Literal"], { lexicalForm="abc", language=`langTag`, datatype=T(rdf:PlainLiteral) }) |
-| "abc"^^`datatype` { where `datatype` is different than *rdf:PlainLiteral* } | ***literalNode*** = NODE(["Literal"], { lexicalForm="abc", datatype=T(`datatype`) }) |
+| `C`                                                          | ***entityNode*** = NODE(["Class", "ClassExpression", "Entity"], { iri: IRI(`C`) })<br />*iriNode* = T(IRI(`C`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
+| `DT`                                                         | ***entityNode*** = NODE(["Datatype", "Entity"], { iri: IRI(`DT`) })<br />*iriNode* = T(IRI(`DT`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
+| `OP`                                                         | ***entityNode*** = NODE(["ObjectProperty", "ObjectPropertyExpression", "Entity"], { iri: IRI(`OP`) })<br />*iriNode* = T(IRI(`OP`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
+| `DP`                                                         | ***entityNode*** = NODE(["DataProperty", "DataPropertyExpression", "Entity"], {  iri: IRI(`DP`) })<br />iriNode = T(IRI(`DP`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
+| `AP`                                                         | ***entityNode*** = NODE(["AnnotationProperty", "Entity"], { iri: IRI(`AP`) })<br />*iriNode* = T(IRI(`AP`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
+| `*:a`                                                        | ***entityNode*** = NODE(["NamedIndividual", "Individual", "Entity"], { iri: IRI(`*:a`) })<br />*iriNode* = T(IRI(`*:a`))<br />EDGE(*entityNode*, *iriNode*, "entityIri", {}) |
+| `_:a`                                                        | ***anonNode*** = NODE(["AnonymousIndividual"], { nodeID:`blank_node_label` }) |
+| `U`                                                          | ***iriNode*** = NODE(["IRI"], { iri:`U` })                   |
+| `F lt`                                                       | ***restrictionNode*** = NODE(["FacetRestriction"], {})<br />*constrainingFacetNode* = T(`F`)<br />*literalNode* = T(`lt`)<br />EDGE(*restrictionNode*, *constraintFacetNode*, "constrainingFacet", {})<br />EDGE(*restrictionNode*, *literalNode*, "restrictionValue", {}) |
+| `F`                                                          | **facetNode** = NODE(["Facet"], { iri: IRI(`F`) })           |
+| "abc@"^^*rdf:PlainLiteral*                                   | ***literalNode*** = NODE(["Literal"], { lexicalForm: "abc", language: "", datatype:  T(rdf:PlainLiteral) }) |
+| "abc@`langTag`"^^*rdf:PlainLiteral*                          | ***literalNode*** = NODE(["Literal"], { lexicalForm: "abc", language: `langTag`, datatype: T(rdf:PlainLiteral) }) |
+| "abc"^^`datatype` { where `datatype` is different than *rdf:PlainLiteral* } | ***literalNode*** = NODE(["Literal"], { lexicalForm: "abc", datatype: T(`datatype`) }) |
 | Declaration(Datatype(`DT`))                                  | ***axiomNode*** = NODE(["Declaration", "Axiom"], {})<br />*datatypeNode* = T(`DT`)<br />EDGE(*axiomNode*, *datatypeNode*, "entity", {}) |
 | Declaration(Class(`C`))                                      | ***axiomNode*** = NODE(["Declaration", "Axiom"], {})<br />*classNode* = T(`C`)<br />EDGE(*axiomNode*, *classNode*, "entity", {}) |
 | Declaration(ObjectProperty(`OP`))                            | ***axiomNode*** = NODE(["Declaration", "Axiom"], {})<br />*objectPropertyNode* = T(`OP`)<br />EDGE(*axiomNode*, *objectPropertyNode*, "entity", {}) |
@@ -94,7 +95,7 @@ In this section, T(`SEQ` `y1` ... `yn`) denotes the translation of a sequence of
 | DisjointObjectProperties(`OPE1` ... `OPEn`)                  | ***disjointNode*** = NODE(["DisjointObjectProperties", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionNodes* = T(`OPE1` ... `OPEn`)<br />EDGES( *disjointNode*, *propertyExpressionNodes*, "objectPropertyExpression", {}) |
 | ObjectPropertyDomain(`OPE` `CE`)                             | ***axiomNode*** =  NODE(["ObjectPropertyDomain", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />*classExpressionNode* = T(`CE`)<br />EDGE(*axiomNode*, *propertyExpressionNode*, "objectPropertyExpression", {})<br />EDGE(*axiomNode*, *classExpressionNode*, "domain", {}) |
 | ObjectPropertyRange(`OPE` `CE`)                              | ***axiomNode*** = NODE(["ObjectPropertyRange", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />*classExpressionNode* = T(`CE`)<br />EDGE(*axiomNode*, *propertyExpressionNode*, "objectPropertyExpression", {})<br />EDGE(*axiomNode*, *classExpressionNode*, "range", {}) |
-| InverseObjectProperties(`OPE1` `OPE2`)                       | ***inverseNode*** = NODE(["InverseObjectProperties", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionOneNode* = T(`OPE1`)<br />*propertyExpressionTwoNode* = T(`OPE2`)<br />EDGE(*inverseNode*, *propertyExpressionOneNode*, "objectPropertyExpression", {})<br />EDGE(*inverseNode*, *propertyExpressionTwoNode*, "objectPropertyExpression", {}) |
+| InverseObjectProperties(`OPE1` `OPE2`)                       | ***inverseNode*** = NODE(["InverseObjectProperties", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionOneNode* = T(`OPE1`)<br />*propertyExpressionTwoNode* = T(`OPE2`)<br />EDGE(*inverseNode*, *propertyExpressionOneNode*, "objectPropertyExpression", {})<br />EDGE(*inverseNode*, *propertyExpressionTwoNode*, "inverseObjectPropertyExpression", {}) |
 | FunctionalObjectProperty(`OPE`)                              | ***characteristicNode*** = NODE(["FunctionalObjectProperty", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />EDGE(*characteristicNode*, *propertyExpressionNode*, "objectPropertyExpression", {}) |
 | InverseFunctionalObjectProperty(`OPE`)                       | ***characteristicNode*** = NODE(["InverseFunctionalObjectProperty", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />EDGE(*characteristicNode*, *propertyExpressionNode*, "objectPropertyExpression", {}) |
 | ReflexiveObjectProperty(`OPE`)                               | ***characteristicNode*** = NODE(["ReflexiveObjectProperty", "ObjectPropertyAxiom", "Axiom"], {})<br />*propertyExpressionNode* = T(`OPE`)<br />EDGE(*characteristicNode*, *propertyExpressionNode*, "objectPropertyExpression", {}) |
@@ -152,41 +153,41 @@ In this section we describe a collection of augmenting edges that are used in co
 
 | **OWL Axiom `ax`**                                           | **Edge(s) generated**                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "hasSubject", {}) |
+| SubClassOf(`CE1` `CE2`)                                      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "axiomSubject", {}) |
 | SubClassOf(`CE1` ObjectIntersectionOf(`CE2` ... `CEn`))      | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {}) |
-| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`OPE`) })    |
-| SubClassOf(`CE1` DataSomeValuesFrom(`DPE` `CE2`))            | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`DPE`) })    |
-| EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`CEn`), "hasSubject", {}) |
-| EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "hasSubject", {}) |
-| DisjointClasses(`CE1` ... `CEn`)                             | EDGE(T(`ax`), T(`CE1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`CEn`), "hasSubject", {}) |
-| SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "hasSubject", {}) |
-| EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {})<br />...<br/>EDGE(T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {})<br />EDGE(T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "hasSubject", {})<br />EDGE(T(`ax`), T(`OPEn`), "hasSubject", {}) |
-| DisjointObjectProperties(`OPE1` ... `OPEn`)                  | EDGE(T(`ax`), T(`OPE1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`OPEn`), "hasSubject", {}) |
-| InverseObjectProperties(`OPE1` `OPE2`)                       | EDGE(T(`OPE1`), T(`OPE2`), "inverseOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "inverseOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "hasSubject", {}) |
-| ObjectPropertyDomain(`OPE` `CE`)                             | EDGE(T(`OPE`), T(`CE`), "domain", {})<br />EDGE(T(`ax`), T(`OPE`), "hasSubject", {}) |
-| ObjectPropertyRange(`OPE` `CE`)                              | EDGE(T(`OPE`), T(`CE`), "range", {})<br />EDGE(T(`ax`), T(`OPE`), "hasSubject", {}) |
-| FunctionalObjectProperty(`OPE`)                              | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| InverseFunctionalObjectProperty(`OPE`)                       | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| ReflexiveObjectProperty(`OPE`)                               | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| IrreflexiveObjectProperty(`OPE`)                             | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| SymmetricObjectProperty(`OPE`)                               | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| AsymmetricObjectProperty(`OPE`)                              | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| TransitiveObjectProperty(`OPE`)                              | EDGE(T(`ax`), T(`OPE`), "hasSubject", {})                    |
-| SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`ax`), T(`DPE1`), "hasSubject", {}) |
-| EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {})<br />...<br/>EDGE(T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {})<br />EDGE(T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {})<br />EDGE(T(`ax`), T(`DPE1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`DPEn`), "hasSubject", {}) |
-| DisjointDataProperties(`DPE1`... `DPEn`)                     | EDGE(T(`ax`), T(`DPE1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`DPEn`), "hasSubject", {}) |
-| DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "domain", {})<br />EDGE(T(`ax`), T(`DPE`), "hasSubject", {}) |
-| DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "range", {})<br />EDGE(T(`ax`), T(`DPE`), "hasSubject", {}) |
-| FunctionalDataProperty(`DPE`)                                | EDGE(T(`ax`), T(`DPE`), "hasSubject", {})                    |
-| ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})<br />EDGE(T(`ax`), T(`a`), "hasSubject", {}) |
-| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", { iri=IRI(`OPE`) })<br />EDGE(T(`ax`), T(`a1`), "hasSubject", {}) |
-| NegativeObjectPropertyAssertion(`OPE` `a1` `a2`)             | EDGE(T(`ax`), T(`a1`), "hasSubject", {})                     |
-| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE(T(`a`), T(`lt`), "relatedTo", { iri=IRI(`DPE`) })<br />EDGE(T(`ax`), T(`a`), "hasSubject", {}) |
-| NegativeDataPropertyAssertion(`DPE` `a` `lt`)                | EDGE(T(`ax`), T(`a`), "hasSubject", {})                      |
-| SameIndividual(`a1` ... `an`)                                | EDGE(T(`ax`), T(`a1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`an`), "hasSubject", {}) |
-| DifferentIndividuals(`a1` ... `an`)                          | EDGE(T(`ax`), T(`a1`), "hasSubject", {})<br />...<br />EDGE(T(`ax`), T(`an`), "hasSubject", {}) |
-| AnnotationAssertion(`AP` `as` `av`)                          | EDGE(T(`as`), T(`av`), "relatedTo", { iri=IRI(`AP`) })<br />EDGE(T(`ax`), T(`as`), "hasSubject", {}) |
-| SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {})<br />EDGE(T(`ax`), T(`AP1`), "hasSubject", {}) |
-| AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "domain", {})<br />EDGE(T(`ax`), T(`AP`), "hasSubject", {}) |
-| AnnotationPropertyRange(`AP` `U`)                            | EDGE(T(`AP`), T(`U`), "range", {})<br />EDGE(T(`ax`), T(`AP`), "hasSubject", {}) |
+| SubClassOf(`CE1` ObjectSomeValuesFrom(`OPE` `CE2`))          | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri: IRI(`OPE`), type: "ObjectProperty" }) |
+| SubClassOf(`CE1` DataSomeValuesFrom(`DPE` `CE2`))            | EDGE(T(`CE1`), T(`CE2`), "relatedTo", { iri=IRI(`DPE`), type: "DataProperty" }) |
+| EquivalentClasses(`CE1` ... `CEn`)                           | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br />EDGE(T(`CE2`), T(`CE1`), "subClassOf", {})<br />...<br/>EDGE(T(`CEn-1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`CEn`), T(`CEn-1`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`CEn`), "axiomSubject", {}) |
+| EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {})<br />EDGE(T(`ax`), T(`CE1`), "axiomSubject", {}) |
+| DisjointClasses(`CE1` ... `CEn`)                             | EDGE(T(`ax`), T(`CE1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`CEn`), "axiomSubject", {}) |
+| SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "axiomSubject", {}) |
+| EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {})<br />...<br/>EDGE(T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {})<br />EDGE(T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "axiomSubject", {})<br />EDGE(T(`ax`), T(`OPEn`), "axiomSubject", {}) |
+| DisjointObjectProperties(`OPE1` ... `OPEn`)                  | EDGE(T(`ax`), T(`OPE1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`OPEn`), "axiomSubject", {}) |
+| InverseObjectProperties(`OPE1` `OPE2`)                       | EDGE(T(`OPE1`), T(`OPE2`), "inverseOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "inverseOf", {})<br />EDGE(T(`ax`), T(`OPE1`), "axiomSubject", {}) |
+| ObjectPropertyDomain(`OPE` `CE`)                             | EDGE(T(`OPE`), T(`CE`), "hasDomain", {})<br />EDGE(T(`ax`), T(`OPE`), "axiomSubject", {}) |
+| ObjectPropertyRange(`OPE` `CE`)                              | EDGE(T(`OPE`), T(`CE`), "hasRange", {})<br />EDGE(T(`ax`), T(`OPE`), "axiomSubject", {}) |
+| FunctionalObjectProperty(`OPE`)                              | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| InverseFunctionalObjectProperty(`OPE`)                       | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| ReflexiveObjectProperty(`OPE`)                               | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| IrreflexiveObjectProperty(`OPE`)                             | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| SymmetricObjectProperty(`OPE`)                               | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| AsymmetricObjectProperty(`OPE`)                              | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| TransitiveObjectProperty(`OPE`)                              | EDGE(T(`ax`), T(`OPE`), "axiomSubject", {})                  |
+| SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`ax`), T(`DPE1`), "axiomSubject", {}) |
+| EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {})<br />...<br/>EDGE(T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {})<br />EDGE(T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {})<br />EDGE(T(`ax`), T(`DPE1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`DPEn`), "axiomSubject", {}) |
+| DisjointDataProperties(`DPE1`... `DPEn`)                     | EDGE(T(`ax`), T(`DPE1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`DPEn`), "axiomSubject", {}) |
+| DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "hasDomain", {})<br />EDGE(T(`ax`), T(`DPE`), "axiomSubject", {}) |
+| DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "hasRange", {})<br />EDGE(T(`ax`), T(`DPE`), "axiomSubject", {}) |
+| FunctionalDataProperty(`DPE`)                                | EDGE(T(`ax`), T(`DPE`), "axiomSubject", {})                  |
+| ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})<br />EDGE(T(`ax`), T(`a`), "axiomSubject", {}) |
+| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", { iri: IRI(`OPE`), type: "ObjectProperty" })<br />EDGE(T(`ax`), T(`a1`), "axiomSubject", {}) |
+| NegativeObjectPropertyAssertion(`OPE` `a1` `a2`)             | EDGE(T(`ax`), T(`a1`), "axiomSubject", {})                   |
+| DataPropertyAssertion(`DPE` `a` `lt`)                        | EDGE(T(`a`), T(`lt`), "relatedTo", { iri: IRI(`DPE`), type: "DataProperty" })<br />EDGE(T(`ax`), T(`a`), "axiomSubject", {}) |
+| NegativeDataPropertyAssertion(`DPE` `a` `lt`)                | EDGE(T(`ax`), T(`a`), "axiomSubject", {})                    |
+| SameIndividual(`a1` ... `an`)                                | EDGE(T(`ax`), T(`a1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`an`), "axiomSubject", {})<br />EDGE(T(`a1`), T(`a2`), "sameIndividual", {})<br />EDGE(T(`a2`), T(`a1`), "sameIndividual", {})<br />...<br/>EDGE(T(`an-1`), T(`an`), "sameIndividual", {})<br />EDGE(T(`an`), T(`an-1`), "sameIndividual", {}) |
+| DifferentIndividuals(`a1` ... `an`)                          | EDGE(T(`ax`), T(`a1`), "axiomSubject", {})<br />...<br />EDGE(T(`ax`), T(`an`), "axiomSubject", {}) |
+| AnnotationAssertion(`AP` `as` `av`)                          | EDGE(T(`as`), T(`av`), "relatedTo", { iri: IRI(`AP`), type: "AnnotationProperty" })<br />EDGE(T(`ax`), T(`as`), "axiomSubject", {}) |
+| SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {})<br />EDGE(T(`ax`), T(`AP1`), "axiomSubject", {}) |
+| AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "hasDomain", {})<br />EDGE(T(`ax`), T(`AP`), "axiomSubject", {}) |
+| AnnotationPropertyRange(`AP` `U`)                            | EDGE(T(`AP`), T(`U`), "hasRange", {})<br />EDGE(T(`ax`), T(`AP`), "axiomSubject", {}) |
 
