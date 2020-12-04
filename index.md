@@ -1,6 +1,6 @@
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs
 
-Working Draft, Updated: 17 June 2020
+Working Draft, Updated: 4 December 2020
 
 
 **Feedback**:
@@ -53,8 +53,6 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
 
 * [1 Introduction](#1-introduction)
    * [1.1 Main Requirements](#11-main-requirements)
-      * [1.1.1 Tooling Requirements](#111-tooling-requirements)
-      * [1.1.2 Other Requirements](#112-other-requirements)
    * [1.2 Design Choices](#12-design-choices)
    * [1.3 Document Conventions](#13-document-conventions)
    * [1.4 Similar Works](#14-similar-works)
@@ -144,12 +142,6 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
       * [7.2.2 Annotation Subproperties](#722-annotation-subproperties)
       * [7.2.3 Annotation Property Domain](#723-annotation-property-domain)
       * [7.2.4 Annotation Property Range](#724-annotation-property-range)
-* [8 Change History](#8-change-history)   
-   * [8.1 Ontology Changes](#81-ontology-changes)
-      * [8.1.1 Axiom Changes](#811-axiom-changes)
-      * [8.1.2 Annotation Changes](#812-annotation-changes)
-   * [8.2 Project History](#82-project-history)
-      * [8.2.1 High-Level Descriptions](#821-high-level-descriptions)
 
 ---
 
@@ -163,10 +155,6 @@ This document describes a mapping of OWL 2 ontologies to a Labeled Property Grap
 
 ### 1.1 Main Requirements
 
-In this section we lay out important requirements that drive the design of the OWL to LPG mapping.
-
-#### 1.1.1 Tooling Requirements
-
 Here we enumerate illustrative examples of the kinds of queries that should be both easily expressible (in [Cypher](https://neo4j.com/developer/cypher-query-language)) and well performant for large knowledge bases. We use the [WebProtégé cloud-based ontology editor](https://webprotege.stanford.edu) as the baseline for performance. The goal is to achieve a query performance that is superior to the performance of executing the same queries in WebProtégé 4.0 (non-LPG).
 
 Example queries:
@@ -177,12 +165,6 @@ Example queries:
 5. Get the authors of changes to class `A`.
 6. Get the last changes for class `A`.
 7. Get the axioms in the latest revision of ontology `O`.
-
-#### 1.1.2 Other Requirements
-
-TBA
-
-
 
 ### 1.2 Design Choices
 
