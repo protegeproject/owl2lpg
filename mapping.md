@@ -159,7 +159,6 @@ In this section we describe a collection of augmenting edges that are used in co
 | EquivalentClasses(`CE1`ObjectIntersectionOf(`CE2` ... `CEn`)) | EDGE(T(`CE1`), T(`CE2`), "subClassOf", {})<br/>...<br />EDGE(T(`CE1`), T(`CEn`), "subClassOf", {}) |
 | SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})        |
 | EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {})<br />...<br/>EDGE(T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {})<br />EDGE(T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {}) |
-| InverseObjectProperties(`OPE1` `OPE2`)                       | EDGE(T(`OPE1`), T(`OPE2`), "inverseOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "inverseOf", {}) |
 | SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})          |
 | EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {})<br />...<br/>EDGE(T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {})<br />EDGE(T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {}) |
 | ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})                            |
