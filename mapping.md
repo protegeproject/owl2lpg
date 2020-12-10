@@ -160,15 +160,9 @@ In this section we describe a collection of augmenting edges that are used in co
 | SubObjectPropertyOf(`OPE1` `OPE2`)                           | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})        |
 | EquivalentObjectProperties(`OPE1` ... `OPEn`)                | EDGE(T(`OPE1`), T(`OPE2`), "subObjectPropertyOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "subObjectPropertyOf", {})<br />...<br/>EDGE(T(`OPEn-1`), T(`OPEn`), "subObjectPropertyOf", {})<br />EDGE(T(`OPEn`), T(`OPEn-1`), "subObjectPropertyOf", {}) |
 | InverseObjectProperties(`OPE1` `OPE2`)                       | EDGE(T(`OPE1`), T(`OPE2`), "inverseOf", {})<br />EDGE(T(`OPE2`), T(`OPE1`), "inverseOf", {}) |
-| ObjectPropertyDomain(`OPE` `CE`)                             | EDGE(T(`OPE`), T(`CE`), "hasDomain", {})                     |
-| ObjectPropertyRange(`OPE` `CE`)                              | EDGE(T(`OPE`), T(`CE`), "hasRange", {})                      |
 | SubDataPropertyOf(`DPE1` `DPE2`)                             | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})          |
 | EquivalentDataProperties(`DPE1`... `DPEn`)                   | EDGE(T(`DPE1`), T(`DPE2`), "subDataPropertyOf", {})<br />EDGE(T(`DPE2`), T(`DPE1`), "subDataPropertyOf", {})<br />...<br/>EDGE(T(`DPEn-1`), T(`DPEn`), "subDataPropertyOf", {})<br />EDGE(T(`DPEn`), T(`DPEn-1`), "subDataPropertyOf", {}) |
-| DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "hasDomain", {})                     |
-| DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "hasRange", {})                      |
 | ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})                            |
 | SameIndividual(`a1` ... `an`)                                | EDGE(T(`a1`), T(`a2`), "sameIndividual", {})<br />EDGE(T(`a2`), T(`a1`), "sameIndividual", {})<br />...<br/>EDGE(T(`an-1`), T(`an`), "sameIndividual", {})<br />EDGE(T(`an`), T(`an-1`), "sameIndividual", {}) |
 | SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {})      |
-| AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "hasDomain", {})                       |
-| AnnotationPropertyRange(`AP` `U`)                            | EDGE(T(`AP`), T(`U`), "hasRange", {})                        |
 
