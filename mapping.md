@@ -167,7 +167,6 @@ In this section we describe a collection of augmenting edges that are used in co
 | DataPropertyDomain(`DPE` `CE`)                               | EDGE(T(`DPE`), T(`CE`), "hasDomain", {})                     |
 | DataPropertyRange(`DPE` `DR`)                                | EDGE(T(`DPE`), T(`DR`), "hasRange", {})                      |
 | ClassAssertion(`CE` `a`)                                     | EDGE(T(`a`), T(`CE`), "type", {})                            |
-| ObjectPropertyAssertion(`OPE` `a1` `a2`)                     | EDGE(T(`a1`), T(`a2`), "relatedTo", { iri: IRI(`OPE`), type: "ObjectProperty" }) |
 | SameIndividual(`a1` ... `an`)                                | EDGE(T(`a1`), T(`a2`), "sameIndividual", {})<br />EDGE(T(`a2`), T(`a1`), "sameIndividual", {})<br />...<br/>EDGE(T(`an-1`), T(`an`), "sameIndividual", {})<br />EDGE(T(`an`), T(`an-1`), "sameIndividual", {}) |
 | SubAnnotationPropertyOf(`AP1` `AP2`)                         | EDGE(T(`AP1`), T(`AP2`), "subAnnotationPropertyOf", {})      |
 | AnnotationPropertyDomain(`AP` `U`)                           | EDGE(T(`AP`), T(`U`), "hasDomain", {})                       |

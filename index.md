@@ -220,7 +220,7 @@ A Labeled Property Graph diagram consists of nodes and edges. A node is depicted
 
 ### 1.4 Similar Works
 
-In this section we compare and contrast the mapping described in this document with existing approaches to map OWL ontologies to LPGs.
+In this section we compare the mapping described in this document with existing approaches to map OWL ontologies to LPGs.
 
 #### 1.4.1 SciGraph
 
