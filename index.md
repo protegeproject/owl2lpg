@@ -1,11 +1,6 @@
 # Mapping of OWL 2 Web Ontology Language to Labeled Property Graphs
 
-Working Draft, Updated: 4 December 2020
-
-
-**Feedback**:
-
-​	[Protégé team](mailto:protege-basf@lists.stanford.edu)
+Working Draft, Updated: 21 January 2021
 
 **Document Source Control**:
 
@@ -55,11 +50,7 @@ This is a public copy of the editors’ draft. It is provided for discussion onl
    * [1.1 Main Requirements](#11-main-requirements)
    * [1.2 Design Choices](#12-design-choices)
    * [1.3 Document Conventions](#13-document-conventions)
-   * [1.4 Similar Works](#14-similar-works)
-      * [1.4.1 SciGraph](#141-scigraph)
-      * [1.4.2 VirtualFlyBrain](#142-virtualflybrain)
-      * [1.4.3 OWL2Neo4J](#143-owl2neo4j)
-* [2 Entities, Literals, and Annonymous Individuals](#2-entities-literals-and-annonymous-individuals)
+* [2 Entities, Literals, and Anonymous Individuals](#2-entities-literals-and-anonymous-individuals)
    * [2.1 Entities](#21-entities)
       * [2.1.1 Class](#211-class)
       * [2.1.2 Object Property](#212-object-property)
@@ -218,38 +209,7 @@ A Labeled Property Graph diagram consists of nodes and edges. A node is depicted
 
 
 
-### 1.4 Similar Works
-
-In this section we compare the mapping described in this document with existing approaches to map OWL ontologies to LPGs.
-
-#### 1.4.1 SciGraph
-
-The [SciGraph Neo4j Mapping](https://github.com/SciGraph/SciGraph/wiki/Neo4jMapping) aims to support representing multiple ontologies as a Labeled Property Graph. SciGraph reads ontologies with the OWL API and converts them to a LPG. *SciGraph does not aim to support creating ontologies based on the LPG.* Below we outline and briefly describe key differences between ours and the SciGraph mapping.
-
-- **OWL axiom types are represented as edges in a LPG.** In the SciGraph mapping, axiom types such as `rdfs:subClassOf` are encoded as edges between nodes that represent the left and the right hand side of the axiom. Axiom annotations are represented as key-value string properties on the edge that denotes the axiom type. In our mapping, axiom types are represented as nodes, and therefore axiom annotations are represented uniformly like other annotation assertions.
-- **Annotation assertions are represented as key-value string properties in a LPG.** For example, `i:Individual {'rdfs:label' = 'Ruth'}`. As a consequence, annotations on annotations are not straightforwardly representable in SciGraph.
-- **Representation of source ontology in SciGraph is done both at the node and edge level of a LPG.** In the SciGraph mapping, nodes have an outgoing edge named `isDefinedBy` to a node of type `Ontology` that denotes the source ontology, and edges have a key-value string property to denote the source ontology IRI. In our mapping, the source ontology of axioms will be encoded as a node connected to the nodes denoting the axiom types (e.g., `rdfs:SubClassOf, owl:EquivalentClasses`).
-- **SciGraph represents OWL properties as both nodes and edges in a LPG.** It represents OWL property types (functional, symmetric, etc.) as key-value properties on LPG **nodes** that represent the OWL properties (e.g., `hasSibling:ObjectProperty {'symmetric' = true}`). And then SciGraph uses OWL properties as **edges** in axioms such as object property assertions (e.g., `rafael:Individual --hasSibling:ObjectProperty --> ruth:Individual`. In our mapping, we consistently represent OWL properties as nodes. More, we represent OWL property characteristics similarly to the OWL/XML and Functional-style syntaxes of OWL. E.g., `hasSibling:ObjectProperty --> SymmetricObjectProperty:Axiom`.
-
-
-
-#### 1.4.2 VirtualFlyBrain
-
-The [VirtualFlyBrain OWL 2 EL to Neo4J Mapping](https://github.com/VirtualFlyBrain/neo4j2owl) allows importing "a well defined subset of OWL 2 EL ontologies into and export them from Neo4J, in such a way that entailments and annotations are preserved (not however the syntactic structure) in the ontology after the round-trip." The VirtualFlyBrain (VFB) mapping is explicit about its design goal of facilitating intuitive writing of Cypher queries. In that sense, VFB does not create "anonymous" nodes to represent axiom types or class expression types, and instead encodes these details on edges (relying on both edge names and key-value string properties on edges).
-
-- **Object property names and axiom types are encoded as edge names.** For example, the axioms: `A SubClassOf B. A SubClassOf r some C` would be encoded in LPG as: `A--SubClassOf-->B. A--r-->B`. The restriction qualifiers (or quantifiers) are encoded as key-value properties on edges.
-- **The VFB mapping represents OWL properties as both nodes and edges.** Similar to SciGraph, OWL object properties are represented as edges, and then they are also represented as nodes to be able to express axioms such as annotations on those properties.
-- **Data and Annotation property assertions are represented as key-value string properties.** Also similar to SciGraph, both data and annotation property assertions are represented as key-value string properties on nodes. As a consequence, annotations on annotations are not straightforwardly representable in VFB.
-
-
-
-#### 1.4.3 OWL2Neo4J
-
-The [OWL2Neo4J tool](https://github.com/flekschas/owl2neo4j) allows converting OWL ontologies to Labeled Property Graphs. The tool documentation states that it "only converts the class hierarchy; instances are ignored for now." Overall it is unclear what subset of the OWL language is supported, and whether round-tripping is feasible. This project looks defunct—it was last updated on September 2018.
-
-
-
-## 2 Entities, Literals, and Annonymous Individuals
+## 2 Entities, Literals, and Anonymous Individuals
 
 ### 2.1 Entities
 
