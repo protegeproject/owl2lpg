@@ -291,7 +291,7 @@ In OWL 2, declarations are a type of axiom; thus, to declare an entity in an ont
 
  <u>LPG Diagram</u>:
 
-<img src="images/node-literal.pdf" alt="node-literal" width="320" />
+<img src="images/node-literal.png" alt="node-literal" width="320" />
 
 
 
